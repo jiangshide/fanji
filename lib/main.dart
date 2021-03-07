@@ -1,6 +1,5 @@
 import 'package:fanji/tab/Tab.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(Fanji(0));
@@ -14,11 +13,11 @@ class Fanji extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _FanjiState();
 
-  Future<int> getTheme() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    int themeIndex = sharedPreferences.getInt("themeIndex");
-    return themeIndex;
-  }
+  // Future<int> getTheme() async {
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   int themeIndex = sharedPreferences.getInt("themeIndex");
+  //   return themeIndex;
+  // }
 }
 
 class _FanjiState extends State<Fanji> {

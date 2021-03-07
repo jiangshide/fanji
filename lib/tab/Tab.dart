@@ -18,7 +18,7 @@ class _TabWidgetState extends State<TabWidget> {
   int _currentIndex = 0;
   List<Widget> _tabWidgets = [Home(), Channel(), Publish(), Message(), Mine()];
 
-  List<String> _titles = ["Homes", "Channel", "Publish", "Message", "Mine"];
+  List<String> _titles = ["首页", "频道", "发布", "消息", "我的"];
 
   List<Icon> _icons = [
     Icon(Icons.home),
