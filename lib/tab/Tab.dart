@@ -4,8 +4,8 @@ import 'package:fanji/publish/Publish.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../home/home.dart';
-import '../mine/mine.dart';
+import '../home/Home.dart';
+import '../mine/Mine.dart';
 
 class TabWidget extends StatefulWidget {
   TabWidget({Key key}) : super(key: key);
@@ -18,7 +18,15 @@ class _TabWidgetState extends State<TabWidget> {
   int _currentIndex = 0;
   List<Widget> _tabWidgets = [Home(), Channel(), Publish(), Message(), Mine()];
 
-  List<String> _titles = ["Home", "Channel", "Publish", "Message", "Mine"];
+  List<String> _titles = ["Homes", "Channel", "Publish", "Message", "Mine"];
+
+  List<Icon> _icons = [
+    Icon(Icons.home),
+    Icon(Icons.track_changes),
+    Icon(Icons.public),
+    Icon(Icons.message),
+    Icon(Icons.people_outline_rounded)
+  ];
 
   @override
   void initState() {
@@ -81,9 +89,9 @@ class _TabWidgetState extends State<TabWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_titles[this._currentIndex]),
-      ),
+      // appBar: AppBar(
+      //   title: Text(_titles[this._currentIndex]),
+      // ),
       body: this._tabWidgets[this._currentIndex],
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () {
@@ -100,32 +108,19 @@ class _TabWidgetState extends State<TabWidget> {
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: this._currentIndex,
-        iconSize: 30.0,
+        iconSize: 26.0,
+        selectedFontSize: 16.0,
+        unselectedFontSize: 13.0,
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
           setState(() {
             this._currentIndex = index;
           });
         },
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: '首页'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.track_changes),
-            label: '频道',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.public),
-            label: '发布',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: '消息',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people_outline_rounded),
-            label: '我的',
-          ),
-        ],
+        items: new List.generate(
+            _icons.length,
+            (index) => BottomNavigationBarItem(
+                icon: _icons[index], label: _titles[index])),
       ),
     );
   }
