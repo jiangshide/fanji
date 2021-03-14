@@ -38,8 +38,12 @@ class _FeedState extends State<Feed> {
             );
           }
         },
-        separatorBuilder: (BuildContext context, int index) {
-          return new Divider();
+        separatorBuilder: (context, index) {
+          return Divider(
+            height: .5,
+            indent: 75,
+            color: Colors.red,
+          );
         },
         itemCount: 100);
   }

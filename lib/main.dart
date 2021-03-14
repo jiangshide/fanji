@@ -29,6 +29,7 @@ class _FanjiState extends State<Fanji> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "梵记",
       theme: ThemeData(
           primarySwatch: Colors.red,

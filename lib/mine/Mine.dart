@@ -10,14 +10,8 @@ class Mine extends StatefulWidget {
 class _MineState extends State<Mine> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(
-          "Mine",
-          style: TextStyle(
-              fontSize: 40, color: Colors.green, fontStyle: FontStyle.italic),
-        ),
-      ),
-    );
+    List widgets = [];
+
+    return ListView();
   }
 }

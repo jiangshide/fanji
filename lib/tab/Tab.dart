@@ -109,8 +109,8 @@ class _TabWidgetState extends State<TabWidget> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: this._currentIndex,
         iconSize: 26.0,
-        selectedFontSize: 16.0,
-        unselectedFontSize: 13.0,
+        selectedFontSize: 13.0,
+        unselectedFontSize: 12.0,
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
           setState(() {
