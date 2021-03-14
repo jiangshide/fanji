@@ -1,3 +1,4 @@
+import 'package:event_bus/event_bus.dart';
 import 'package:fanji/home/CusDrawer.dart';
 import 'package:fanji/home/HomeDetail.dart';
 import 'package:fanji/tab/TabItem.dart';
@@ -8,6 +9,8 @@ import 'package:flutter/material.dart';
 
 import 'Recommend.dart';
 
+final eventBus = EventBus();
+
 class Home extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -17,6 +20,18 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   FSBStatus fsbStatus;
+
+  @override
+  void initState() {
+    super.initState();
+    eventBus.on<FSBStatus>().listen((event) {
+      setState(() {
+        fsbStatus = fsbStatus == FSBStatus.FSB_OPEN
+            ? FSBStatus.FSB_CLOSE
+            : FSBStatus.FSB_OPEN;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,22 +46,8 @@ class _HomeState extends State<Home> {
               });
             },
           ),
-          screenContents: HomeContent(fsbStatus),
+          screenContents: HomeContent(),
           status: fsbStatus,
-        ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.deepOrange,
-          child: Icon(
-            Icons.menu,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            setState(() {
-              fsbStatus = fsbStatus == FSBStatus.FSB_OPEN
-                  ? FSBStatus.FSB_CLOSE
-                  : FSBStatus.FSB_OPEN;
-            });
-          },
         ),
       ),
     );
@@ -54,20 +55,12 @@ class _HomeState extends State<Home> {
 }
 
 class HomeContent extends StatefulWidget {
-  FSBStatus fsbStatus;
-
-  HomeContent(this.fsbStatus);
-
   @override
-  State<StatefulWidget> createState() => _HomeContentState(fsbStatus);
+  State<StatefulWidget> createState() => _HomeContentState();
 }
 
 class _HomeContentState extends State<HomeContent>
     implements OnTabClickListener {
-  FSBStatus fsbStatus;
-
-  _HomeContentState(this.fsbStatus);
-
   List<String> _titles = ["最新", "最热"];
   List<Widget> _childs = [HomdeDetail(), Recommend("the jsd!")];
   @override
@@ -99,9 +92,7 @@ class _HomeContentState extends State<HomeContent>
           color: Colors.red,
         ),
         onPressed: () {
-          fsbStatus = fsbStatus == FSBStatus.FSB_OPEN
-              ? FSBStatus.FSB_CLOSE
-              : FSBStatus.FSB_OPEN;
+          eventBus.fire(FSBStatus.FSB_OPEN);
         },
       ),
       title: Text(
