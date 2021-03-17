@@ -6,6 +6,7 @@ import 'package:fanji/tab/TabLayout.dart';
 import 'package:fanji/view/Sidebar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 import 'Recommend.dart';
 
@@ -33,24 +34,32 @@ class _HomeState extends State<Home> {
     });
   }
 
+  Future onRefresh() {
+    return Future.delayed(Duration(seconds: 1), () {
+      Toast.show("已是最新数据了！", context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Sidebar(
-          drawerBackgroundColor: Colors.deepOrange,
-          drawer: CusDrawer(
-            closeDrawer: () {
-              setState(() {
-                fsbStatus = FSBStatus.FSB_CLOSE;
-              });
-            },
+    return RefreshIndicator(
+        child: SafeArea(
+          child: Scaffold(
+            body: Sidebar(
+              drawerBackgroundColor: Colors.deepOrange,
+              drawer: CusDrawer(
+                closeDrawer: () {
+                  setState(() {
+                    fsbStatus = FSBStatus.FSB_CLOSE;
+                  });
+                },
+              ),
+              screenContents: HomeContent(),
+              status: fsbStatus,
+            ),
           ),
-          screenContents: HomeContent(),
-          status: fsbStatus,
         ),
-      ),
-    );
+        onRefresh: onRefresh);
   }
 }
 
