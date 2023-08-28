@@ -1,0 +1,30 @@
+背景 & 目标
+为了控制 App 的线程数量，我们需要开发一个统一线程管理 SDK，SDK 有下面几个目标：
+
+为工程师提供轻量、易用的任务调度接口，避免工程师手动创建线程
+保证性能稳定，避免出现使用 SDK 后性能下滑的情况
+能够监控和控制线程数量，提供一定的追溯能力（谁创建了线程或线程池）
+能够透明的修改遗留代码中多线程的使用
+路线规划
+一期
+完成 RxJava 相关的线程数量监控，并保守的控制数量
+完成对外的任务调度接口
+完成常用线程、线程池的创建接口
+初步完成线程数量监控日志
+提供 SDK 使用文档
+
+RxJava 统一线程池管理
+
+统一线程管理 SDK RulerThread 使用文档
+
+WATCHMEN-593 - 【Android】RulerThread：完成 RxJava 相关线程数量的监控与控制 完成 WATCHMEN-594 - 【Android】RulerThread：完成对外的任务调度接口 完成 WATCHMEN-595 - 【Android】RulerThread：初步完成线程数量监控日志 完成 WATCHMEN-596 - 【Android】RulerThread：提供 SDK 使用文档 完成
+二期
+完成编译插件，全量替换工程中的线程使用逻辑
+完成完整的线程监控日志
+完成线程控制的参数下发功能
+
+RulerThread 编译插件说明文档
+WATCHMEN-601 - 【Android】RulerThread：编译插件，提供线程使用的批量替换功能，灰度上线 完成 WATCHMEN-605 - 【Android】编写 RulerThread 插件说明文档 完成 WATCHMEN-607 - 【Android】设计 RulerThread 生命周期回调流程 完成
+三期
+控制整体线程数量
+后续优化（比如编译插件提升效率）

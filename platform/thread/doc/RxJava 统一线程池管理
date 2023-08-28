@@ -1,0 +1,40 @@
+背景
+线程数量过多会导致内存占用升高甚至 OOM，而我们的 App 高度依赖 RxJava， 所以需要对 RxJava 中的线程池做统一管理。
+
+RxJava 线程池原理（基于 rxjava-2.2.2）
+RxJava 的线程调度主要依赖 Scheduler 的实现，这些实现依赖一种「单线程调度池」，这种线程池只有一个线程，并维护一个任务队列（类似于 Android 中的 HandlerThread）。
+
+RxJava 实现了如下几种 Scheduler：
+
+SINGLE	SingleScheduler	使用一个单线程调度池	1
+COMPUTATION	ComputationScheduler	维护一个单线程调度池的数组，数组长度固定为 CPU 核数	CPU 核数
+IO	IoScheduler	维护一个单线程调度池的空闲队列，当空闲队列为空时创建新的调度池，队列中的调度池过期时会被清理	无上限
+TRAMPOLINE	TrampolineScheduler	工作在当前线程，不会启动新线程	0
+NEW_THREAD	NewThreadScheduler	每个任务都创建新的单线程调度池	无上限
+可以看到线程数量无上限的两个 Scheduler 分别是 IO 和 NEW_THREAD ，前期我们不对 NEW_THREAD 的 Scheduler 做处理，仅监控数量。
+
+下面简单分析下 IO Scheduler 的原理和优化方案。
+
+IO Scheduler
+原版逻辑
+IoScheduler 主要用于执行 IO 相关操作，所以线程数量没有上线，大致逻辑如下图：
+image2019-12-31_17-47-29.png
+
+Scheduler 的常规流程是通过 scheduleXX 触发任务的执行，执行完回调 dispose。其中最重要的地方是创建执行任务的容器 createWorker 和任务完成时的 dispose 操作，细节可参考上图。
+
+新版逻辑
+为了实现有上限的 IoScheduler，需要复用当前正在工作的 Worker，实现原理比较简单（得益于「单线程调度池」的使用），如下图：
+image2019-12-31_18-8-26.png
+
+
+为了达到复用工作中的 Worker 的目的，在 Worker 中增加了计数器，用于记录当前 Worker 中持有的任务数量，具体细节请参考上图。
+
+这种实现方式在满足需求的同时，能够最大限度的接近原版性能。
+
+线程清理
+无论哪个版本都会启动一个周期清理任务，这个任务会遍历每个空闲 Worker 的超时时间戳，如果超时则终止 Worker，内部的线程池自然也会 shutdown。
+
+这里有个区别，原逻辑中的 Worker 一次只执行一个任务，任务执行完就会成为空闲 Worker，新逻辑中的 Worker 在执行任务时还有可能被添加任务，所以只有当 Worker 中的计数器为 0 时，才会成为空闲 Worker。
+
+其他 Scheduler
+其他 Scheduler 复用 RxJava 原有逻辑，唯一 区别是使用 RulerThreadFactory 对线程的数量进行监控，这里不做过多说明。

@@ -1,0 +1,118 @@
+简介
+RulerThread 是个 Java 线程的封装 SDK，主要提供更简洁的任务调度接口和系统线程替换实现，以及简单的线程监控能力。
+
+使用方法
+如何集成
+常见异步任务 API
+Android 线程有如下几种使用场景：使用 RxJava 进行任务调度、直接异步执行 Runnable 任务、使用 Executors 创建线程池、自定义线程池、直接创建 Thread/HandlerThread 等，下面简单介绍下替换方案：
+
+使用 RxJava 进行任务调度：RulerThread SDK 已替换 RxJava 中的 Scheduler，可以放心使用，相关文档请参考 RxJava 统一线程池管理；
+异步执行任务：RulerScheduler 类中封装了常见用法，示例代码请参考 异步执行任务；
+Executors 创建线程池：使用 RulerExecutors 进行替换；
+自定义线程池：使用 RulerThreadPoolExecutor 进行替换；
+使用 Timer 执行周期任务：不再建议使用 Timer 类，RulerScheduler 提供了更方便的接口，示例代码请参考 异步执行任务；
+直接创建 Thread/HandlerThread ：首先不建议这样做，建议使用 RulerScheduler 执行异步任务。如果需求实在特殊请与 周柯文-技术中台  沟通尝试其他解决方案。如果没有解决方案请使用 RulerFactory 创建 Thread/HandlerThread；
+异步执行任务示例
+RulerScheduler 类中封装了一些常见用法，比如你可以在子线程执行一个任务：
+
+RulerScheduler.run(object : NamedRunnable("JobName") {
+    override fun execute() {
+        // 业务逻辑
+    }
+})
+也可以在 UI 线程延迟执行任务：
+
+RulerScheduler.runDelayOnMain(Runnable {
+    // 在 UI 线程执行业务逻辑
+}, 3000)
+或者子线程执行完回调到 UI 线程：
+
+RulerScheduler.apply {
+    run(object : NamedRunnable("JobName") {
+        override fun execute() {
+            // 业务逻辑
+            runOnMain(Runnable {
+                // 回调到 UI 线程
+            })
+        }
+    })
+}
+RunlerScheduler 会尽量避免创建新线程，但如果你的任务非常紧急需要立即在子线程执行（据我观察这样的任务并不多），可以使用如下接口：
+
+RulerScheduler.runUrgent(object : NamedRunnable("JobName") {
+    override fun execute() {
+        // 业务逻辑
+    }
+})
+还支持两种周期任务：
+
+RulerScheduler.runWithFixedDelay(object : NamedRunnable("PeriodJobName") {
+    override fun execute() {
+        // 业务逻辑
+    }
+}, 5, 10, TimeUnit.MILLISECONDS)
+
+
+RulerScheduler.runAtFixedRate(object : NamedRunnable("PeriodJobName2") {
+    override fun execute() {
+        // 业务逻辑
+    }
+}, 5, 10, TimeUnit.MILLISECONDS)
+这两种周期任务方法的区别可以参考文档：
+
+/**
+ * 周期执行任务，首先延迟 initialDelay 时间执行 runnable，之后循环执行 runnable，不过每次执行前都会延迟 delay 时间
+ * 效果如下（注意和 runAtFixedRate 的区别）：
+ * start: -----{-----}+++++{-----}+++++{-----}+++++{---
+ *      : |init| run |delay| run |delay| run |delay|run
+ *
+ * @param runnable 要执行的任务，需要设置任务名字
+ * @param initialDelay 首次执行时延迟的时间
+ * @param delay 循环执行的间隔时间
+ * @param unit initialDelay 和 delay 的单位
+ * @return 返回一个 ScheduledFuture，用于控制已经启动的任务
+ */
+fun runWithFixedDelay(runnable: NamedRunnable, initialDelay: Long, delay: Long, unit: TimeUnit): ScheduledFuture<*>
+
+/**
+ * 周期执行任务，首先延迟 initialDelay 时间执行 runnable，之后循环执行 runnable，不过每次执行的间隔时间不小于 period
+ * 效果如下（注意和 runWithFixedDelay 的区别）：
+ * start: -----{-----}++++{--------------}{----}++++
+ *      : |init| run |idle|     run      | run |idle|
+ *      :      |  period  |  period  |...|  period  |
+ *
+ * @param runnable 要执行的任务，需要设置任务名字
+ * @param initialDelay 首次执行时延迟的时间
+ * @param period 循环执行的周期时间
+ * @param unit initialDelay 和 period 的单位
+ * @return 返回一个 ScheduledFuture，用于控制已经启动的任务
+ */
+fun runAtFixedRate(runnable: NamedRunnable, initialDelay: Long, period: Long, unit: TimeUnit): ScheduledFuture<*>
+线程生命周期 API
+SDK 提供了线程生命周期回调 API，定义如下：
+
+/**
+ * Thread 运行时的回调接口，业务方可以在每个的启动和结束时增加业务逻辑
+ * ## 注意任何线程的启动都触发回调，所以实现时注意性能影响和多线程安全
+ */
+interface ThreadCallback {
+    /**
+     * Thread 启动时，在 Thread 中回调。如果是通过 [RulerScheduler] 启动的话，获取到的线程名字会不准
+     * ## 注意任何线程的启动都触发回调，所以实现时注意性能影响和多线程安全
+     */
+    fun onThreadBegin()
+
+    /**
+     * Thread 结束时，在 Thread 中回调（即使有异常也会回调）。如果是通过 [RulerScheduler] 启动的话，获取到的线程名字会不准
+     * ## 注意任何线程的启动都触发回调，所以实现时注意性能影响和多线程安全
+     */
+    fun onThreadEnd()
+}
+就像注释里写的，onThreadBegin 和 onThreadEnd 会在线程的启动和结束时调用，注意这里的线程指的是所有由 APK 中的代码启动的线程，所以实现时一定要注意以下几点：
+
+写代码前请仔细考虑是否真的需要监控每个线程的生命周期
+实现时一定要注意性能、异常、崩溃等边界情况，因为你的实现会影响到所有线程的执行
+每个 Callback 都是在自己线程里调用的，所以要注意多线程安全
+如果你想在 Callback 中使用线程名的话需要注意：通过 RulerScheduler 启动的线程返回的线程名可能不符合你的预期
+不会监控主线程
+使用 RulerLifecycleManager.registerCallback() 和 removeCallback() 进行注册和删除。

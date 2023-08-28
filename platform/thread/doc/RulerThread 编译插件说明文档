@@ -1,0 +1,99 @@
+简介
+RulerThread SDK 已提供常用异步 API，并且内部已经对使用这些 API 创建的线程进行监控，但各种遗留模块或三方 SDK 还包含很多使用线程的代码，将 RulerThread 和这些代码相结合就是编译插件要做的事情。
+
+替换说明
+插件在编译期将代码中和线程相关的逻辑替换成 RulerThread 中提供的实现，大致分两类：使用 new 关键字创建的线程或线程池；通过静态方法创建的线程或线程池。具体替换内容如下。
+
+1. 使用 new 关键字创建的线程或线程池
+常见的线程用法是这样：
+
+Thread t = new Thread("name");
+HandlerThread h = new HandlerThread("name");
+插件会替换成这样：
+
+Thread t = new RulerThread("name");
+HandlerThread h = new RulerHandlerThread("name");
+RulerThread 和 RulerHandlerThread 内部会计数并上报。
+
+还有常见的线程池创建：
+
+public class PoolTest {
+
+    public ThreadPoolExecutor createThreadPool() {
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(3,
+                5, 10, TimeUnit.SECONDS,
+                new LinkedBlockingQueue<Runnable>(),
+                THREAD_FACTORY);
+        return executor;
+    }
+
+    public ScheduledThreadPoolExecutor createThreadPool() {
+        return new ScheduledThreadPoolExecutor(4, THREAD_FACTORY);
+    }
+}
+会被插件替换成这样：
+
+public class PoolTest {
+
+    public ThreadPoolExecutor createThreadPool() {
+        ThreadPoolExecutor executor = new RulerThreadPoolExecutor(3,
+                5, 10, TimeUnit.SECONDS,
+                new LinkedBlockingQueue<Runnable>(),
+                THREAD_FACTORY, "PoolTest");
+        return executor;
+    }
+
+    public ScheduledThreadPoolExecutor createThreadPool() {
+        return new RulerScheduledThreadPoolExecutor(4, THREAD_FACTORY, "PoolTest");
+    }
+}
+除了直接替换类名，调用的构造方法也换成了末尾多一个 String 参数的构造方法，参数的值是创建线程池所在类名，内部会将这个参数用作线程池名字的一部分。
+
+2. 通过静态方法创建的线程或线程池
+ 最常见的是使用 Executors 创建线程池，代码如下：
+
+public class ExecutorsTest {
+
+    public ThreadPoolExecutor createThreadPool() {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Executors.newCachedThreadPool(new ThreadFactory() {
+            @Override
+            public Thread newThread(Runnable r) {
+                return new Thread(r);
+            }
+        });
+    }
+}
+会被插件替换成如下代码：
+
+public class ExecutorsTest {
+
+    public ThreadPoolExecutor createThreadPool() {
+        ExecutorService executorService = RulerExecutors.newSingleThreadExecutor("ExecutorsTest");
+
+        RulerExecutors.newCachedThreadPool(new ThreadFactory() {
+            @Override
+            public Thread newThread(Runnable r) {
+                return new Thread(r);
+            }
+        }, "ExecutorsTest");
+    }
+}
+与替换 ThreadPoolExecutor 一样除了直接替换类名，调用的静态方法也换成了末尾多一个 String 参数的，参数的值是创建线程池所在类名，内部会将这个参数用作线程池名字的一部分。
+
+这里注意如果是 ThreadFactory 中 new Thread ，插件不会替换，这样做是为了避免嵌套使用 RulerThread 导致计数重复的问题。
+
+还有一种创建线程的方式，是使用 Kotlin 封装的顶级函数 thread()，类似这样：
+
+import kotlin.concurrent.thread
+...
+    thread(start = true, name = "test") {
+        Thread.sleep(3000)
+    }
+插件会将其替换成 RulerThread 内部实现的一个顶级函数：
+
+import com.fanji.android.threadRuler.thread.thread
+...
+    thread(start = true, name = "test") {
+        Thread.sleep(3000)
+    }
