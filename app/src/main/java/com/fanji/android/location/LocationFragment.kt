@@ -1,4 +1,4 @@
-package com.fanji.android.resource.fragment
+package com.fanji.android.location
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,50 +7,40 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.amap.api.services.core.PoiItem
 import com.amap.api.services.poisearch.PoiResult
-import com.fanji.android.resource.R
+import com.fanji.android.R
+import com.fanji.android.databinding.FragmentLocationBinding
 import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.location.FJLocation
 import com.fanji.android.resource.location.listener.IPoiSearchListener
-import com.fanji.android.ui.FJButton
-import com.fanji.android.ui.FJEditText
-import com.fanji.android.ui.FJRecycleView
+import com.fanji.android.ui.adapter.KAdapter
+import com.fanji.android.ui.adapter.create
 import com.fanji.android.ui.refresh.api.RefreshLayout
 import com.fanji.android.util.LogUtil
-import com.fanji.widget.adapter.KAdapter
-import com.fanji.widget.adapter.create
 
 /**
- * created by jiangshide on 5/4/21.
- * email:18311271399@163.com
+ * @Author:jiangshide
+ * @Date:8/29/23
+ * @Email:18311271399@163.com
+ * @Description:
  */
-class LocationFragment(private val onLocationListener: OnLocationListener) : BaseFragment(),
+class LocationFragment(private val onLocationListener: OnLocationListener) :
+    BaseFragment<FragmentLocationBinding>(),
     IPoiSearchListener {
 
     private var adapter: KAdapter<PoiItem>? = null
-
-    private lateinit var locationEdit: FJEditText
-    private lateinit var locationCancel: FJButton
-    private lateinit var locationRecycleView: FJRecycleView
-
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return view(R.layout.location_fragment, true, true)
-    }
+        container: ViewGroup?
+    ) = FragmentLocationBinding.inflate(layoutInflater)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        locationEdit = view.findViewById(R.id.locationEdit)
-        locationCancel = view.findViewById(R.id.locationCancel)
-        locationRecycleView = view.findViewById(R.id.locationRecycleView)
-
-        locationEdit.setListener { s, input ->
+        binding.locationEdit.setListener { s, input ->
             FJLocation.getInstance()
                 .searchPOI(activity?.applicationContext, input, "", this)
         }
-        locationCancel.setOnClickListener {
+        binding.locationCancel.setOnClickListener {
             pop()
         }
         FJLocation.getInstance()
@@ -77,7 +67,7 @@ class LocationFragment(private val onLocationListener: OnLocationListener) : Bas
             adapter?.add(data)
             return
         }
-        adapter = locationRecycleView?.create(data, R.layout.location_fragment_item, {
+        adapter = binding.locationRecycleView?.create(data, R.layout.location_fragment_item, {
             val locationItemName: TextView = this.findViewById(R.id.locationItemName)
             val locationItemDes: TextView = this.findViewById(R.id.locationItemDes)
             locationItemName?.text = it.title

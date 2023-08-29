@@ -1,4 +1,4 @@
-package com.fanji.android.resource.fragment
+package com.fanji.android.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,52 +7,42 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.fanji.android.R
+import com.fanji.android.databinding.FragmentSearchChannelBinding
 import com.fanji.android.img.FJImg
 import com.fanji.android.net.HTTP_OK
 import com.fanji.android.net.vm.LiveResult
-import com.fanji.android.resource.R
 import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.base.BaseVM
 import com.fanji.android.resource.vm.channel.ChannelVM
 import com.fanji.android.resource.vm.channel.data.ChannelBlog
 import com.fanji.android.ui.FJImageView
-import com.fanji.android.ui.FJRecycleView
+import com.fanji.android.ui.adapter.KAdapter
+import com.fanji.android.ui.adapter.create
 import com.fanji.android.ui.refresh.api.RefreshLayout
-import com.fanji.widget.adapter.KAdapter
-import com.fanji.widget.adapter.create
 
 /**
- * created by jiangshide on 5/5/21.
- * email:18311271399@163.com
+ * @Author:jiangshide
+ * @Date:8/29/23
+ * @Email:18311271399@163.com
+ * @Description:
  */
 class SearchChannelFragment(
     private val fromId: Int = 0,
     private val listener: OnChannelListener? = null
-) : BaseFragment(), BaseVM.VMListener<MutableList<ChannelBlog>> {
+) : BaseFragment<FragmentSearchChannelBinding>(), BaseVM.VMListener<MutableList<ChannelBlog>> {
 
     var channel: ChannelVM? = null
-
     private var adapter: KAdapter<ChannelBlog>? = null
-    private lateinit var publishChannelListRecycleView: FJRecycleView
-
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        channel = ViewModelProvider.NewInstanceFactory.instance.create(ChannelVM::class.java)
-        return view(
-            R.layout.search_channel_fragment,
-            isRefresh = true,
-            isMore = true,
-            isTips = true
-        )
-    }
+        container: ViewGroup?
+    ) = FragmentSearchChannelBinding.inflate(layoutInflater)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        publishChannelListRecycleView = view.findViewById(R.id.publishChannelListRecycleView)
-
+        channel = ViewModelProvider.NewInstanceFactory.instance.create(ChannelVM::class.java)
         channel!!.channelUser.observe(viewLifecycleOwner, Observer {
             refreshFinish(it.isRefresh)
             if (it.code == HTTP_OK) {
@@ -97,14 +87,19 @@ class SearchChannelFragment(
 
     private fun showView(data: MutableList<ChannelBlog>) {
         adapter =
-            publishChannelListRecycleView.create(data,
+            binding.publishChannelListRecycleView.create(data,
                 R.layout.search_channel_fragment_item,
                 {
                     val channelListItemIcon: FJImageView =
                         this.findViewById(R.id.channelListItemIcon)
                     val channelListItemName: TextView = this.findViewById(R.id.channelListItemName)
                     val channelListItemDes: TextView = this.findViewById(R.id.channelListItemDes)
-                    FJImg.loadImageRound(it.cover, channelListItemIcon, 5, R.mipmap.splash)
+                    FJImg.loadImageRound(
+                        it.cover,
+                        channelListItemIcon,
+                        5,
+                        com.fanji.android.resource.R.mipmap.splash
+                    )
                     channelListItemName.text = it.name
 ////                    channelListItemType.text =
 ////                        if (it.natureId == CHANNEL_PRIVATE) getString(R.string.private_channel) else getString(R.string.publish_channel)

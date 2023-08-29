@@ -1,4 +1,4 @@
-package com.fanji.android.resource.fragment
+package com.fanji.android.search
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -10,50 +10,42 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.fanji.android.R
+import com.fanji.android.databinding.FragmentSearchUserBinding
 import com.fanji.android.img.FJImg
 import com.fanji.android.net.HTTP_OK
-import com.fanji.android.resource.R
 import com.fanji.android.resource.Resource
 import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.vm.user.UserVM
 import com.fanji.android.resource.vm.user.data.User
 import com.fanji.android.ui.FJCircleImg
-import com.fanji.android.ui.FJEditText
-import com.fanji.android.ui.FJRecycleView
+import com.fanji.android.ui.adapter.KAdapter
+import com.fanji.android.ui.adapter.create
 import com.fanji.android.ui.refresh.api.RefreshLayout
-import com.fanji.widget.adapter.KAdapter
-import com.fanji.widget.adapter.create
 
 /**
- * created by jiangshide on 5/5/21.
- * email:18311271399@163.com
+ * @Author:jiangshide
+ * @Date:8/29/23
+ * @Email:18311271399@163.com
+ * @Description:
  */
-class SearchUserFragment(private val users: MutableList<User>? = null) : BaseFragment() {
+class SearchUserFragment(private val users: MutableList<User>? = null) :
+    BaseFragment<FragmentSearchUserBinding>() {
 
     var user: UserVM? = null
     private var adapter: KAdapter<User>? = null
     private var selectedAdapter: KAdapter<User>? = null
-
-    private lateinit var usesEdit: FJEditText
-    private lateinit var usesRecycleView: FJRecycleView
-    private lateinit var usesSelectedRecycleView: FJRecycleView
-
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        user = ViewModelProvider.NewInstanceFactory.instance.create(UserVM::class.java)
-        return view(R.layout.search_user_fragment, true, true)
-    }
+        container: ViewGroup?
+    ) = FragmentSearchUserBinding.inflate(layoutInflater)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        usesEdit = view.findViewById(R.id.usesEdit)
-        usesRecycleView = view.findViewById(R.id.usesRecycleView)
-        usesSelectedRecycleView = view.findViewById(R.id.usesSelectedRecycleView)
+        user = ViewModelProvider.NewInstanceFactory.instance.create(UserVM::class.java)
 
-        usesEdit.setListener { s, input ->
+        binding.usesEdit.setListener { s, input ->
             if (TextUtils.isEmpty(input)) {
                 user?.users()
             } else {
@@ -99,13 +91,17 @@ class SearchUserFragment(private val users: MutableList<User>? = null) : BaseFra
             adapter?.add(data, isRefresh)
             return
         }
-        adapter = usesRecycleView.create(data, R.layout.search_user_fragment_item, {
+        adapter = binding.usesRecycleView.create(data, R.layout.search_user_fragment_item, {
             val usersIcon: FJCircleImg = this.findViewById(R.id.usersIcon)
             val usersNick: TextView = this.findViewById(R.id.usersNick)
             val usersDes: TextView = this.findViewById(R.id.usersDes)
             val userCheck: ImageView = this.findViewById(R.id.userCheck)
             val user = it
-            FJImg.loadImageCircle(it.icon, usersIcon, R.mipmap.default_user)
+            FJImg.loadImageCircle(
+                it.icon,
+                usersIcon,
+                com.fanji.android.resource.R.mipmap.default_user
+            )
             usersNick.text = it.nick
             it.setSex(usersDes)
             userCheck.isSelected = it.selected
@@ -154,7 +150,7 @@ class SearchUserFragment(private val users: MutableList<User>? = null) : BaseFra
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         selectedAdapter =
-            usesSelectedRecycleView.create(
+            binding.usesSelectedRecycleView.create(
                 arrayListOf(),
                 R.layout.search_user_selected_fragment_item,
                 {

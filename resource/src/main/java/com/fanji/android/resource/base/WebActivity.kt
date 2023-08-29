@@ -9,12 +9,8 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.fanji.android.resource.R
-import com.fanji.android.ui.FJButton
-import com.fanji.android.ui.jsbridge.BridgeWebView
+import com.fanji.android.resource.databinding.WebViewBinding
 
 /**
  * created by jiangshide on 2020/7/28.
@@ -22,44 +18,36 @@ import com.fanji.android.ui.jsbridge.BridgeWebView
  *
  * WebView复用池+独立进程优化：https://www.heng666.cn/324.html
  */
-open class WebActivity : BaseActivity() {
+open class WebActivity : BaseActivity<WebViewBinding>() {
 
-    private lateinit var webViewTopBack: FJButton
-    private lateinit var webViewTopTitle: TextView
-    private lateinit var bridgeWebView: BridgeWebView
-    private lateinit var webViewProgressBar: ProgressBar
+    override fun getViewBinding() = WebViewBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.web_view)
-        webViewTopBack = findViewById(R.id.webViewTopBack)
-        webViewTopTitle = findViewById(R.id.webViewTopTitle)
-        bridgeWebView = findViewById(R.id.bridgeWebView)
-        webViewProgressBar = findViewById(R.id.webViewProgressBar)
-        webViewTopBack.setOnClickListener {
+        binding.webViewTopBack.setOnClickListener {
             finish()
         }
         var title = intent.getStringExtra("title")
-        webViewTopTitle.text = title
+        binding.webViewTopTitle.text = title
         val url = intent.getStringExtra("url")
-        initWebSet(this, bridgeWebView)
-        bridgeWebView.webChromeClient = object : WebChromeClient() {
+        initWebSet(this, binding.bridgeWebView)
+        binding.bridgeWebView.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
                 super.onProgressChanged(view, newProgress)
-                webViewProgressBar?.progress = newProgress
+                binding.webViewProgressBar?.progress = newProgress
                 if (newProgress == 100) {
-                    webViewProgressBar?.progress = 0
-                    webViewProgressBar?.visibility = View.GONE
+                    binding.webViewProgressBar?.progress = 0
+                    binding.webViewProgressBar?.visibility = View.GONE
                 } else {
-                    webViewProgressBar?.visibility = View.VISIBLE
+                    binding.webViewProgressBar?.visibility = View.VISIBLE
                 }
             }
         }
-        if (!TextUtils.isEmpty(bridgeWebView.title)) {
-            title = bridgeWebView.title
-            webViewTopTitle.text = title
+        if (!TextUtils.isEmpty(binding.bridgeWebView.title)) {
+            title = binding.bridgeWebView.title
+            binding.webViewTopTitle.text = title
         }
-        bridgeWebView.loadUrl(url!!)
+        binding.bridgeWebView.loadUrl(url!!)
     }
 
     @SuppressLint("SetJavaScriptEnabled")

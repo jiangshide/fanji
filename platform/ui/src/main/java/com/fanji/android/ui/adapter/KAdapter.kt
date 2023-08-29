@@ -1,4 +1,4 @@
-package com.fanji.widget.adapter
+package com.fanji.android.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View

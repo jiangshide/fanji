@@ -6,11 +6,12 @@ import androidx.annotation.AnimRes
 import androidx.annotation.AnimatorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.viewbinding.ViewBinding
 import com.fanji.android.net.state.NetState
 import com.fanji.android.net.state.annotation.INetType
 import com.fanji.android.net.state.annotation.NetType
-import com.fanji.android.util.FJEvent
 import com.fanji.android.resource.R
+import com.fanji.android.util.FJEvent
 import com.fanji.android.util.LogUtil
 import com.fanji.android.util.StatusUtil
 
@@ -19,11 +20,17 @@ import com.fanji.android.util.StatusUtil
  * created by jiangshide on 4/9/21.
  * email:18311271399@163.com
  */
-open class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
+
+    private lateinit var _binding: T
+    protected val binding get() = _binding
+    protected abstract fun getViewBinding(): T
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Main)
         super.onCreate(savedInstanceState)
+        _binding = getViewBinding()
+        setContentView(_binding.root)
 //        setStatusColor()
 //        setSystemInvadeBlack()
 //        val paint = Paint()
@@ -39,7 +46,7 @@ open class BaseActivity : AppCompatActivity() {
     /**
      * 设置状态栏背景颜色
      */
-    protected open fun setStatusColor(color:Int=com.fanji.android.ui.R.color.line) {
+    protected open fun setStatusColor(color: Int = com.fanji.android.ui.R.color.line) {
         StatusUtil.setUseStatusBarColor(this, color(color))
     }
 
@@ -106,7 +113,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     open fun push(
-        fragment: BaseFragment,
+        fragment: BaseFragment<*>,
         bundle: Bundle? = null,
         @AnimatorRes @AnimRes enter: Int = R.anim.fade_in,
         @AnimatorRes @AnimRes exit: Int = R.anim.fade_out

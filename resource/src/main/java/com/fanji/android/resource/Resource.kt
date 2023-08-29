@@ -193,3 +193,5 @@ const val ACTIVE_PUBLISH_VIDEO = 4
 const val ACTIVE_PUBLISH_AUDIO = 5
 const val ACTIVE_PUBLISH_IMG = 6
 const val ACTIVE_PUBLISH_DOC = 7
+
+const val TAB_BOTTOM_SCROLL = "tabBottomScroll"

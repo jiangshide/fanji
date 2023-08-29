@@ -1,4 +1,4 @@
-package com.fanji.android.resource.fragment
+package com.fanji.android.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,51 +6,39 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.fanji.android.databinding.FragmentSearchChannelManagerBinding
 import com.fanji.android.net.HTTP_OK
 import com.fanji.android.resource.R
 import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.vm.channel.ChannelVM
 import com.fanji.android.resource.vm.channel.data.ChannelBlog
 import com.fanji.android.resource.vm.channel.data.ChannelType
-import com.fanji.android.ui.FJButton
-import com.fanji.android.ui.FJEditText
-import com.fanji.android.ui.FJTabLayout
-import com.fanji.android.ui.FJViewPager
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 
 /**
- * created by jiangshide on 5/5/21.
- * email:18311271399@163.com
+ * @Author:jiangshide
+ * @Date:8/29/23
+ * @Email:18311271399@163.com
+ * @Description:
  */
 class SearchChannelManagerFragment(private val listener: OnChannelListener? = null) :
-    BaseFragment() {
+    BaseFragment<FragmentSearchChannelManagerBinding>() {
 
     var channel: ChannelVM? = null
-    private lateinit var publishSearchChannelListEdit: FJEditText
-    private lateinit var publishSearchChannelListCancel: FJButton
-    private lateinit var publishChannelListViewPager: FJViewPager
-    private lateinit var tabsPublishChannelList: FJTabLayout
-
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        channel = ViewModelProvider.NewInstanceFactory.instance.create(ChannelVM::class.java)
-        return view(R.layout.search_channel_manager_fragment)
-    }
+        container: ViewGroup?
+    ) = FragmentSearchChannelManagerBinding.inflate(layoutInflater)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        publishSearchChannelListEdit = view.findViewById(R.id.publishSearchChannelListEdit)
-        publishSearchChannelListCancel = view.findViewById(R.id.publishSearchChannelListCancel)
-        publishChannelListViewPager = view.findViewById(R.id.publishChannelListViewPager)
-        tabsPublishChannelList = view.findViewById(R.id.tabsPublishChannelList)
+        channel = ViewModelProvider.NewInstanceFactory.instance.create(ChannelVM::class.java)
 
-        publishSearchChannelListEdit.setListener { s, input ->
+        binding.publishSearchChannelListEdit.setListener { s, input ->
 
         }
-        publishSearchChannelListCancel.setOnClickListener {
+        binding.publishSearchChannelListCancel.setOnClickListener {
             pop()
         }
 
@@ -77,15 +65,19 @@ class SearchChannelManagerFragment(private val listener: OnChannelListener? = nu
             list.add(it.name)
             fragmens.add(SearchChannelFragment(it.id))
         }
-        publishChannelListViewPager.adapter =
-            publishChannelListViewPager.create(childFragmentManager)
+        binding.publishChannelListViewPager.adapter =
+            binding.publishChannelListViewPager.create(childFragmentManager)
                 .setTitles(
                     list
                 )
                 .setFragment(
                     fragmens
                 )
-                .initTabs(requireActivity(), tabsPublishChannelList, publishChannelListViewPager)
+                .initTabs(
+                    requireActivity(),
+                    binding.tabsPublishChannelList,
+                    binding.publishChannelListViewPager
+                )
                 .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
                 .setLinePagerIndicator(color(com.fanji.android.ui.R.color.blue))
     }

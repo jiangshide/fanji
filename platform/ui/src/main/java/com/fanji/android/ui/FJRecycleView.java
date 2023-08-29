@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fanji.android.ui.recycleview.Mode;
 import com.fanji.android.ui.recycleview.ViewPagerLayoutManager;
 import com.fanji.android.ui.recycleview.listener.OnViewPagerListener;
-import com.fanji.widget.adapter.KAdapter;
+import com.fanji.android.ui.adapter.KAdapter;
 
 import java.util.Collections;
 

@@ -12,33 +12,36 @@ import androidx.annotation.AnimRes
 import androidx.annotation.AnimatorRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
+import com.fanji.android.net.state.NetState
+import com.fanji.android.resource.R
+import com.fanji.android.ui.FJTipsView
+import com.fanji.android.ui.FJTopView
 import com.fanji.android.ui.files.view.transferee.loader.GlideImageLoader
 import com.fanji.android.ui.files.view.transferee.transfer.TransferConfig
 import com.fanji.android.ui.files.view.transferee.transfer.Transferee
-import com.fanji.android.net.state.NetState
 import com.fanji.android.ui.refresh.FJRefresh
 import com.fanji.android.ui.refresh.api.RefreshLayout
 import com.fanji.android.ui.refresh.footer.ClassicsFooter
 import com.fanji.android.ui.refresh.header.MaterialHeader
 import com.fanji.android.ui.refresh.listener.OnLoadMoreListener
 import com.fanji.android.ui.refresh.listener.OnRefreshListener
-import com.fanji.android.util.FJEvent
-import com.fanji.android.resource.R
 import com.fanji.android.util.AppUtil
+import com.fanji.android.util.FJEvent
 import com.fanji.android.util.SystemUtil
-import com.fanji.android.ui.FJTipsView
-import com.fanji.android.ui.FJTopView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import java.util.*
 
 /**
  * created by jiangshide on 4/9/21.
  * email:18311271399@163.com
  */
-open class BaseFragment : Fragment(), View.OnClickListener, OnRefreshListener, OnLoadMoreListener,
+abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener, OnRefreshListener,
+    OnLoadMoreListener,
     FJTipsView.OnRetryListener {
 
+    private lateinit var _binding: T
+    protected val binding get() = _binding
 
     private var topView: FJTopView? = null
     private var refresh: FJRefresh? = null
@@ -66,6 +69,17 @@ open class BaseFragment : Fragment(), View.OnClickListener, OnRefreshListener, O
         transferee = Transferee.getDefault(activity)
         retainInstance = true
     }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = getViewBinding(inflater, container)
+        return _binding.root
+    }
+
+    protected abstract fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): T
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -193,49 +207,49 @@ open class BaseFragment : Fragment(), View.OnClickListener, OnRefreshListener, O
         view.setPadding(0, SystemUtil.getStatusBarHeight(), 0, 0)
     }
 
-    open fun setTopBgIcon(topBgIcon: Int): BaseFragment? {
+    open fun setTopBgIcon(topBgIcon: Int): BaseFragment<*> {
         topView?.setBg(topBgIcon)
         hashMap!!["topBgIcon"] = topBgIcon
         return this
     }
 
-    open fun setTitleGravity(gravity: Int): BaseFragment? {
+    open fun setTitleGravity(gravity: Int): BaseFragment<*>? {
         topView?.setTitleGravity(gravity)
         hashMap!!["titleGravity"] = gravity
         return this
     }
 
-    open fun setTitle(title: Any?): BaseFragment? {
+    open fun setTitle(title: Any?): BaseFragment<*>? {
         topView?.setTitle(title)
         hashMap!!["title"] = title!!
         return this
     }
 
-    open fun setTitleColor(color: Int): BaseFragment? {
+    open fun setTitleColor(color: Int): BaseFragment<*>? {
         topView?.setTitleColor(color)
         hashMap!!["titleColor"] = color
         return this
     }
 
-    open fun setSmallTitle(smallTitle: Any?): BaseFragment? {
+    open fun setSmallTitle(smallTitle: Any?): BaseFragment<*>? {
         topView?.setSmallTitle(smallTitle)
         hashMap!!["smallTitle"] = smallTitle!!
         return this
     }
 
-    open fun setSmallTitleColor(smallTitleColor: Int): BaseFragment? {
+    open fun setSmallTitleColor(smallTitleColor: Int): BaseFragment<*>? {
         topView?.setSmallTitleColor(smallTitleColor)
         hashMap!!["smallTitleColor"] = smallTitleColor
         return this
     }
 
-    open fun setLeft(any: Any): BaseFragment? {
+    open fun setLeft(any: Any): BaseFragment<*>? {
         topView?.setLefts(any)
         hashMap!!["left"] = any
         return this
     }
 
-    open fun setLeftColor(color: Int): BaseFragment? {
+    open fun setLeftColor(color: Int): BaseFragment<*>? {
         topView?.setLeftColor(color)
         hashMap!!["leftColor"] = color
         return this
@@ -245,47 +259,47 @@ open class BaseFragment : Fragment(), View.OnClickListener, OnRefreshListener, O
         pop()
     }
 
-    open fun setLeftListener(listener: View.OnClickListener): BaseFragment {
+    open fun setLeftListener(listener: View.OnClickListener): BaseFragment<*> {
         topView?.setOnLeftClick(listener)
         hashMap!!["leftClick"] = listener
         return this
     }
 
-    open fun setRightListener(listener: View.OnClickListener): BaseFragment {
+    open fun setRightListener(listener: View.OnClickListener): BaseFragment<*> {
         topView?.setOnRightClick(listener);
         hashMap!!["rightClick"] = listener;
         return this
     }
 
-    open fun setItemClickListener(listener: OnItemClickListener): BaseFragment {
+    open fun setItemClickListener(listener: OnItemClickListener): BaseFragment<*> {
         topView?.setOnItemListener(listener);
         hashMap!!["itemClick"] = listener;
         return this
     }
 
-    open fun setLeftEnable(isEnable: Boolean): BaseFragment? {
+    open fun setLeftEnable(isEnable: Boolean): BaseFragment<*>? {
         return setLeftEnable(0.5f, isEnable)
     }
 
-    open fun setLeftEnable(alpha: Float, isEnable: Boolean): BaseFragment? {
+    open fun setLeftEnable(alpha: Float, isEnable: Boolean): BaseFragment<*>? {
         if (topView == null) return this
         topView?.topLeftBtn?.alpha = alpha
         topView?.topLeftBtn?.isEnabled = isEnable
         return this
     }
 
-    open fun setRightEnable(isEnable: Boolean): BaseFragment? {
+    open fun setRightEnable(isEnable: Boolean): BaseFragment<*>? {
         return setRightEnable(if (isEnable) 1.0f else 0.5f, isEnable)
     }
 
-    open fun setRightEnable(alpha: Float, isEnable: Boolean): BaseFragment? {
+    open fun setRightEnable(alpha: Float, isEnable: Boolean): BaseFragment<*>? {
         if (topView == null) return this
         topView?.topRightBtn?.alpha = alpha
         topView?.topRightBtn?.isEnabled = isEnable
         return this
     }
 
-    open fun setRight(`object`: Any?): BaseFragment? {
+    open fun setRight(`object`: Any?): BaseFragment<*>? {
         if (topView != null) {
             topView?.setRights(`object`)
         } else {
@@ -294,7 +308,7 @@ open class BaseFragment : Fragment(), View.OnClickListener, OnRefreshListener, O
         return this
     }
 
-    open fun setRightColor(color: Int): BaseFragment? {
+    open fun setRightColor(color: Int): BaseFragment<*>? {
         if (topView != null) {
             topView?.setRightColor(color)
         }
@@ -306,14 +320,14 @@ open class BaseFragment : Fragment(), View.OnClickListener, OnRefreshListener, O
         res: Int = R.mipmap.no_data,
         tips: String = "No Content!",
         onTipsListener: FJTipsView.OnRetryListener? = null
-    ): BaseFragment {
+    ): BaseFragment<*> {
         hiddenTips()
         tipsView?.setTipsImg(res)?.setBtnTips(tips)
             ?.setListener(if (onTipsListener !== null) onTipsListener else this)?.noNet()
         return this
     }
 
-    fun loading(): BaseFragment {
+    fun loading(): BaseFragment<*> {
         tipsView?.loading()
         SystemUtil.hideKeyboard(activity)
         return this
@@ -338,16 +352,16 @@ open class BaseFragment : Fragment(), View.OnClickListener, OnRefreshListener, O
     }
 
     open fun push(
-        fragment: BaseFragment,
+        fragment: BaseFragment<*>,
         bundle: Bundle? = null,
         @AnimatorRes @AnimRes enter: Int = R.anim.fade_in,
         @AnimatorRes @AnimRes exit: Int = R.anim.fade_out
     ) {
-        (activity as BaseActivity).push(fragment, bundle, enter, exit)
+        (activity as BaseActivity<*>).push(fragment, bundle, enter, exit)
     }
 
     open fun pop(flags: Int = 0) {
-        (activity as BaseActivity).pop(flags)
+        (activity as BaseActivity<*>).pop(flags)
     }
 
     override fun onDestroyView() {
@@ -379,7 +393,7 @@ open class BaseFragment : Fragment(), View.OnClickListener, OnRefreshListener, O
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
-        isRefresh=false
+        isRefresh = false
     }
 
     open fun netState(netType: Int) {
