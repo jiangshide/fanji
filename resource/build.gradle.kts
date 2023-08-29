@@ -14,19 +14,40 @@ android {
     defaultConfig {
         minSdk = 24
 
-        resValue("string", "AMAP_KEY","\"${providers.gradleProperty("AMAP_KEY").get()}\"" )
-        buildConfigField("String", "WECHAT_APPID", "\"${providers.gradleProperty("WECHAT_APPID").get()}\"")
-        buildConfigField("String", "WECHAT_APPSECRET", "\"${providers.gradleProperty("WECHAT_APPSECRET").get()}\"")
+        resValue("string", "AMAP_KEY", "\"${providers.gradleProperty("AMAP_KEY").get()}\"")
+        buildConfigField(
+            "String",
+            "WECHAT_APPID",
+            "\"${providers.gradleProperty("WECHAT_APPID").get()}\""
+        )
+        buildConfigField(
+            "String",
+            "WECHAT_APPSECRET",
+            "\"${providers.gradleProperty("WECHAT_APPSECRET").get()}\""
+        )
 
-        buildConfigField("String", "USE_AGREEMENT", "\"${providers.gradleProperty("USE_AGREEMENT").get()}\"")
-        buildConfigField("String", "PRIVACY_AGREEMENT", "\"${providers.gradleProperty("PRIVACY_AGREEMENT").get()}\"")
-        buildConfigField("String", "FUNCTION_INTRODUCE", "\"${providers.gradleProperty("FUNCTION_INTRODUCE").get()}\"")
+        buildConfigField(
+            "String",
+            "USE_AGREEMENT",
+            "\"${providers.gradleProperty("USE_AGREEMENT").get()}\""
+        )
+        buildConfigField(
+            "String",
+            "PRIVACY_AGREEMENT",
+            "\"${providers.gradleProperty("PRIVACY_AGREEMENT").get()}\""
+        )
+        buildConfigField(
+            "String",
+            "FUNCTION_INTRODUCE",
+            "\"${providers.gradleProperty("FUNCTION_INTRODUCE").get()}\""
+        )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 
@@ -49,6 +70,8 @@ android {
 }
 
 dependencies {
+
+    implementation(fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

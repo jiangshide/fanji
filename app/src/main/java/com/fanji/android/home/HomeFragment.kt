@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentHomeBinding
+import com.fanji.android.doc.PdfFragment
 import com.fanji.android.home.fragment.FollowFragment
 import com.fanji.android.home.fragment.RecommendFragment
 import com.fanji.android.play.VideoFragment
@@ -40,7 +41,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ViewPager.OnPageChange
                 FollowFragment(),
                 RecommendFragment(),
                 VideoFragment(),
-                VideoFragment()
+                PdfFragment()
             )
             .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
             .setLinePagerIndicator(color(com.fanji.android.ui.R.color.alpha))
