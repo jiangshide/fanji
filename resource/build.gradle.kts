@@ -51,6 +51,12 @@ android {
         viewBinding = true
     }
 
+    sourceSets {
+        getByName("main"){
+            jniLibs.srcDirs("libs")
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -71,7 +77,7 @@ android {
 
 dependencies {
 
-    implementation(fileTree(mapOf("dir" to "libs","include" to listOf("*.jar"))))
+    implementation(fileTree("libs").include("*.jar", "*.aar"))
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
