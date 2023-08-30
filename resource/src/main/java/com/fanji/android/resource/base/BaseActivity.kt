@@ -6,6 +6,8 @@ import androidx.annotation.AnimRes
 import androidx.annotation.AnimatorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.fanji.android.net.state.NetState
 import com.fanji.android.net.state.annotation.INetType
@@ -13,7 +15,6 @@ import com.fanji.android.net.state.annotation.NetType
 import com.fanji.android.resource.R
 import com.fanji.android.util.FJEvent
 import com.fanji.android.util.LogUtil
-import com.fanji.android.util.StatusUtil
 
 
 /**
@@ -31,31 +32,10 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = getViewBinding()
         setContentView(_binding.root)
-//        setStatusColor()
-//        setSystemInvadeBlack()
-//        val paint = Paint()
-//        val cm = ColorMatrix()
-//        cm.setSaturation(1f)
-//        paint.colorFilter = ColorMatrixColorFilter(cm)
-//        window.decorView.setLayerType(View.LAYER_TYPE_HARDWARE, paint)
-        //        SystemUtil.setNavigationBarColor(
-//                this, SPUtil.getInt(Constant.SYSTEM_NAVIGATION_COLOR, R.color.bg)
-//        );
     }
 
-    /**
-     * 设置状态栏背景颜色
-     */
-    protected open fun setStatusColor(color: Int = com.fanji.android.ui.R.color.line) {
-        StatusUtil.setUseStatusBarColor(this, color(color))
-    }
-
-    /**
-     * 沉浸式状态
-     */
-    protected open fun setSystemInvadeBlack() {
-        //第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
-        StatusUtil.setSystemStatus(this, true, true)
+    open fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return ViewModelProvider.NewInstanceFactory.instance.create(modelClass)
     }
 
     fun color(res: Int): Int {
@@ -79,19 +59,6 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     }
 
     /**
-     * 组件间对象传递
-     */
-    //protected <T> getIntent(Class<?> _class) {
-    //  String json = getIntent().getStringExtra(OBJECT);
-    //  if (TextUtils.isEmpty(json)) return null;
-    //  try {
-    //    return new Gson().fromJson(json, _class);
-    //  } catch (Exception e) {
-    //    LogUtil.e(e);
-    //  }
-    //  return null;
-    //}
-    /**
      * 网络状态监控
      * int NONE = -1;
      * int AVAILABLE = 1;
@@ -108,8 +75,6 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     open fun netState(@INetType netType: Int) {
         FJEvent.get().with(NetState.Companion.instance.NetType).post(netType)
         LogUtil.e("-------netState~netType:", netType)
-        //ZdSnackbar.make(findViewById(android.R.id.content), netType == -1 ? "网络已断开" : "网络已连接",
-        //    ZdSnackbar.LENGTH_LONG, ZdSnackbar.STYLE_SHOW_BOTTOM).show();
     }
 
     open fun push(

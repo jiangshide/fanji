@@ -6,7 +6,6 @@ import android.os.Handler
 import android.text.TextUtils
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.android.sanskrit.wxapi.LOGIN_WECHAT
 import com.android.sanskrit.wxapi.WXApiManager
 import com.fanji.android.MainActivity
@@ -44,7 +43,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), FJEditText.OnKeyboar
     private var code = ""
     private var adCode = "+86"
 
-    var user: UserVM? = null
+    var user: UserVM? = create(UserVM::class.java)
 
     private var positionData: PositionData? = null
     private var deviceData: DeviceData? = null
@@ -170,8 +169,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), FJEditText.OnKeyboar
     }
 
     private fun observers() {
-        user = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-            .create(UserVM::class.java)
         user?.validate?.observe(this, Observer {
             LogUtil.e("validate------>>>>>it", it)
             FJDialog.cancelDialog()

@@ -32,7 +32,7 @@ class SearchChannelFragment(
     private val listener: OnChannelListener? = null
 ) : BaseFragment<FragmentSearchChannelBinding>(), BaseVM.VMListener<MutableList<ChannelBlog>> {
 
-    var channel: ChannelVM? = null
+    var channel: ChannelVM? = create(ChannelVM::class.java)
     private var adapter: KAdapter<ChannelBlog>? = null
     override fun getViewBinding(
         inflater: LayoutInflater,
@@ -42,7 +42,6 @@ class SearchChannelFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        channel = ViewModelProvider.NewInstanceFactory.instance.create(ChannelVM::class.java)
         channel!!.channelUser.observe(viewLifecycleOwner, Observer {
             refreshFinish(it.isRefresh)
             if (it.code == HTTP_OK) {

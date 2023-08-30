@@ -1,8 +1,11 @@
 package com.fanji.android.home.fragment
 
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.fanji.android.databinding.FragmentFollowBinding
+import com.fanji.android.doc.PdfFragment
 import com.fanji.android.resource.base.BaseFragment
 
 /**
@@ -17,4 +20,11 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentFollowBinding.inflate(layoutInflater)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.docBtn.setOnClickListener {
+            push(PdfFragment())
+        }
+    }
 }

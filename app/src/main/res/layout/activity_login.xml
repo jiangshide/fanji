@@ -28,7 +28,7 @@
             android:layout_below="@+id/userIcon"
             android:layout_centerHorizontal="true"
             android:text="梵记"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="@dimen/normal"
             android:textStyle="bold" />
 
@@ -39,7 +39,7 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="30dp"
             android:text="记录你的美好生活"
-            android:textColor="@color/disable"
+            android:textColor="@color/black"
             android:textSize="@dimen/bigSuper"
             android:textStyle="bold" />
     </RelativeLayout>
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="手机号登录"
-                android:textColor="@color/fontLight"
+                android:textColor="@color/blackLight"
                 android:textSize="@dimen/big"
                 android:textStyle="bold" />
         </LinearLayout>

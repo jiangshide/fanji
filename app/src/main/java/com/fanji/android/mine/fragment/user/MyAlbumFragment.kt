@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentMyAlbumBinding
@@ -34,7 +33,7 @@ class MyAlbumFragment(private val uid: Long? = Resource.uid) :
     BaseVM.VMListener<MutableList<Feed>> {
 
     private var adapter: KAdapter<Feed>? = null
-    private var feed: FeedVM? = null
+    private var feed: FeedVM? = create(FeedVM::class.java)
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -43,8 +42,6 @@ class MyAlbumFragment(private val uid: Long? = Resource.uid) :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        feed = ViewModelProvider.NewInstanceFactory.instance.create(FeedVM::class.java)
-
         val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         adapter =
             binding.albumRecycleView.create(

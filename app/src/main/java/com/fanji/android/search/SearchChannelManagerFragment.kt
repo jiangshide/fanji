@@ -24,7 +24,7 @@ import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 class SearchChannelManagerFragment(private val listener: OnChannelListener? = null) :
     BaseFragment<FragmentSearchChannelManagerBinding>() {
 
-    var channel: ChannelVM? = null
+    var channel: ChannelVM? = create(ChannelVM::class.java)
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -33,8 +33,6 @@ class SearchChannelManagerFragment(private val listener: OnChannelListener? = nu
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        channel = ViewModelProvider.NewInstanceFactory.instance.create(ChannelVM::class.java)
-
         binding.publishSearchChannelListEdit.setListener { s, input ->
 
         }

@@ -12,6 +12,8 @@ import androidx.annotation.AnimRes
 import androidx.annotation.AnimatorRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.fanji.android.net.state.NetState
 import com.fanji.android.resource.R
@@ -42,6 +44,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
 
     private lateinit var _binding: T
     protected val binding get() = _binding
+    protected abstract fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): T
 
     private var topView: FJTopView? = null
     private var refresh: FJRefresh? = null
@@ -70,6 +73,10 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         retainInstance = true
     }
 
+    open fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return ViewModelProvider.NewInstanceFactory.instance.create(modelClass)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -78,8 +85,6 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         _binding = getViewBinding(inflater, container)
         return _binding.root
     }
-
-    protected abstract fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): T
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

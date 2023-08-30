@@ -43,7 +43,7 @@ android {
 
         resConfig("zh")
         ndk{
-            abiFilters += listOf("armeabi","armeabi-v7a","arm64-v8a")
+            abiFilters += listOf("x86","armeabi","armeabi-v7a","arm64-v8a")
         }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

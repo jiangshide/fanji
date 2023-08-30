@@ -3,7 +3,6 @@ package com.fanji.android
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.fanji.android.channel.ChannelFragment
 import com.fanji.android.databinding.ActivityMainBinding
@@ -38,7 +37,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
     OnTabItemSelectedListener, OnCompressListener, PublishTask.PublishTaskListener {
     override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
 
-    private var publishVM: PublishVM? = null
+    private var publishVM: PublishVM? = create(PublishVM::class.java)
 
     private lateinit var tabController: NavigationController
 
@@ -48,7 +47,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        publishVM = ViewModelProvider.NewInstanceFactory.instance.create(PublishVM::class.java)
         user = Resource.user
         specialTabRound =
             binding.mainTab.newRoundItem(

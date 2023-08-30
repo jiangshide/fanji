@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentSearchUserBinding
@@ -32,7 +31,7 @@ import com.fanji.android.ui.refresh.api.RefreshLayout
 class SearchUserFragment(private val users: MutableList<User>? = null) :
     BaseFragment<FragmentSearchUserBinding>() {
 
-    var user: UserVM? = null
+    var user: UserVM? = create(UserVM::class.java)
     private var adapter: KAdapter<User>? = null
     private var selectedAdapter: KAdapter<User>? = null
     override fun getViewBinding(
@@ -43,7 +42,6 @@ class SearchUserFragment(private val users: MutableList<User>? = null) :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        user = ViewModelProvider.NewInstanceFactory.instance.create(UserVM::class.java)
 
         binding.usesEdit.setListener { s, input ->
             if (TextUtils.isEmpty(input)) {

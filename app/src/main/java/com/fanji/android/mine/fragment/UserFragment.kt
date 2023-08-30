@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.fanji.android.databinding.FragmentUserBinding
 import com.fanji.android.img.FJImg
 import com.fanji.android.mine.MENU
@@ -33,7 +32,7 @@ import com.google.android.material.appbar.AppBarLayout
 class UserFragment(private val id: Long? = Resource.uid) : BaseFragment<FragmentUserBinding>(),
     AppBarLayout.OnOffsetChangedListener {
 
-    private var user: UserVM? = null
+    private var user: UserVM? = create(UserVM::class.java)
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -42,7 +41,6 @@ class UserFragment(private val id: Long? = Resource.uid) : BaseFragment<Fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        user = ViewModelProvider.NewInstanceFactory.instance.create(UserVM::class.java)
         binding.userViewPager.adapter = binding.userViewPager.create(childFragmentManager)
             .setTitles(
                 "动态", "相册", "频道", "乐听", "乐视", "乐读"
