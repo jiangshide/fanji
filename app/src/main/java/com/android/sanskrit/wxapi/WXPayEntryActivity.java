@@ -15,7 +15,8 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
-public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEventHandler {
+public class
+WXPayEntryActivity extends AppCompatActivity implements IWXAPIEventHandler {
 
     private IWXAPI api;
 

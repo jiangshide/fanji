@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="15dp"
+    android:paddingTop="15dp"
+    android:paddingRight="15dp"
+    android:gravity="center_vertical"
+    android:paddingBottom="10dp"
+    android:background="@mipmap/array_bg"
+    >
+
+    <ImageView
+        android:id="@+id/imgSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding"
+        android:background="@drawable/white_round"
+        android:padding="5dp"
+        android:tag="imgSmall"
+        android:src="@mipmap/text_small" />
+
+    <ImageView
+        android:id="@+id/imgMiddle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding"
+        android:background="@drawable/rectangle_frame_text"
+        android:padding="5dp"
+        android:tag="imgMiddle"
+        android:src="@mipmap/text_middle" />
+
+    <ImageView
+        android:id="@+id/imgBig"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding"
+        android:background="@drawable/rectangle_frame_text"
+        android:padding="5dp"
+        android:tag="imgBig"
+        android:src="@mipmap/text_big" />
+
+    <ImageView
+        android:id="@+id/redColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding"
+        android:tag="redColor"
+        android:src="@drawable/rectangle_frame_red"
+        />
+
+    <ImageView
+        android:id="@+id/blueColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding"
+        android:tag="blueColor"
+        android:src="@drawable/rectangle_blue"
+        />
+
+    <ImageView
+        android:id="@+id/greenColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding"
+        android:tag="greenColor"
+        android:src="@drawable/rectangle_green"
+        />
+
+    <ImageView
+        android:id="@+id/yellowColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding"
+        android:tag="yellowColor"
+        android:src="@drawable/rectangle_yellow"
+        />
+
+    <ImageView
+        android:id="@+id/pinkColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding"
+        android:tag="pinkColor"
+        android:src="@drawable/rectangle_pink"
+        />
+
+    <ImageView
+        android:id="@+id/whiteColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding"
+        android:tag="whiteColor"
+        android:src="@drawable/rectangle_white"
+        />
+</LinearLayout>

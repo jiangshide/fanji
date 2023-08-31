@@ -25,6 +25,9 @@ include(":thread")
 include(":play")
 include(":cache")
 include(":third")
+include(":behavior")
+
+include(":screenshort")
 
 //platform start
 project(":util").projectDir = File("platform/util")
@@ -37,4 +40,9 @@ project(":ui").projectDir = File("platform/ui")
 project(":thread").projectDir = File("platform/thread")
 project(":third").projectDir = File("platform/third")
 
+project(":behavior").projectDir = File("platform/behavior")
+project(":screenshort").projectDir = File("platform/screenshort")
+
+
 //platform end
+
