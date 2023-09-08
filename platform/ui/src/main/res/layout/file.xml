@@ -8,7 +8,7 @@
     android:id="@+id/fileL"
   android:orientation="vertical">
 
-  <com.fanji.android.widget.FJEditText
+  <com.fanji.android.ui.FJEditText
     android:id="@+id/fileSearchEdit"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -23,19 +23,19 @@
     android:visibility="gone"
     app:normal_colors="#f7f7f7" />
 
-  <com.fanji.android.widget.FJRecycleView
+  <com.fanji.android.ui.FJRecycleView
     android:id="@+id/dirRecycleView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@+id/fileSearchEdit"
     />
 
-  <com.fanji.android.widget.FJRecycleView
+  <com.fanji.android.ui.FJRecycleView
     android:layout_below="@+id/dirRecycleView"
     android:id="@+id/fileRecycleView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
-  <com.fanji.android.widget.FJButton
+  <com.fanji.android.ui.FJButton
     android:id="@+id/fileFloatBtn"
     android:layout_width="@dimen/head"
     android:layout_height="@dimen/head"

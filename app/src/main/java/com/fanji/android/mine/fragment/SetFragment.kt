@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentSetBinding
 import com.fanji.android.mine.MENU
+import com.fanji.android.mine.fragment.set.AboutFragment
 import com.fanji.android.mine.fragment.set.ShowSetFragment
 import com.fanji.android.resource.Resource
 import com.fanji.android.resource.base.BaseFragment
@@ -36,20 +37,22 @@ class SetFragment : BaseFragment<FragmentSetBinding>() {
             FJEvent.get().with(MENU).post(0)
         }
         binding.commonHead.topTitle.text = "设置"
+        val list = resources.getStringArray(R.array.settings).toMutableList()
         setLeft(this)
-        val list = arrayListOf<String>(
-            "回忆箱",
-            "收藏夹",
-            "频道管理",
-            "私聊设置",
-            "黑名单管理",
-            "显示设置",
-            "给点评分",
-            "缓存管理",
-            "消息通知",
-            "关于我们",
-            "退出登录"
-        )
+//        val list = arrayListOf<String>(
+//            "回收站",
+//            "收藏夹",
+//            "频道管理",
+//            "私聊设置",
+//            "黑名单管理",
+//            "显示设置",
+//            "给点评分",
+//            "缓存管理",
+//            "消息通知",
+//            "关于我们",
+//            "退出登录"
+//        )
+
 
         binding.mineSetRecycleView.create(list, R.layout.mine_set_fragment_item, {
             val mineSetItemName = this.findViewById<TextView>(R.id.mineSetItemName)
@@ -57,15 +60,47 @@ class SetFragment : BaseFragment<FragmentSetBinding>() {
         }, {
             LogUtil.e(this)
             when (this) {
-                "显示设置" -> {
+                getString(R.string.recycle) -> {
                     push(ShowSetFragment())
                 }
 
-                "关于我们" -> {
-
+                getString(R.string.favorites) -> {
+                    push(ShowSetFragment())
                 }
 
-                "退出登录" -> {
+                getString(R.string.channel) -> {
+                    push(ShowSetFragment())
+                }
+
+                getString(R.string.private_chat) -> {
+                    push(ShowSetFragment())
+                }
+
+                getString(R.string.blacklist) -> {
+                    push(ShowSetFragment())
+                }
+
+                getString(R.string.display) -> {
+                    push(ShowSetFragment())
+                }
+
+                getString(R.string.comment) -> {
+                    push(ShowSetFragment())
+                }
+
+                getString(R.string.cache) -> {
+                    push(ShowSetFragment())
+                }
+
+                getString(R.string.notify) -> {
+                    push(ShowSetFragment())
+                }
+
+                getString(R.string.about) -> {
+                    push(AboutFragment())
+                }
+
+                getString(R.string.exit) -> {
                     SPUtil.clear(Resource.USER)
 
                 }

@@ -41,7 +41,7 @@
                 android:textStyle="bold" />
         </androidx.core.widget.NestedScrollView>
 
-        <com.fanji.widget.FJEditText
+        <com.fanji.android.ui.FJEditText
             android:id="@+id/dialogEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.fanji.widget.FJButton
+            <com.fanji.android.ui.FJButton
                 android:id="@+id/dialogLeft"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/line" />
 
-            <com.fanji.widget.FJButton
+            <com.fanji.android.ui.FJButton
                 android:id="@+id/dialogRight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

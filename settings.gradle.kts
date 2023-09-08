@@ -40,6 +40,9 @@ project(":ui").projectDir = File("platform/ui")
 project(":thread").projectDir = File("platform/thread")
 project(":third").projectDir = File("platform/third")
 
+include(":files")
+project(":files").projectDir = File("platform/files")
+
 project(":behavior").projectDir = File("platform/behavior")
 project(":screenshort").projectDir = File("platform/screenshort")
 
@@ -49,5 +52,3 @@ project(":screenshort").projectDir = File("platform/screenshort")
 include(":umeng")
 project(":umeng").projectDir = File("third/umeng")
 //the third end
-
-

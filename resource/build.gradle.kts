@@ -14,22 +14,10 @@ android {
     defaultConfig {
         minSdk = 24
 
-        resValue("string", "AMAP_KEY", "\"${providers.gradleProperty("AMAP_KEY").get()}\"")
         buildConfigField(
             "String",
             "WECHAT_APPID",
             "\"${providers.gradleProperty("WECHAT_APPID").get()}\""
-        )
-        buildConfigField(
-            "String",
-            "WECHAT_APPSECRET",
-            "\"${providers.gradleProperty("WECHAT_APPSECRET").get()}\""
-        )
-
-        buildConfigField(
-            "String",
-            "FUNCTION_INTRODUCE",
-            "\"${providers.gradleProperty("FUNCTION_INTRODUCE").get()}\""
         )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -78,6 +66,7 @@ dependencies {
 
     api(project(":ui"))
     api(project(":play"))
+//    api(project(":files"))
     api("com.tencent.mm.opensdk:wechat-sdk-android:+")
 
     api("com.amap.api:location:latest.integration")

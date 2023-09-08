@@ -86,8 +86,15 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         return _binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    open fun openUrl(url: String?) {
+        openUrl(url, "web")
+    }
+
+    open fun openUrl(
+        url: String?,
+        title: String?
+    ) {
+        WebActivity.openUrl(requireContext(),title,url)
     }
 
     fun view(

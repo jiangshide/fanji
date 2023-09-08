@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-    <com.fanji.widget.FJLoading
+    <com.fanji.android.ui.FJLoading
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_gravity="center"

@@ -5,6 +5,42 @@ plugins {
 
 android {
 
+    signingConfigs {
+        create("sign"){
+            storeFile = file("$rootDir/${providers.gradleProperty("STORE_FILE").get()}")
+            storePassword = providers.gradleProperty("STORE_PSW").get()
+            keyAlias = providers.gradleProperty("KEY_ALIAS").get()
+            keyPassword = providers.gradleProperty("KEY_PSW").get()
+            enableV1Signing = true
+            enableV2Signing = true
+        }
+        getByName("debug"){
+            storeFile = file("$rootDir/${providers.gradleProperty("STORE_FILE").get()}")
+            storePassword = providers.gradleProperty("STORE_PSW").get()
+            keyAlias = providers.gradleProperty("KEY_ALIAS").get()
+            keyPassword = providers.gradleProperty("KEY_PSW").get()
+            enableV1Signing = true
+            enableV2Signing = true
+        }
+//        sign {
+//            storeFile file("$rootDir/$STORE_FILE")
+//            storePassword STORE_PSW
+//                    keyAlias = KEY_ALIAS
+//            keyPassword KEY_PSW
+//
+//                    v1SigningEnabled = true
+//            v2SigningEnabled = true
+//        }
+//        debug {
+//            storeFile file("$rootDir/$STORE_FILE")
+//            storePassword STORE_PSW
+//                    keyAlias = KEY_ALIAS
+//            keyPassword KEY_PSW
+//                    v1SigningEnabled = true
+//            v2SigningEnabled = true
+//        }
+    }
+
     namespace = "com.fanji.android"
     compileSdk = 33
 
@@ -39,10 +75,21 @@ android {
         versionName = "1.0"
 
         multiDexEnabled = providers.gradleProperty("MULTIDEXENABLED").get().toBoolean()
-//        signingConfig = signingConfigs.getByName("sign")
+        signingConfig = signingConfigs.getByName("sign")
 
         resConfig("zh")
+        resValue("string", "AMAP_KEY", "\"${providers.gradleProperty("AMAP_KEY").get()}\"")
+        buildConfigField(
+            "String",
+            "WECHAT_APPSECRET",
+            "\"${providers.gradleProperty("WECHAT_APPSECRET").get()}\""
+        )
 
+        buildConfigField(
+            "String",
+            "FUNCTION_INTRODUCE",
+            "\"${providers.gradleProperty("FUNCTION_INTRODUCE").get()}\""
+        )
         buildConfigField(
             "String",
             "USE_AGREEMENT",
@@ -57,6 +104,13 @@ android {
         ndk{
             abiFilters += listOf("x86","armeabi","armeabi-v7a","arm64-v8a")
         }
+
+        packagingOptions {
+            doNotStrip("*/armeabi-v7a/*.so")
+            doNotStrip("*/arm64-v8a/*.so")
+            doNotStrip("armeabi.so")
+        }
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -90,9 +144,9 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = true
+            isMinifyEnabled = providers.gradleProperty("IS_MINIFY_ENABLED").get().toBoolean()
 //            isZipAlignEnabled = true
-//            isShrinkResources = true
+            isShrinkResources = providers.gradleProperty("IS_SHRINK_RESOURCES").get().toBoolean()
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -102,7 +156,6 @@ android {
 
     buildFeatures {
         buildConfig = true
-
         viewBinding = true
 //        // Determines whether to generate a BuildConfig class.
 //        buildConfig = true
@@ -160,6 +213,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation(project(":resource"))
+    implementation(project(":files"))
 
     // 版本号带有 @aar 形式的依赖比较特殊，需要按如下方法写
 //    api(bizLibs.***.library) {

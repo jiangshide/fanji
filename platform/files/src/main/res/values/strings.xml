@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">files</string>
+
+    <string name="all_photos">All Photos</string>
+    <string name="all_audios">All Audios</string>
+    <string name="all_videos">All Videos</string>
+    <string name="all_files">All Files</string>
+
+    <array name="files">
+        <item>照片</item>
+        <item>视频</item>
+        <item>音乐</item>
+        <item>文件</item>
+        <item>压缩包</item>
+    </array>
+</resources>
