@@ -20,8 +20,8 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+                <data android:scheme="um.64f676418efadc41dcd47426" />
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />

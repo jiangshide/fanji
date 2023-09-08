@@ -43,6 +43,11 @@ project(":third").projectDir = File("platform/third")
 project(":behavior").projectDir = File("platform/behavior")
 project(":screenshort").projectDir = File("platform/screenshort")
 
-
 //platform end
+
+//the third start
+include(":umeng")
+project(":umeng").projectDir = File("third/umeng")
+//the third end
+
 

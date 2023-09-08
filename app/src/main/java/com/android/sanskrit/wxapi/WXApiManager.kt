@@ -1,5 +1,10 @@
 package com.android.sanskrit.wxapi
 
+//import com.android.resource.BuildConfig
+//import com.android.resource.Resource
+//import com.android.resource.vm.user.data.Order
+//import com.android.utils.ImgUtil
+//import com.android.utils.LogUtil
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -8,13 +13,14 @@ import com.fanji.android.resource.Resource
 import com.fanji.android.resource.vm.user.data.Order
 import com.fanji.android.util.ImgUtil
 import com.fanji.android.util.LogUtil
-//import com.android.resource.BuildConfig
-//import com.android.resource.Resource
-//import com.android.resource.vm.user.data.Order
-//import com.android.utils.ImgUtil
-//import com.android.utils.LogUtil
-import com.tencent.mm.opensdk.modelmsg.*
+import com.tencent.mm.opensdk.modelmsg.SendAuth
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX.Req
+import com.tencent.mm.opensdk.modelmsg.WXImageObject
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage
+import com.tencent.mm.opensdk.modelmsg.WXMusicObject
+import com.tencent.mm.opensdk.modelmsg.WXTextObject
+import com.tencent.mm.opensdk.modelmsg.WXVideoObject
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler
@@ -42,7 +48,7 @@ class WXApiManager {
             req.scope = "snsapi_userinfo"
             req.state = "sanskrit_login"
             val reqRet = api!!.sendReq(req)
-            LogUtil.e("sendLoginRequest------>>>>>req:",req," | reqRet:"+reqRet)
+            LogUtil.e("sendLoginRequest------>>>>>req:", req, " | reqRet:" + reqRet)
         }
 
         fun isWxInstall(): Boolean {
@@ -54,7 +60,7 @@ class WXApiManager {
             iwxapiEventHandler: IWXAPIEventHandler
         ) {
             api?.handleIntent(intent, iwxapiEventHandler)
-            LogUtil.e("handlerIntent------>>>>>intent:",intent)
+            LogUtil.e("handlerIntent------>>>>>intent:", intent)
         }
 
         fun pay(order: Order) {

@@ -2,6 +2,7 @@ package com.fanji.android.resource.base
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -20,16 +21,23 @@ import com.fanji.android.resource.databinding.WebViewBinding
  */
 open class WebActivity : BaseActivity<WebViewBinding>() {
 
-    override fun getViewBinding() = WebViewBinding.inflate(layoutInflater)
+    companion object {
+        private var mTitle: String? = null
+        private var mUrl: String? = null
+        fun openUrl(context: Context, title: String?, url: String?) {
+            mTitle = title
+            mUrl = url
+            context.startActivity(Intent(context, WebActivity::class.java))
+        }
+    }
 
+    override fun getViewBinding() = WebViewBinding.inflate(layoutInflater)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.webViewTopBack.setOnClickListener {
             finish()
         }
-        var title = intent.getStringExtra("title")
-        binding.webViewTopTitle.text = title
-        val url = intent.getStringExtra("url")
+        binding.webViewTopTitle.text = mTitle
         initWebSet(this, binding.bridgeWebView)
         binding.bridgeWebView.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
@@ -47,7 +55,7 @@ open class WebActivity : BaseActivity<WebViewBinding>() {
             title = binding.bridgeWebView.title
             binding.webViewTopTitle.text = title
         }
-        binding.bridgeWebView.loadUrl(url!!)
+        binding.bridgeWebView.loadUrl(mUrl!!)
     }
 
     @SuppressLint("SetJavaScriptEnabled")

@@ -32,7 +32,7 @@ android {
 //    }
 
     defaultConfig {
-        applicationId = "com.fanji.android"
+        applicationId = providers.gradleProperty("APPLICATION_ID").get()
         minSdk = 24
         targetSdk = 33
         versionCode = 1
@@ -42,6 +42,18 @@ android {
 //        signingConfig = signingConfigs.getByName("sign")
 
         resConfig("zh")
+
+        buildConfigField(
+            "String",
+            "USE_AGREEMENT",
+            "\"${providers.gradleProperty("USE_AGREEMENT").get()}\""
+        )
+        buildConfigField(
+            "String",
+            "PRIVACY_AGREEMENT",
+            "\"${providers.gradleProperty("PRIVACY_AGREEMENT").get()}\""
+        )
+
         ndk{
             abiFilters += listOf("x86","armeabi","armeabi-v7a","arm64-v8a")
         }

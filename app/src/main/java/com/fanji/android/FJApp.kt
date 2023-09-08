@@ -5,6 +5,7 @@ import android.app.Application.ActivityLifecycleCallbacks
 import android.os.Bundle
 import com.fanji.android.resource.base.BaseApplication
 import com.fanji.android.util.LogUtil
+import com.umeng.commonsdk.UMConfigure
 
 /**
  * @Author:jiangshide
@@ -16,6 +17,7 @@ class FJApp : BaseApplication(), ActivityLifecycleCallbacks {
 
     override fun onCreate() {
         super.onCreate()
+        UMConfigure.preInit(this,"64f676418efadc41dcd47426","Umeng")//todo the temp
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {

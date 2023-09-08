@@ -28,16 +28,6 @@ android {
 
         buildConfigField(
             "String",
-            "USE_AGREEMENT",
-            "\"${providers.gradleProperty("USE_AGREEMENT").get()}\""
-        )
-        buildConfigField(
-            "String",
-            "PRIVACY_AGREEMENT",
-            "\"${providers.gradleProperty("PRIVACY_AGREEMENT").get()}\""
-        )
-        buildConfigField(
-            "String",
             "FUNCTION_INTRODUCE",
             "\"${providers.gradleProperty("FUNCTION_INTRODUCE").get()}\""
         )
@@ -95,4 +85,5 @@ dependencies {
 //    api("com.amap.api:3dmap:latest.integration")
 
     api(project(":third"))
+    api(project(":umeng"))
 }

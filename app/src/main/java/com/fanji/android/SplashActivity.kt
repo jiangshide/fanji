@@ -8,6 +8,7 @@ import com.fanji.android.login.LoginActivity
 import com.fanji.android.resource.Resource
 import com.fanji.android.ui.permission.FJPermission
 import com.fanji.android.ui.permission.OnPermissionCallback
+import com.umeng.commonsdk.UMConfigure
 
 class SplashActivity : AppCompatActivity(), OnPermissionCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,10 +32,12 @@ class SplashActivity : AppCompatActivity(), OnPermissionCallback {
 
     override fun onGranted(permissions: List<String?>?, all: Boolean) {
         if (Resource.user == null) {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
         } else {
             startActivity(Intent(this, MainActivity::class.java))
         }
         finish()
     }
 }
+
+const val HUAEI_ADS_PROTOCOL = "huaweiAdsProtocol"

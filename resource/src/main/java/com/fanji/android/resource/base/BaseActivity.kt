@@ -1,6 +1,5 @@
 package com.fanji.android.resource.base
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.AnimRes
 import androidx.annotation.AnimatorRes
@@ -50,12 +49,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
         url: String?,
         title: String?
     ) {
-        val bundle = Bundle()
-        bundle.putString("title", title)
-        bundle.putString("url", url)
-        val intent = Intent(this, WebActivity::class.java)
-        intent.putExtras(bundle)
-        startActivity(intent)
+        WebActivity.openUrl(this,title,url)
     }
 
     /**

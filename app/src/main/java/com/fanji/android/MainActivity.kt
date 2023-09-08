@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
 import com.fanji.android.channel.ChannelFragment
 import com.fanji.android.databinding.ActivityMainBinding
+import com.fanji.android.dialog.Protocol
 import com.fanji.android.home.HomeFragment
 import com.fanji.android.message.MessageFragment
 import com.fanji.android.mine.MineFragment
@@ -31,6 +32,7 @@ import com.fanji.android.util.LogUtil
 import com.fanji.android.util.SPUtil
 import com.fanji.android.util.data.FileData
 import com.fanji.android.util.data.OnCompressListener
+import com.umeng.commonsdk.UMConfigure
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChangeListener,
     View.OnClickListener,
@@ -47,6 +49,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        UMConfigure.init(this,"64f676418efadc41dcd47426","fanji", UMConfigure.DEVICE_TYPE_PHONE,"")//todo the temp
         user = Resource.user
         specialTabRound =
             binding.mainTab.newRoundItem(
@@ -152,6 +155,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
 //                LogUtil.e("------------webSocket~e:$e")
 //            }
 //        }
+        Protocol.protocolDialog(this)
     }
 
     override fun push(fragment: BaseFragment<*>, bundle: Bundle?, enter: Int, exit: Int) {
