@@ -5,10 +5,9 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -19,9 +18,9 @@ import androidx.annotation.Nullable;
  */
 public class FJTipsView extends LinearLayout {
 
-    private LinearLayout tipsL;
-    private FrameLayout tipsLoadingL;
-    private ProgressBar tipsLoading;
+    private RelativeLayout tipsL;
+    private FJLoading tipsLoading;
+    private LinearLayout tipsFalseL;
     private ImageView tipsImg;
     private TextView tipsDes;
     private FJButton tipsRetry;
@@ -45,8 +44,8 @@ public class FJTipsView extends LinearLayout {
     private void init() {
         View view = getView(R.layout.default_tips);
         tipsL = view.findViewById(R.id.tipsL);
-        tipsLoadingL = view.findViewById(R.id.tipsLoadingL);
         tipsLoading = view.findViewById(R.id.tipsLoading);
+        tipsFalseL = view.findViewById(R.id.tipsFalseL);
         tipsImg = view.findViewById(R.id.tipsImg);
         tipsDes = view.findViewById(R.id.tipsDes);
         tipsRetry = view.findViewById(R.id.tipsRetry);
@@ -66,10 +65,6 @@ public class FJTipsView extends LinearLayout {
         if (tipsL != null) {
             tipsL.setVisibility(visibility ? View.VISIBLE : View.GONE);
         }
-    }
-
-    public LinearLayout getRoot() {
-        return tipsL;
     }
 
     public FJTipsView setTipsImg(int res) {
@@ -118,30 +113,10 @@ public class FJTipsView extends LinearLayout {
         return this;
     }
 
-    public FJTipsView hidden() {
-        return setStatus(false, false, false, false, false);
-    }
-
-    public FJTipsView loading() {
-        return setStatus(true, true, false, false, false);
-    }
-
-    public FJTipsView noData() {
-        return setStatus(true, false, true, true, false);
-    }
-
-    public FJTipsView noNet() {
-        return setStatus(true, false, true, true, true);
-    }
-
-    public FJTipsView setStatus(boolean isTipsL, boolean isTipsLoadingL, boolean isTipsImg,
-                                boolean isTipsDes,
-                                boolean isTipsRetry) {
+    public FJTipsView setStatus(boolean isTipsL, boolean isTipsLoadingL, boolean isTipsFalseL) {
         tipsL.setVisibility(isTipsL ? View.VISIBLE : View.GONE);
-        tipsLoadingL.setVisibility(isTipsLoadingL ? View.VISIBLE : View.GONE);
-        tipsImg.setVisibility(isTipsImg ? View.VISIBLE : View.GONE);
-        tipsDes.setVisibility(isTipsDes ? View.VISIBLE : View.GONE);
-        tipsRetry.setVisibility(isTipsRetry ? View.VISIBLE : View.GONE);
+        tipsLoading.setVisibility(isTipsLoadingL ? View.VISIBLE : View.GONE);
+        tipsFalseL.setVisibility(isTipsFalseL ? View.VISIBLE : View.GONE);
         return this;
     }
 

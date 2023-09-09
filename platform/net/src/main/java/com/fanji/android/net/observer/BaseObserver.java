@@ -57,6 +57,5 @@ public class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onComplete() {
-
     }
 }

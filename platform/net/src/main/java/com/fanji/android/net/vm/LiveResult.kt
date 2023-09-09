@@ -17,7 +17,7 @@ class LiveResult<T>(
 
     companion object {
         fun <T> success(data: T, isRefresh: Boolean = false, page: Int = 0): LiveResult<T> {
-            return LiveResult(HTTP_OK, null, data, isRefresh, page+1)
+            return LiveResult(HTTP_OK, null, data, isRefresh, page + 1)
         }
 
         fun <T> error(

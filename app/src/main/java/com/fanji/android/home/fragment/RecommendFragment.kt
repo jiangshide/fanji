@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.fanji.android.databinding.FragmentRecommendBinding
 import com.fanji.android.resource.base.BaseFragment
+import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.ui.refresh.api.RefreshLayout
+import com.fanji.android.util.LogUtil
 
 /**
  * @Author:jiangshide
@@ -16,17 +19,37 @@ import com.fanji.android.ui.refresh.api.RefreshLayout
  */
 class RecommendFragment : BaseFragment<FragmentRecommendBinding>() {
 
+    private var feedVM: FeedVM? = create(FeedVM::class.java)
+
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentRecommendBinding.inflate(layoutInflater), isMore = true)
+    ) = initView(FragmentRecommendBinding.inflate(layoutInflater), isRefresh = true, isMore = true)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        feedVM!!.recommendBlog.observe(requireActivity(), Observer {
+            finishData()
+            LogUtil.e("----jsd----","-----it.msg:",it.msg," | code:",it.code," | data:",it.data)
+            if(it.msg != null){
+                tips(code = it.code)
+            }
+        })
+        feedVM!!.recommendBlog().loading(tipsView)
+    }
 
+    override fun onRetry(view: View?) {
+        super.onRetry(view)
+        feedVM!!.recommendBlog().loading(tipsView)
+    }
+
+    override fun onRefresh(refreshLayout: RefreshLayout) {
+        super.onRefresh(refreshLayout)
+        feedVM!!.recommendBlog()
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
         super.onLoadMore(refreshLayout)
+        feedVM!!.recommendBlog(isRefresh = false)
     }
 }

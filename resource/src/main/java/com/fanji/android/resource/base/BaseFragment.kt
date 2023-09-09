@@ -27,8 +27,6 @@ import com.fanji.android.ui.refresh.header.MaterialHeader
 import com.fanji.android.ui.refresh.listener.OnLoadMoreListener
 import com.fanji.android.ui.refresh.listener.OnRefreshListener
 import com.fanji.android.util.AppUtil
-import com.fanji.android.util.LogUtil
-import com.fanji.android.util.ScreenUtil
 import com.fanji.android.util.SystemUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -48,14 +46,12 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
     protected fun initView(
         t: T, isRefresh: Boolean = false,
         isMore: Boolean = false,
-        isTips: Boolean = false,
         bgColor: Int = com.fanji.android.ui.R.color.white,
         isTitle: Boolean = false,
         isTopPadding: Boolean = false
     ): T {
         this.mIsRefresh = isRefresh
         this.mIsMore = isMore
-        this.mIsTips = isTips
         this.mBgColor = bgColor
         this.mIsTitle = isTitle
         this.mIsTopPadding = isTopPadding
@@ -64,11 +60,10 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
 
     private var topView: FJTopView? = null
     private var refresh: FJRefresh? = null
-    private var tipsView: FJTipsView? = null
+    protected var tipsView: FJTipsView? = null
 
     protected var mIsRefresh = false
     private var mIsMore = false
-    private var mIsTips = false
     private var mBgColor = 0
     private var mIsTitle = false
     private var mIsTopPadding = false
@@ -101,7 +96,6 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
             _binding.root,
             mIsRefresh,
             mIsMore,
-            mIsTips,
             mBgColor,
             mIsTitle
         )
@@ -126,28 +120,24 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         view: View,
         isRefresh: Boolean,
         isMore: Boolean,
-        isTips: Boolean,
         bgColor: Int,
     ): View {
+        if (!isRefresh && !isMore) {
+            return view
+        }
         val frameLayout = FrameLayout(requireContext())
         if (bgColor != -1) {
             frameLayout.setBackgroundColor(color(bgColor))
         }
+        refresh = FJRefresh(context)
+        refresh?.setOnRefreshListener(this)?.setOnLoadMoreListener(this)
+            ?.setEnableRefresh(isRefresh)?.setEnableLoadMore(isMore)
+            ?.setRefreshHeader(MaterialHeader(activity))
+            ?.setRefreshFooter(ClassicsFooter(activity))
+        refresh?.addView(view)
+        frameLayout.addView(refresh)
         tipsView = FJTipsView(context)
-        if (isRefresh || isMore) {
-            refresh = FJRefresh(context)
-            refresh?.setOnRefreshListener(this)?.setOnLoadMoreListener(this)
-                ?.setEnableRefresh(isRefresh)?.setEnableLoadMore(isMore)
-                ?.setRefreshHeader(MaterialHeader(activity))
-                ?.setRefreshFooter(ClassicsFooter(activity))
-            refresh?.addView(view)
-            frameLayout.addView(refresh)
-        } else {
-            frameLayout.addView(view)
-        }
-        if (isTips) {
-            frameLayout.addView(tipsView)
-        }
+        frameLayout.addView(tipsView)
         return frameLayout
     }
 
@@ -155,14 +145,13 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         view: View,
         isRefresh: Boolean,
         isMore: Boolean,
-        isTips: Boolean,
         bgColor: Int = com.fanji.android.ui.R.color.white, isTitle: Boolean
     ): View {
-        if (!isRefresh && !isMore && !isTips && !isTitle) {
+        if (!isRefresh && !isMore && !isTitle) {
             return view
         }
         if (!isTitle) {
-            return view(view, isRefresh, isMore, isTips, bgColor)
+            return view(view, isRefresh, isMore, bgColor)
         }
         val root = LinearLayout(context)
         root?.isClickable = true
@@ -180,7 +169,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
             topView, LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
-        if (!isRefresh && !isMore && !isTips) {
+        if (!isRefresh && !isMore) {
             root.addView(
                 view, LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
@@ -188,7 +177,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
             return root
         }
         root.addView(
-            view(view, isRefresh, isMore, isTips, -1), LinearLayout.LayoutParams.MATCH_PARENT,
+            view(view, isRefresh, isMore, -1), LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.MATCH_PARENT
         )
         return root
@@ -296,24 +285,28 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
     }
 
     fun tips(
+        code: Int = 0,
         res: Int = R.mipmap.no_data,
         tips: String = "No Content!",
         onTipsListener: FJTipsView.OnRetryListener? = null
     ): BaseFragment<*> {
-        hiddenTips()
-        tipsView?.setTipsImg(res)?.setBtnTips(tips)
-            ?.setListener(if (onTipsListener !== null) onTipsListener else this)?.noNet()
+        var des = tips
+        if (code == -100) {
+            des = "Request Service Fail!"
+        }
+        tipsView?.setStatus(true, false, true)?.setTipsImg(res)?.setBtnTips(des)
+            ?.setListener(if (onTipsListener !== null) onTipsListener else this)
         return this
     }
 
     fun loading(): BaseFragment<*> {
-        tipsView?.loading()
+        tipsView?.setStatus(true, true, false)
         SystemUtil.hideKeyboard(activity)
         return this
     }
 
     fun hiddenTips() {
-        tipsView?.hidden()
+        tipsView?.setStatus(false, false, false)
     }
 
     fun viewImg(vararg urls: String?) {
@@ -372,6 +365,11 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
         mIsRefresh = false
+    }
+
+    fun finishData() {
+        refresh?.finishRefresh()
+        refresh?.finishLoadMore()
     }
 
     open fun netState(netType: Int) {

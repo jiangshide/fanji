@@ -17,10 +17,10 @@ import com.fanji.android.resource.vm.feed.data.Feed
 import com.fanji.android.resource.vm.feed.data.Format
 import com.fanji.android.resource.vm.feed.data.LrcLInfo
 import com.fanji.android.resource.vm.feed.data.Total
+import com.fanji.android.resource.vm.feed.remote.FeedRemote
 import com.fanji.android.resource.vm.user.data.User
 import com.fanji.android.util.LogUtil
 import com.fanji.android.util.ScreenUtil
-import com.fanji.android.resource.vm.feed.remote.FeedRemote
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
@@ -778,7 +778,7 @@ class FeedVM : BaseVM() {
         isRefresh: Boolean = true,
         page: Int = 0,
         pageSize: Int = 20
-    ) {
+    ): FeedVM {
         iBlog.recommendBlog(format, uid, page = page, pageSize = pageSize)
             .compose(CommonTransformer<Response<RespData<MutableList<Feed>>>, MutableList<Feed>>())
             .subscribeOn(Schedulers.io())
@@ -786,14 +786,17 @@ class FeedVM : BaseVM() {
             .subscribe(object : BaseObserver<MutableList<Feed>>() {
                 override fun onNext(t: MutableList<Feed>) {
                     super.onNext(t)
+                    finishLoading()
                     recommendBlog.postValue(LiveResult.success(t, isRefresh, page))
                 }
 
                 override fun onFail(e: NetException) {
                     super.onFail(e)
+                    finishLoading()
                     recommendBlog.postValue(LiveResult.error(e, isRefresh, page))
                 }
             })
+        return this
     }
 
     fun findBlog(

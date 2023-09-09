@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.fanji.android.net.Net;
 import com.fanji.android.net.vm.LiveResult;
+import com.fanji.android.ui.FJTipsView;
 import com.fanji.android.util.EncryptUtil;
 
 /**
@@ -16,9 +17,21 @@ import com.fanji.android.util.EncryptUtil;
 @Keep
 public class BaseVM extends ViewModel {
     protected Net net;
+    private FJTipsView mFjTipsView;
 
     public BaseVM() {
         if (null == net) net = Net.INSTANCE;
+    }
+
+    public void loading(FJTipsView fjTipsView) {
+        this.mFjTipsView = fjTipsView;
+        mFjTipsView.setStatus(true, true, false);
+    }
+
+    public void finishLoading() {
+        if (mFjTipsView != null) {
+            mFjTipsView.setStatus(false, false, false);
+        }
     }
 
     public static <T extends ViewModel> T of(FragmentActivity activity, Class<T> modelClass) {
