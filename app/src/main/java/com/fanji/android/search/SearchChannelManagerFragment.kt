@@ -5,10 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import com.fanji.android.R
 import com.fanji.android.databinding.FragmentSearchChannelManagerBinding
 import com.fanji.android.net.HTTP_OK
-import com.fanji.android.resource.R
 import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.vm.channel.ChannelVM
 import com.fanji.android.resource.vm.channel.data.ChannelBlog
@@ -25,7 +24,7 @@ class SearchChannelManagerFragment(private val listener: OnChannelListener? = nu
     BaseFragment<FragmentSearchChannelManagerBinding>() {
 
     var channel: ChannelVM? = create(ChannelVM::class.java)
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentSearchChannelManagerBinding.inflate(layoutInflater)

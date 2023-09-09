@@ -26,16 +26,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ViewPager.OnPageChange
         var currentIndex = 10
     }
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater)
+    ) = initView(FragmentHomeBinding.inflate(layoutInflater), isTopPadding = true)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.homeViewPager.adapter = binding.homeViewPager.create(childFragmentManager)
             .setTitles(
-                "关注", "推荐", "发现", "北京"
+                resources.getStringArray(R.array.home).toList()
             )
             .setFragment(
                 FollowFragment(),

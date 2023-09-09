@@ -13,8 +13,8 @@ import com.fanji.android.resource.base.BaseFragment
  */
 class PublishFragment : BaseFragment<FragmentPublishBinding>() {
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentPublishBinding.inflate(layoutInflater)
+    ) = initView(FragmentPublishBinding.inflate(layoutInflater), isTopPadding = true)
 }

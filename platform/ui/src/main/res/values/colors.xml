@@ -29,7 +29,7 @@
     <drawable name="alpha">#00000000</drawable>
 
     <!--app start-->
-    <color name="bg">@color/black</color>
+    <color name="bg">@color/alpha</color>
     <color name="font">@color/white</color>
     <color name="fontLight">@color/line</color>
     <color name="progressBar">@color/alpha</color>

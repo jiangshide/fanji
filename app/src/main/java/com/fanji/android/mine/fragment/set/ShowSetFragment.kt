@@ -17,7 +17,7 @@ import com.fanji.android.util.SPUtil
  */
 class ShowSetFragment : BaseFragment<FragmentShowSetBinding>() {
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentShowSetBinding.inflate(layoutInflater)

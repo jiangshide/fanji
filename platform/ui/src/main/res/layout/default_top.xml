@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/topBar"
     android:gravity="center_vertical"
+    android:background="@null"
     android:orientation="horizontal"
-    android:visibility="gone">
+    >
 
     <com.fanji.android.ui.FJButton
         android:id="@+id/topLeftBtn"
@@ -32,7 +33,7 @@
         android:layout_toRightOf="@+id/topLeftBtn"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="@dimen/content">
+        >
 
         <com.fanji.android.ui.FJTextView
             android:id="@+id/topTitle"

@@ -1,7 +1,6 @@
 package com.fanji.android.resource.base
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
-import com.fanji.android.net.state.NetState
 import com.fanji.android.resource.R
 import com.fanji.android.ui.FJTipsView
 import com.fanji.android.ui.FJTopView
@@ -29,7 +27,8 @@ import com.fanji.android.ui.refresh.header.MaterialHeader
 import com.fanji.android.ui.refresh.listener.OnLoadMoreListener
 import com.fanji.android.ui.refresh.listener.OnRefreshListener
 import com.fanji.android.util.AppUtil
-import com.fanji.android.util.FJEvent
+import com.fanji.android.util.LogUtil
+import com.fanji.android.util.ScreenUtil
 import com.fanji.android.util.SystemUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -44,17 +43,36 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
 
     private lateinit var _binding: T
     protected val binding get() = _binding
-    protected abstract fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): T
+    protected abstract fun viewBinding(inflater: LayoutInflater, container: ViewGroup?): T
+
+    protected fun initView(
+        t: T, isRefresh: Boolean = false,
+        isMore: Boolean = false,
+        isTips: Boolean = false,
+        bgColor: Int = com.fanji.android.ui.R.color.white,
+        isTitle: Boolean = false,
+        isTopPadding: Boolean = false
+    ): T {
+        this.mIsRefresh = isRefresh
+        this.mIsMore = isMore
+        this.mIsTips = isTips
+        this.mBgColor = bgColor
+        this.mIsTitle = isTitle
+        this.mIsTopPadding = isTopPadding
+        return t
+    }
 
     private var topView: FJTopView? = null
     private var refresh: FJRefresh? = null
     private var tipsView: FJTipsView? = null
 
-    private var hashMap: HashMap<String, Any>? = null
+    protected var mIsRefresh = false
+    private var mIsMore = false
+    private var mIsTips = false
+    private var mBgColor = 0
+    private var mIsTitle = false
+    private var mIsTopPadding = false
 
-    private val mShowTop = true
-
-    protected var isRefresh = false
     protected var page = 0
     protected var pageSize = 20
 
@@ -62,10 +80,6 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
     var config: TransferConfig? = null
 
     open val uiScope = CoroutineScope(Dispatchers.Main)
-
-    init {
-        hashMap = HashMap()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,8 +96,19 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = getViewBinding(inflater, container)
-        return _binding.root
+        _binding = viewBinding(inflater, container)
+        val root = view(
+            _binding.root,
+            mIsRefresh,
+            mIsMore,
+            mIsTips,
+            mBgColor,
+            mIsTitle
+        )
+        if (mIsTopPadding) {
+            root.setPadding(0, SystemUtil.getStatusBarHeight(), 0, 0)
+        }
+        return root
     }
 
     open fun openUrl(url: String?) {
@@ -94,34 +119,20 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         url: String?,
         title: String?
     ) {
-        WebActivity.openUrl(requireContext(),title,url)
-    }
-
-    fun view(
-        layout: Int,
-        isRefresh: Boolean = false,
-        isMore: Boolean = false,
-        isTips: Boolean = false
-    ): View {
-        FJEvent.get().with(NetState.instance.NetType, Int::class.java).observes(this, {
-            netState(it)
-        })
-        return view(
-            LayoutInflater.from(requireActivity()).inflate(layout, null),
-            isRefresh,
-            isMore,
-            isTips = isTips
-        )
+        WebActivity.openUrl(requireContext(), title, url)
     }
 
     fun view(
         view: View,
         isRefresh: Boolean,
         isMore: Boolean,
-        bgColor: Int = com.fanji.android.ui.R.color.white, isTips: Boolean = true
+        isTips: Boolean,
+        bgColor: Int,
     ): View {
         val frameLayout = FrameLayout(requireContext())
-        frameLayout.setBackgroundColor(color(bgColor))
+        if (bgColor != -1) {
+            frameLayout.setBackgroundColor(color(bgColor))
+        }
         tipsView = FJTipsView(context)
         if (isRefresh || isMore) {
             refresh = FJRefresh(context)
@@ -140,77 +151,46 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         return frameLayout
     }
 
-    fun setTitleView(
-        layout: Int, title: String = "", isRefresh: Boolean = false,
-        isMore: Boolean = false,
-        isTips: Boolean = true
+    fun view(
+        view: View,
+        isRefresh: Boolean,
+        isMore: Boolean,
+        isTips: Boolean,
+        bgColor: Int = com.fanji.android.ui.R.color.white, isTitle: Boolean
     ): View {
+        if (!isRefresh && !isMore && !isTips && !isTitle) {
+            return view
+        }
+        if (!isTitle) {
+            return view(view, isRefresh, isMore, isTips, bgColor)
+        }
         val root = LinearLayout(context)
         root?.isClickable = true
         root.layoutParams = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
-//        root.setBackgroundColor(color(R.color.white))
+//        root.setBackgroundColor(color(bgColor))
         root.orientation = LinearLayout.VERTICAL
-        if (topView == null) {
-            topView = FJTopView(context)
+        if (topView != null) {
+            root.removeView(topView)
         }
-        if (!TextUtils.isEmpty(title)) {
-            topView?.setTitle(title)
-        } else if (hashMap!!.contains("title")) {
-            topView?.setTitle(hashMap?.get("title"))
-        }
-        if (hashMap!!.containsKey("titleColor")) {
-            topView?.setTitleColor(hashMap!!["titleColor"] as Int)
-        }
-        if (hashMap!!.containsKey("topBgIcon")) {
-            topView?.setBg(hashMap!!["topBgIcon"] as Int)
-        }
-        if (hashMap!!.containsKey("titleGravity")) {
-            topView?.setTitleGravity(hashMap!!["titleGravity"] as Int)
-        }
-        if (hashMap!!.containsKey("smallTitle")) {
-            topView?.setSmallTitle(hashMap!!["smallTitle"])
-        }
-        if (hashMap!!.containsKey("smallTitleColor")) {
-            topView?.setSmallTitleColor(hashMap!!["smallTitleColor"] as Int)
-        }
-        if (hashMap!!.containsKey("left")) {
-            topView?.setLefts(hashMap!!["left"])
-        }
-        if (hashMap!!.containsKey("leftColor")) {
-            topView?.setLeftColor(hashMap!!["leftColor"] as Int)
-        }
-        if (hashMap!!.containsKey("right")) {
-            topView?.setRights(hashMap!!["right"])
-        }
-        if (hashMap!!.containsKey("rightColor")) {
-            topView?.setRightColor(hashMap!!["rightColor"] as Int)
-        }
-        topView?.setOnLeftClick(if (hashMap!!.containsKey("leftClick")) hashMap!!["leftClick"] as View.OnClickListener? else this)
-
-        if (hashMap!!.containsKey("rightClick")) {
-            topView?.setOnRightClick(hashMap!!["rightClick"] as View.OnClickListener?)
-        }
-        if (hashMap!!.containsKey("datas")) {
-            topView?.setDataList(hashMap!!["datas"] as List<String?>?)
-        }
-        if (hashMap!!.containsKey("itemClick")) {
-            topView?.setOnItemListener(hashMap!!["itemClick"] as OnItemClickListener?)
-        }
-        root.removeView(topView)
+        topView = FJTopView(context)
         root.addView(
             topView, LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
+        if (!isRefresh && !isMore && !isTips) {
+            root.addView(
+                view, LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
+            return root
+        }
         root.addView(
-            view(layout, isRefresh, isMore, isTips), LinearLayout.LayoutParams.MATCH_PARENT,
+            view(view, isRefresh, isMore, isTips, -1), LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.MATCH_PARENT
         )
-        if (mShowTop) {
-//            setTopBar(root)
-        }
         return root
     }
 
@@ -221,49 +201,41 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
 
     open fun setTopBgIcon(topBgIcon: Int): BaseFragment<*> {
         topView?.setBg(topBgIcon)
-        hashMap!!["topBgIcon"] = topBgIcon
         return this
     }
 
     open fun setTitleGravity(gravity: Int): BaseFragment<*>? {
         topView?.setTitleGravity(gravity)
-        hashMap!!["titleGravity"] = gravity
         return this
     }
 
     open fun setTitle(title: Any?): BaseFragment<*>? {
         topView?.setTitle(title)
-        hashMap!!["title"] = title!!
         return this
     }
 
     open fun setTitleColor(color: Int): BaseFragment<*>? {
         topView?.setTitleColor(color)
-        hashMap!!["titleColor"] = color
         return this
     }
 
     open fun setSmallTitle(smallTitle: Any?): BaseFragment<*>? {
         topView?.setSmallTitle(smallTitle)
-        hashMap!!["smallTitle"] = smallTitle!!
         return this
     }
 
     open fun setSmallTitleColor(smallTitleColor: Int): BaseFragment<*>? {
         topView?.setSmallTitleColor(smallTitleColor)
-        hashMap!!["smallTitleColor"] = smallTitleColor
         return this
     }
 
     open fun setLeft(any: Any): BaseFragment<*>? {
         topView?.setLefts(any)
-        hashMap!!["left"] = any
         return this
     }
 
     open fun setLeftColor(color: Int): BaseFragment<*>? {
         topView?.setLeftColor(color)
-        hashMap!!["leftColor"] = color
         return this
     }
 
@@ -273,19 +245,16 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
 
     open fun setLeftListener(listener: View.OnClickListener): BaseFragment<*> {
         topView?.setOnLeftClick(listener)
-        hashMap!!["leftClick"] = listener
         return this
     }
 
     open fun setRightListener(listener: View.OnClickListener): BaseFragment<*> {
         topView?.setOnRightClick(listener);
-        hashMap!!["rightClick"] = listener;
         return this
     }
 
     open fun setItemClickListener(listener: OnItemClickListener): BaseFragment<*> {
         topView?.setOnItemListener(listener);
-        hashMap!!["itemClick"] = listener;
         return this
     }
 
@@ -315,7 +284,6 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         if (topView != null) {
             topView?.setRights(`object`)
         } else {
-            hashMap!!["right"] = `object`!!
         }
         return this
     }
@@ -324,7 +292,6 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         if (topView != null) {
             topView?.setRightColor(color)
         }
-        hashMap!!["rightColor"] = color
         return this
     }
 
@@ -381,7 +348,6 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         topView = null
         refresh = null
         tipsView = null
-        hashMap?.clear()
     }
 
     fun color(res: Int): Int {
@@ -401,11 +367,11 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
-        isRefresh = true
+        mIsRefresh = true
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
-        isRefresh = false
+        mIsRefresh = false
     }
 
     open fun netState(netType: Int) {

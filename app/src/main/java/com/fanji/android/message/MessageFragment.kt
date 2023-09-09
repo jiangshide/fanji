@@ -1,6 +1,8 @@
 package com.fanji.android.message
 
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.fanji.android.databinding.FragmentMessageBinding
 import com.fanji.android.resource.base.BaseFragment
@@ -13,8 +15,12 @@ import com.fanji.android.resource.base.BaseFragment
  */
 class MessageFragment : BaseFragment<FragmentMessageBinding>() {
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentMessageBinding.inflate(layoutInflater)
+    ) = initView(FragmentMessageBinding.inflate(layoutInflater), isTopPadding = true)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
 }

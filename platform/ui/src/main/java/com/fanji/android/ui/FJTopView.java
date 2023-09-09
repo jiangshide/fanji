@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
-import com.fanji.android.util.FJEvent;
 import com.fanji.android.util.ScreenUtil;
 
 import java.util.List;
@@ -103,7 +102,7 @@ public class FJTopView extends LinearLayout implements View.OnClickListener {
         addView(LayoutInflater.from(getContext()).inflate(R.layout.default_top, null), ScreenUtil.getRtScreenWidth(getContext()),
                 (int) getContext().getResources().getDimension(R.dimen.topBar));
         topL = findViewById(R.id.topL);
-        topL.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.bg));
+//        topL.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.bg));
         topLeftBtn = findViewById(R.id.topLeftBtn);
         topTitleL = findViewById(R.id.topTitleL);
         topTitle = findViewById(R.id.topTitle);
@@ -277,9 +276,6 @@ public class FJTopView extends LinearLayout implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        FJEvent.Companion.get()
-                .with("flowMenus")
-                .post(true);
         int id = v.getId();
         if (id == R.id.topLeftBtn) {
             if (mOnLeftClickListener != null) {

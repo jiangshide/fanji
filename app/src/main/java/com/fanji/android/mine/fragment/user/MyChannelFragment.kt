@@ -13,7 +13,7 @@ import com.fanji.android.resource.base.BaseFragment
  */
 class MyChannelFragment : BaseFragment<FragmentMyChannelBinding>() {
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentMyChannelBinding.inflate(layoutInflater)

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.fanji.android.databinding.FragmentFollowBinding
 import com.fanji.android.doc.PdfFragment
 import com.fanji.android.resource.base.BaseFragment
+import com.fanji.android.ui.refresh.api.RefreshLayout
 
 /**
  * @Author:jiangshide
@@ -16,15 +17,19 @@ import com.fanji.android.resource.base.BaseFragment
  */
 class FollowFragment : BaseFragment<FragmentFollowBinding>() {
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentFollowBinding.inflate(layoutInflater)
+    ) = initView(FragmentFollowBinding.inflate(layoutInflater),true)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.docBtn.setOnClickListener {
             push(PdfFragment())
         }
+    }
+
+    override fun onRefresh(refreshLayout: RefreshLayout) {
+        super.onRefresh(refreshLayout)
     }
 }

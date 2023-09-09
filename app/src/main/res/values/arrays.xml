@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="home">
+        <item>关注</item>
+        <item>推荐</item>
+        <item>发现</item>
+        <item>北京</item>
+    </string-array>
+
+    <string-array name="hobby">
+        <item>运动</item>
+        <item>电影</item>
+        <item>画画</item>
+        <item>弹琴</item>
+        <item>唱歌</item>
+        <item>跳舞</item>
+        <item>看书</item>
+        <item>美食</item>
+        <item>摄影</item>
+        <item>旅游</item>
+        <item>汽车</item>
+        <item>模特</item>
+        <item>科技</item>
+    </string-array>
+
+    <string-array name="money">
+        <item>充值记录</item>
+        <item>消费记录</item>
+        <item>打赏记录</item>
+        <item>积分记录</item>
+    </string-array>
+
+    <string-array name="pay">
+        <item>微信</item>
+        <item>支付宝</item>
+        <item>QQ钱包</item>
+        <item>蚂蚁花贝</item>
+    </string-array>
+
+    <string-array name="settings">
+        <item>@string/recycle</item>
+        <item>@string/favorites</item>
+        <item>@string/channel</item>
+        <item>@string/private_chat</item>
+        <item>@string/blacklist</item>
+        <item>@string/display</item>
+        <item>@string/comment</item>
+        <item>@string/cache</item>
+        <item>@string/notify</item>
+        <item>@string/about</item>
+        <item>@string/exit</item>
+    </string-array>
+
+</resources>

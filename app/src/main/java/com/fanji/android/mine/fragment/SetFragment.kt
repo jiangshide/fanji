@@ -25,35 +25,20 @@ import com.fanji.android.util.SPUtil
  */
 class SetFragment : BaseFragment<FragmentSetBinding>() {
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentSetBinding.inflate(layoutInflater)
+    ) = initView(FragmentSetBinding.inflate(layoutInflater), isTitle = true, isTopPadding = true)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.commonHead.leftImg.setImageResource(com.fanji.android.resource.R.mipmap.unmenu)
-        binding.commonHead.leftImg.setOnClickListener {
+        setLeft(com.fanji.android.resource.R.mipmap.unmenu)
+        setLeftListener {
             FJEvent.get().with(MENU).post(0)
         }
-        binding.commonHead.topTitle.text = "设置"
+        setTitle(getString(R.string.setting))
         val list = resources.getStringArray(R.array.settings).toMutableList()
         setLeft(this)
-//        val list = arrayListOf<String>(
-//            "回收站",
-//            "收藏夹",
-//            "频道管理",
-//            "私聊设置",
-//            "黑名单管理",
-//            "显示设置",
-//            "给点评分",
-//            "缓存管理",
-//            "消息通知",
-//            "关于我们",
-//            "退出登录"
-//        )
-
-
         binding.mineSetRecycleView.create(list, R.layout.mine_set_fragment_item, {
             val mineSetItemName = this.findViewById<TextView>(R.id.mineSetItemName)
             mineSetItemName.text = it

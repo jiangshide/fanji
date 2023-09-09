@@ -34,7 +34,7 @@ class SearchChannelFragment(
 
     var channel: ChannelVM? = create(ChannelVM::class.java)
     private var adapter: KAdapter<ChannelBlog>? = null
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentSearchChannelBinding.inflate(layoutInflater)

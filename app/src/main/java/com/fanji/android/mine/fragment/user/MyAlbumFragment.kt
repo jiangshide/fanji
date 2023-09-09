@@ -34,7 +34,7 @@ class MyAlbumFragment(private val uid: Long? = Resource.uid) :
 
     private var adapter: KAdapter<Feed>? = null
     private var feed: FeedVM? = create(FeedVM::class.java)
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentMyAlbumBinding.inflate(layoutInflater)

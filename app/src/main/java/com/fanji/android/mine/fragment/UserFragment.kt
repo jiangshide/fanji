@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.fanji.android.R
 import com.fanji.android.databinding.FragmentUserBinding
 import com.fanji.android.img.FJImg
 import com.fanji.android.mine.MENU
@@ -33,7 +34,7 @@ class UserFragment(private val id: Long? = Resource.uid) : BaseFragment<Fragment
     AppBarLayout.OnOffsetChangedListener {
 
     private var user: UserVM? = create(UserVM::class.java)
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentUserBinding.inflate(layoutInflater)
@@ -87,7 +88,7 @@ class UserFragment(private val id: Long? = Resource.uid) : BaseFragment<Fragment
             binding.mineTopIcon,
             com.fanji.android.resource.R.mipmap.default_user
         )
-        val mark = getString(com.fanji.android.resource.R.string.mark)
+        val mark = getString(R.string.mark)
         binding.userL.userInvitationCode.text = "$mark:${user?.id}"
     }
 

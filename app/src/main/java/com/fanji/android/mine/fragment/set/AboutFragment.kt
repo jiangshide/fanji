@@ -21,7 +21,7 @@ import com.fanji.android.util.SystemUtil
  */
 class AboutFragment : BaseFragment<FragmentSetAboutBinding>() {
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentSetAboutBinding.inflate(layoutInflater)

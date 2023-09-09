@@ -13,7 +13,7 @@ import com.fanji.android.resource.base.BaseFragment
  */
 class VideoFragment : BaseFragment<FragmentVideoBinding>() {
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentVideoBinding.inflate(layoutInflater)

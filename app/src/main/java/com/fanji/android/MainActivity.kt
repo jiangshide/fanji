@@ -12,7 +12,6 @@ import com.fanji.android.mine.MineFragment
 import com.fanji.android.net.HTTP_OK
 import com.fanji.android.net.state.NetState
 import com.fanji.android.publish.PublishFragment
-import com.fanji.android.resource.R
 import com.fanji.android.resource.Resource
 import com.fanji.android.resource.TAB_BOTTOM_SCROLL
 import com.fanji.android.resource.base.BaseActivity
@@ -59,8 +58,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
         specialTabRound =
             binding.mainTab.newRoundItem(
                 R.mipmap.publish,
-                R.mipmap.publish,
-                "发布"
+                R.mipmap.unpublish,
+                getString(R.string.publish)
             ) as SpecialTabRound?
         specialTabRound?.setUrl(
             "http://zd112.oss-cn-beijing.aliyuncs.com/img/-1463646632.jpg",
@@ -68,11 +67,35 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
         )
         tabController =
             binding.mainTab.custom()
-                .addItem(binding.mainTab.newItem(R.mipmap.unhome, R.mipmap.homed, "首页"))
-                .addItem(binding.mainTab.newItem(R.mipmap.unchannel, R.mipmap.channeled, "频道"))
+                .addItem(
+                    binding.mainTab.newItem(
+                        R.mipmap.unhome,
+                        R.mipmap.homed,
+                        getString(R.string.tab_home)
+                    )
+                )
+                .addItem(
+                    binding.mainTab.newItem(
+                        R.mipmap.unchannel,
+                        R.mipmap.channeled,
+                        getString(R.string.tab_channel)
+                    )
+                )
                 .addItem(specialTabRound)
-                .addItem(binding.mainTab.newItem(R.mipmap.unmsg, R.mipmap.msged, "消息"))
-                .addItem(binding.mainTab.newItem(R.mipmap.unmine, R.mipmap.mined, "我的"))
+                .addItem(
+                    binding.mainTab.newItem(
+                        R.mipmap.unmsg,
+                        R.mipmap.msged,
+                        getString(R.string.tab_message)
+                    )
+                )
+                .addItem(
+                    binding.mainTab.newItem(
+                        R.mipmap.unmine,
+                        R.mipmap.mined,
+                        getString(R.string.tab_mine)
+                    )
+                )
                 .build()
         tabController?.setMessageNumber(3, 1000)
         tabController?.setHasMessage(1, true)
@@ -176,7 +199,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
         super.pop(flags)
         supportFragmentManager.popBackStackImmediate(null, flags)
     }
-    
+
     override fun onDestroy() {
         NetState.Companion.instance.unRegisterObserver(this) //注销网络监听
         super.onDestroy()

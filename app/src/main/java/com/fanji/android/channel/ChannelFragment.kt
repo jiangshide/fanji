@@ -22,10 +22,10 @@ class ChannelFragment : BaseFragment<FragmentChannelBinding>() {
 
     private var channel: ChannelVM? = create(ChannelVM::class.java)
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentChannelBinding.inflate(layoutInflater)
+    ) = initView(FragmentChannelBinding.inflate(layoutInflater), isTopPadding = true)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

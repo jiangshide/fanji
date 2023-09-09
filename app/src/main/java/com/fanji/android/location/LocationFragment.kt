@@ -28,7 +28,7 @@ class LocationFragment(private val onLocationListener: OnLocationListener) :
     IPoiSearchListener {
 
     private var adapter: KAdapter<PoiItem>? = null
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentLocationBinding.inflate(layoutInflater)
@@ -90,7 +90,7 @@ class LocationFragment(private val onLocationListener: OnLocationListener) :
         refreshFinish(true)
         hiddenTips()
         LogUtil.e("errors:", errors)
-        if (!isRefresh) {
+        if (!mIsRefresh) {
             page--
         }
         if (adapter == null || adapter?.datas() == null || adapter?.datas()?.size == 0) {

@@ -32,7 +32,7 @@ class ChannelTypeFragment(private val typeId: Int, var channel: ChannelVM? = nul
 
     private var adapter: KAdapter<ChannelBlog>? = null
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentChannelTypeBinding.inflate(layoutInflater)

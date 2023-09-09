@@ -16,7 +16,7 @@ import com.fanji.android.util.LogUtil
  */
 class PdfFragment : BaseFragment<FragmentPdfBinding>() {
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentPdfBinding.inflate(layoutInflater)

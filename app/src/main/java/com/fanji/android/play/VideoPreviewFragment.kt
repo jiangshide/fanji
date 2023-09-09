@@ -21,7 +21,7 @@ class VideoPreviewFragment(private val fileData: FileData? = null) :
 
     private var path: String = ""
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentVideoPreviewBinding.inflate(layoutInflater)

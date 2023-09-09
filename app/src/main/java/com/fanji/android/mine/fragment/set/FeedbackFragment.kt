@@ -31,7 +31,7 @@ class FeedbackFragment : BaseFragment<FragmentSetAboutFeedbackBinding>(),
     private var contact: String = ""
     var reportVM: ReportVM? = create(ReportVM::class.java)
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentSetAboutFeedbackBinding.inflate(layoutInflater)

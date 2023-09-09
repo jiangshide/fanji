@@ -79,7 +79,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), FJEditText.OnKeyboar
     private fun setListener() {
         binding.weiXinLogin.setOnClickListener {
             if (!WXApiManager.isWxInstall()) {
-                FJToast.txt(com.fanji.android.resource.R.string.wechat_not_install)
+                FJToast.txt(R.string.wechat_not_install)
                 LogUtil.e("----jsd-0---", "----weixin-222----")
                 return@setOnClickListener
             }
@@ -153,7 +153,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), FJEditText.OnKeyboar
 //            openUrl(BuildConfig.PRIVACY_AGREEMENT, getString(R.string.user_protocol))
             openUrl(
                 "http://192.168.1.11:8098/static/protocol/user_protocol.txt",
-                getString(com.fanji.android.resource.R.string.user_protocol)
+                getString(R.string.user_protocol)
             )
 
         }
@@ -162,7 +162,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), FJEditText.OnKeyboar
 //            openUrl(BuildConfig.USE_AGREEMENT, getString(R.string.protect_protocol))
             openUrl(
                 "http://192.168.1.11:8098/static/protocol/protect_protocol.txt",
-                getString(com.fanji.android.resource.R.string.protect_protocol)
+                getString(R.string.protect_protocol)
             )
 
         }
@@ -272,13 +272,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), FJEditText.OnKeyboar
 
     override fun onCountDown(code: Int) {
         if (code == 0) {
-            binding.phoneCodeTxt?.text = getString(com.fanji.android.resource.R.string.resend)
+            binding.phoneCodeTxt?.text = getString(R.string.resend)
             binding.phoneCodeTxt?.isEnabled = true
             binding.phoneCodeTxt?.setTextColor(color(com.fanji.android.resource.R.color.disable))
             return
         }
         binding.phoneCodeTxt?.text =
-            "${code}s后${getString(com.fanji.android.resource.R.string.resend)}"
+            "${code}s后${getString(R.string.resend)}"
     }
 
     private fun validate() {

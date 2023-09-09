@@ -13,7 +13,7 @@ import com.fanji.android.resource.base.BaseFragment
  */
 class MyFeedFragment : BaseFragment<FragmentMyFeedBinding>() {
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentMyFeedBinding.inflate(layoutInflater)

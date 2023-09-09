@@ -13,7 +13,7 @@ import com.fanji.android.resource.base.BaseFragment
  */
 class MyMusicFragment : BaseFragment<FragmentMyMusicBinding>() {
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentMyMusicBinding.inflate(layoutInflater)

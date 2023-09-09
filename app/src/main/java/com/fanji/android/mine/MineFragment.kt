@@ -19,7 +19,7 @@ import com.fanji.android.util.FJEvent
  */
 class MineFragment : BaseFragment<FragmentMineBinding>() {
 
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentMineBinding.inflate(layoutInflater)

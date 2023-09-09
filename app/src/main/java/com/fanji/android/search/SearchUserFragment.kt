@@ -34,7 +34,7 @@ class SearchUserFragment(private val users: MutableList<User>? = null) :
     var user: UserVM? = create(UserVM::class.java)
     private var adapter: KAdapter<User>? = null
     private var selectedAdapter: KAdapter<User>? = null
-    override fun getViewBinding(
+    override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentSearchUserBinding.inflate(layoutInflater)
