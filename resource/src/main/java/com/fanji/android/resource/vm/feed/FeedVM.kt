@@ -696,7 +696,7 @@ class FeedVM : BaseVM() {
         page: Int = 0,
         pageSize: Int = 20,
         listener: VMListener<MutableList<Feed>>? = null
-    ) {
+    ): FeedVM {
         iBlog.userBlog(status, uid, fromUid = fromUid, page = page, pageSize = pageSize)
             .compose(CommonTransformer<Response<RespData<MutableList<Feed>>>, MutableList<Feed>>())
             .subscribeOn(Schedulers.io())
@@ -721,6 +721,7 @@ class FeedVM : BaseVM() {
                     listener?.onRes(LiveResult.error(e, isRefresh, page))
                 }
             })
+        return this
     }
 
     fun cityBlog(

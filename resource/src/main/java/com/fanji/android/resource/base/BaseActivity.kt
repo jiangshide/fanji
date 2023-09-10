@@ -1,6 +1,7 @@
 package com.fanji.android.resource.base
 
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.AnimRes
 import androidx.annotation.AnimatorRes
 import androidx.appcompat.app.AppCompatActivity
@@ -12,25 +13,63 @@ import com.fanji.android.net.state.NetState
 import com.fanji.android.net.state.annotation.INetType
 import com.fanji.android.net.state.annotation.NetType
 import com.fanji.android.resource.R
+import com.fanji.android.ui.FJTipsView
+import com.fanji.android.ui.FJTopView
+import com.fanji.android.ui.refresh.FJRefresh
+import com.fanji.android.ui.refresh.api.RefreshLayout
+import com.fanji.android.ui.refresh.listener.OnLoadMoreListener
+import com.fanji.android.ui.refresh.listener.OnRefreshListener
 import com.fanji.android.util.FJEvent
 import com.fanji.android.util.LogUtil
+import com.fanji.android.util.SystemUtil
 
 
 /**
  * created by jiangshide on 4/9/21.
  * email:18311271399@163.com
  */
-abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
+abstract class BaseActivity<T : ViewBinding> : AppCompatActivity(), OnRefreshListener,
+    OnLoadMoreListener,
+    FJTipsView.OnRetryListener {
 
     private lateinit var _binding: T
     protected val binding get() = _binding
     protected abstract fun getViewBinding(): T
 
+    public fun initView(
+        t: T, isRefresh: Boolean = false,
+        isMore: Boolean = false,
+        isTips: Boolean = false,
+        bgColor: Int = com.fanji.android.ui.R.color.white,
+        isTitle: Boolean = false,
+        isTopPadding: Boolean = false
+    ): T {
+        panel!!.initView(t, isRefresh, isMore, isTips, bgColor, isTitle, isTopPadding)
+        return t
+    }
+
+    private val panel: Panel<T>? = Panel()
+    private var topView: FJTopView? = null
+    private var refresh: FJRefresh? = null
+    protected var tipsView: FJTipsView? = null
+
+    protected var mIsRefresh = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Main)
         super.onCreate(savedInstanceState)
         _binding = getViewBinding()
-        setContentView(_binding.root)
+        val root = panel!!.view(
+            this,
+            _binding.root, this, this
+        )
+        if (panel.mIsTopPadding) {
+            root.setPadding(0, SystemUtil.getStatusBarHeight(), 0, 0)
+        }
+        topView = panel.topView
+        refresh = panel.refresh
+        tipsView = panel.tipsView
+        setContentView(root)
     }
 
     open fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -49,7 +88,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
         url: String?,
         title: String?
     ) {
-        WebActivity.openUrl(this,title,url)
+        WebActivity.openUrl(this, title, url)
     }
 
     /**
@@ -80,5 +119,14 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     }
 
     open fun pop(flags: Int = 0) {
+    }
+
+    override fun onRefresh(refreshLayout: RefreshLayout) {
+    }
+
+    override fun onLoadMore(refreshLayout: RefreshLayout) {
+    }
+
+    override fun onRetry(view: View?) {
     }
 }

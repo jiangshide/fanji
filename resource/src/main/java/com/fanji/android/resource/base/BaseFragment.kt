@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView.OnItemClickListener
-import android.widget.FrameLayout
-import android.widget.LinearLayout
 import androidx.annotation.AnimRes
 import androidx.annotation.AnimatorRes
 import androidx.core.content.ContextCompat
@@ -22,8 +20,6 @@ import com.fanji.android.ui.files.view.transferee.transfer.TransferConfig
 import com.fanji.android.ui.files.view.transferee.transfer.Transferee
 import com.fanji.android.ui.refresh.FJRefresh
 import com.fanji.android.ui.refresh.api.RefreshLayout
-import com.fanji.android.ui.refresh.footer.ClassicsFooter
-import com.fanji.android.ui.refresh.header.MaterialHeader
 import com.fanji.android.ui.refresh.listener.OnLoadMoreListener
 import com.fanji.android.ui.refresh.listener.OnRefreshListener
 import com.fanji.android.util.AppUtil
@@ -51,25 +47,14 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         isTitle: Boolean = false,
         isTopPadding: Boolean = false
     ): T {
-        this.mIsRefresh = isRefresh
-        this.mIsMore = isMore
-        this.mIsTips = isTips
-        this.mBgColor = bgColor
-        this.mIsTitle = isTitle
-        this.mIsTopPadding = isTopPadding
+        panel!!.initView(t, isRefresh, isMore, isTips, bgColor, isTitle, isTopPadding)
         return t
     }
 
+    private val panel: Panel<T>? = Panel()
     private var topView: FJTopView? = null
     private var refresh: FJRefresh? = null
     protected var tipsView: FJTipsView? = null
-
-    protected var mIsRefresh = false
-    private var mIsMore = false
-    protected var mIsTips = false
-    private var mBgColor = 0
-    private var mIsTitle = false
-    private var mIsTopPadding = false
 
     protected var page = 0
     protected var pageSize = 20
@@ -95,17 +80,16 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         savedInstanceState: Bundle?
     ): View? {
         _binding = viewBinding(inflater, container)
-        val root = view(
-            _binding.root,
-            mIsRefresh,
-            mIsMore,
-            mIsTips,
-            mBgColor,
-            mIsTitle
+        val root = panel!!.view(
+            requireContext(),
+            _binding.root, this, this
         )
-        if (mIsTopPadding) {
+        if (panel.mIsTopPadding) {
             root.setPadding(0, SystemUtil.getStatusBarHeight(), 0, 0)
         }
+        topView = panel.topView
+        refresh = panel.refresh
+        tipsView = panel.tipsView
         return root
     }
 
@@ -118,71 +102,6 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         title: String?
     ) {
         WebActivity.openUrl(requireContext(), title, url)
-    }
-
-    fun view(
-        view: View,
-        isRefresh: Boolean,
-        isMore: Boolean,
-        isTips: Boolean,
-        bgColor: Int,
-    ): View {
-        val frameLayout = FrameLayout(requireContext())
-        if (bgColor != -1) {
-//            frameLayout.setBackgroundColor(color(bgColor))
-        }
-        if (!isRefresh && !isMore && isTips) {
-            frameLayout.addView(view)
-            tipsView = FJTipsView(context)
-            frameLayout.addView(tipsView)
-            return frameLayout
-        }
-        refresh = FJRefresh(context)
-        refresh?.setOnRefreshListener(this)?.setOnLoadMoreListener(this)
-            ?.setEnableRefresh(isRefresh)?.setEnableLoadMore(isMore)
-            ?.setRefreshHeader(MaterialHeader(activity))
-            ?.setRefreshFooter(ClassicsFooter(activity))
-        refresh?.addView(view)
-        frameLayout.addView(refresh)
-        tipsView = FJTipsView(context)
-        frameLayout.addView(tipsView)
-        return frameLayout
-    }
-
-    fun view(
-        view: View,
-        isRefresh: Boolean,
-        isMore: Boolean,
-        isTips: Boolean,
-        bgColor: Int = com.fanji.android.ui.R.color.white, isTitle: Boolean
-    ): View {
-        if (!isRefresh && !isMore && !isTips && !isTitle) {
-            return view
-        }
-        if (!isTitle) {
-            return view(view, isRefresh, isMore, isTips, bgColor)
-        }
-        val root = LinearLayout(context)
-        root?.isClickable = true
-        root.layoutParams = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
-        )
-//        root.setBackgroundColor(color(bgColor))
-        root.orientation = LinearLayout.VERTICAL
-        if (topView != null) {
-            root.removeView(topView)
-        }
-        topView = FJTopView(context)
-        root.addView(
-            topView, LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        root.addView(
-            view(view, isRefresh, isMore, isTips, -1), LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT
-        )
-        return root
     }
 
     open fun setTopBar(view: View?) {
@@ -363,11 +282,9 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
-        mIsRefresh = true
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
-        mIsRefresh = false
     }
 
     fun finishData(

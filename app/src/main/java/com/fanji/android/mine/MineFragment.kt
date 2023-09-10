@@ -34,10 +34,9 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
             .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
             .setPersistent(false)
             .initTabs(activity, binding.mineViewPager, true)
-        FJEvent.get().with(MENU, Int::class.java).observes(this, {
+        FJEvent.get().with(MENU, Int::class.java).observes(this) {
             binding.mineViewPager?.currentItem = it
-        })
-
+        }
     }
 }
 

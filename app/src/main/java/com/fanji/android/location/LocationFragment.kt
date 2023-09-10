@@ -88,9 +88,9 @@ class LocationFragment(private val onLocationListener: OnLocationListener) :
     override fun onError(errors: FJLocation.Errors?) {
         finishData(true,true,true)
         LogUtil.e("errors:", errors)
-        if (!mIsRefresh) {
-            page--
-        }
+//        if (!mIsRefresh) {
+//            page--
+//        }
         if (adapter == null || adapter?.datas() == null || adapter?.datas()?.size == 0) {
             tips()
         }

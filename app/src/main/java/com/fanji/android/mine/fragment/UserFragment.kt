@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentUserBinding
+import com.fanji.android.files.FJFiles
+import com.fanji.android.files.FileListener
 import com.fanji.android.img.FJImg
 import com.fanji.android.mine.MENU
 import com.fanji.android.mine.fragment.user.MyAlbumFragment
@@ -22,6 +24,8 @@ import com.fanji.android.resource.vm.user.data.User
 import com.fanji.android.ui.FJTextView
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 import com.fanji.android.util.FJEvent
+import com.fanji.android.util.LogUtil
+import com.fanji.android.util.data.FileData
 import com.google.android.material.appbar.AppBarLayout
 
 /**
@@ -31,7 +35,7 @@ import com.google.android.material.appbar.AppBarLayout
  * @Description:
  */
 class UserFragment(private val id: Long? = Resource.uid) : BaseFragment<FragmentUserBinding>(),
-    AppBarLayout.OnOffsetChangedListener {
+    AppBarLayout.OnOffsetChangedListener, FileListener {
 
     private var user: UserVM? = create(UserVM::class.java)
     override fun viewBinding(
@@ -70,6 +74,9 @@ class UserFragment(private val id: Long? = Resource.uid) : BaseFragment<Fragment
         })
 
         setProfile(Resource.user)
+        binding.userL.userIcon.setOnClickListener {
+            FJFiles.openFile(requireContext(), this)
+        }
     }
 
     private fun setProfile(user: User?) {
@@ -108,5 +115,9 @@ class UserFragment(private val id: Long? = Resource.uid) : BaseFragment<Fragment
                 binding.mineTopFollow.visibility = View.GONE
             }
         }
+    }
+
+    override fun onFiles(files: List<FileData>) {
+        LogUtil.e("----------jsd---", "----files:", files)
     }
 }
