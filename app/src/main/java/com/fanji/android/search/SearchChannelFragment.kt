@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentSearchChannelBinding
 import com.fanji.android.img.FJImg
@@ -43,9 +42,9 @@ class SearchChannelFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         channel!!.channelUser.observe(viewLifecycleOwner, Observer {
-            refreshFinish(it.isRefresh)
+            finishData(true,true,true)
             if (it.code == HTTP_OK) {
-                hiddenTips()
+                finishTips()
                 showView(it.data!!)
             } else if (adapter == null || adapter?.count() == 0) {
                 tips()
@@ -118,12 +117,12 @@ class SearchChannelFragment(
 
     override fun onRes(res: LiveResult<MutableList<ChannelBlog>>) {
         page = res.page
+        finishData(true,true,true)
         if (res.code == HTTP_OK) {
             showView(res.data!!)
-            hiddenTips()
+            finishTips()
         } else if (adapter == null || adapter?.count() == 0) {
             tips()
         }
-        refreshFinish(res.isRefresh)
     }
 }

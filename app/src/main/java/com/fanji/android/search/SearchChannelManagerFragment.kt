@@ -40,17 +40,16 @@ class SearchChannelManagerFragment(private val listener: OnChannelListener? = nu
         }
 
         channel!!.channelTypes.observe(viewLifecycleOwner, Observer {
-            refreshFinish(it.isRefresh)
+            finishData(true,true,true)
             if (it.code == HTTP_OK) {
-                hiddenTips()
+                finishTips()
                 showView(it.data)
             } else {
                 tips()
             }
 
         })
-        channel?.channelTypes(-1)
-        loading()
+        channel!!.channelTypes(-1).loading(tipsView)
     }
 
     private fun showView(data: ArrayList<ChannelType>?) {

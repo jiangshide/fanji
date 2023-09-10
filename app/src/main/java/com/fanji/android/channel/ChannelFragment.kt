@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.fanji.android.channel.fragment.ChannelTypeFragment
 import com.fanji.android.databinding.FragmentChannelBinding
-import com.fanji.android.net.HTTP_OK
 import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.vm.channel.ChannelVM
 import com.fanji.android.resource.vm.channel.data.ChannelType
+import com.fanji.android.ui.refresh.api.RefreshLayout
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 
 /**
@@ -25,21 +25,19 @@ class ChannelFragment : BaseFragment<FragmentChannelBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentChannelBinding.inflate(layoutInflater), isTopPadding = true)
+    ) = initView(FragmentChannelBinding.inflate(layoutInflater), isTips = true, isTopPadding = true)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         channel?.channelTypes?.observe(viewLifecycleOwner) {
-            if (it.code == HTTP_OK) {
-                showView(it.data)
-                hiddenTips()
-            } else {
-                tips()
+            finishData(isFinishTips = true)
+            if (it.msg != null) {
+                tips(it.code)
+                return@observe
             }
-            refreshFinish(it.isRefresh)
+            showView(it.data)
         }
-        channel?.channelTypes(-1)
-        loading()
+        channel!!.channelTypes(-1).loading(tipsView)
     }
 
     private fun showView(data: ArrayList<ChannelType>?) {
@@ -63,7 +61,11 @@ class ChannelFragment : BaseFragment<FragmentChannelBinding>() {
 
     override fun onRetry(view: View?) {
         super.onRetry(view)
-        channel?.channelTypes(-1)
-        loading()
+        channel!!.channelTypes(-1).loading(tipsView)
+    }
+
+    override fun onRefresh(refreshLayout: RefreshLayout) {
+        super.onRefresh(refreshLayout)
+        channel!!.channelTypes(-1)
     }
 }

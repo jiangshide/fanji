@@ -7,13 +7,13 @@ import com.fanji.android.net.observer.BaseObserver
 import com.fanji.android.net.transformer.CommonTransformer
 import com.fanji.android.net.vm.LiveResult
 import com.fanji.android.net.vm.data.RespData
+import com.fanji.android.resource.Resource
+import com.fanji.android.resource.base.BaseVM
 import com.fanji.android.resource.vm.channel.data.Channel
 import com.fanji.android.resource.vm.channel.data.ChannelBlog
 import com.fanji.android.resource.vm.channel.data.ChannelNature
 import com.fanji.android.resource.vm.channel.data.ChannelType
 import com.fanji.android.resource.vm.channel.data.Word
-import com.fanji.android.resource.Resource
-import com.fanji.android.resource.base.BaseVM
 import com.fanji.android.resource.vm.channel.remote.ChannelRemote
 import com.fanji.android.resource.vm.feed.OnWordListener
 import com.fanji.android.util.ScreenUtil
@@ -38,6 +38,7 @@ class ChannelVM : BaseVM() {
     var channel: MutableLiveData<LiveResult<MutableList<ChannelBlog>>> = MutableLiveData()
     val channelUser: MutableLiveData<LiveResult<MutableList<ChannelBlog>>> = MutableLiveData()
     val channelOfficial: MutableLiveData<LiveResult<MutableList<ChannelBlog>>> = MutableLiveData()
+    val channelType: MutableLiveData<LiveResult<MutableList<ChannelBlog>>> = MutableLiveData()
     var search: MutableLiveData<LiveResult<MutableList<ChannelBlog>>> = MutableLiveData()
     var wordAdd: MutableLiveData<LiveResult<Int>> = MutableLiveData()
     var channelId: MutableLiveData<LiveResult<Channel>> = MutableLiveData()
@@ -230,7 +231,7 @@ class ChannelVM : BaseVM() {
         page: Int = 0,
         pageSize: Int = 20,
         listener: VMListener<MutableList<ChannelBlog>>? = null
-    ) {
+    ): ChannelVM {
         iChannel.channelType(status, id, name = name, page = page, pageSize = pageSize)
             .compose(
                 CommonTransformer<Response<RespData<MutableList<ChannelBlog>>>, MutableList<ChannelBlog>>()
@@ -257,6 +258,7 @@ class ChannelVM : BaseVM() {
                     listener?.onRes(LiveResult.error(e, isRefresh, page))
                 }
             })
+        return this
     }
 
     fun channelUser(
@@ -337,7 +339,7 @@ class ChannelVM : BaseVM() {
             })
     }
 
-    fun channelTypes(uid: Long, isRefresh: Boolean = true) {
+    fun channelTypes(uid: Long, isRefresh: Boolean = true): ChannelVM {
         iChannel.channelType(uid)
             .compose(
                 CommonTransformer<Response<RespData<ArrayList<ChannelType>>>, ArrayList<ChannelType>>()
@@ -355,6 +357,7 @@ class ChannelVM : BaseVM() {
                     channelTypes.postValue(LiveResult.error(e, isRefresh))
                 }
             })
+        return this
     }
 
     fun channelNature() {

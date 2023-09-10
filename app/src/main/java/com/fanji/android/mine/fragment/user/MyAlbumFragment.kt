@@ -78,11 +78,11 @@ class MyAlbumFragment(private val uid: Long? = Resource.uid) :
     }
 
     override fun onRes(res: LiveResult<MutableList<Feed>>) {
-        refreshFinish(res.isRefresh)
+        finishData(true,true,true)
         page = res.page
         if (res.code == HTTP_OK) {
             adapter?.add(res.data, res.isRefresh)
-            hiddenTips()
+            finishTips()
             return
         }
         if (adapter == null || adapter?.count() == 0) {

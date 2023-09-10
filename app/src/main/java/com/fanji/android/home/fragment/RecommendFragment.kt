@@ -29,8 +29,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         feedVM!!.recommendBlog.observe(requireActivity(), Observer {
-            finishData()
-            LogUtil.e("----jsd----","-----it.msg:",it.msg," | code:",it.code," | data:",it.data)
+            finishData(true,true,true)
             if(it.msg != null){
                 tips(code = it.code)
             }

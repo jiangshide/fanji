@@ -80,15 +80,13 @@ class LocationFragment(private val onLocationListener: OnLocationListener) :
     }
 
     override fun onPoiResult(poiResult: PoiResult?) {
-        refreshFinish(true)
-        hiddenTips()
+        finishData(true,true,true)
         showView(poiResult!!.pois)
         LogUtil.e("size:", poiResult.pois.size)
     }
 
     override fun onError(errors: FJLocation.Errors?) {
-        refreshFinish(true)
-        hiddenTips()
+        finishData(true,true,true)
         LogUtil.e("errors:", errors)
         if (!mIsRefresh) {
             page--

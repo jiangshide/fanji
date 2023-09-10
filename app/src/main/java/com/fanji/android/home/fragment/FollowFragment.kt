@@ -29,7 +29,7 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         feedVM!!.recommendBlog.observe(requireActivity(), Observer {
-            finishData()
+            finishData(true,true,true)
             LogUtil.e("----jsd----","-----it.msg:",it.msg," | code:",it.code," | data:",it.data)
             if(it.msg != null){
                 tips()

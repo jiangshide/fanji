@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentChannelTypeBinding
 import com.fanji.android.img.FJImg
-import com.fanji.android.net.HTTP_OK
 import com.fanji.android.net.vm.LiveResult
 import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.base.BaseVM
@@ -35,8 +34,11 @@ class ChannelTypeFragment(private val typeId: Int, var channel: ChannelVM? = nul
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentChannelTypeBinding.inflate(layoutInflater)
-
+    ) = initView(
+        FragmentChannelTypeBinding.inflate(layoutInflater),
+        isRefresh = true,
+        isMore = true
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,9 +62,12 @@ class ChannelTypeFragment(private val typeId: Int, var channel: ChannelVM? = nul
             {},
             layoutManager
         )
+        channel!!.channelType(id = typeId, listener = this).loading(tipsView)
+    }
 
-        channel?.channelType(id = typeId, listener = this)
-        loading()
+    override fun onRetry(view: View?) {
+        super.onRetry(view)
+        channel!!.channelType(id = typeId, listener = this).loading(tipsView)
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
@@ -74,13 +79,12 @@ class ChannelTypeFragment(private val typeId: Int, var channel: ChannelVM? = nul
     }
 
     override fun onRes(res: LiveResult<MutableList<ChannelBlog>>) {
+        finishData(true, true, true)
         page = res.page
-        if (res.code == HTTP_OK) {
-            adapter?.add(res.data?.toMutableList(), res.isRefresh)
-            hiddenTips()
-        } else if (adapter == null || adapter?.count() == 0) {
-            tips()
+        if (res.msg != null) {
+            tips(res.code)
+            return
         }
-        refreshFinish(res.isRefresh)
+        adapter?.add(res.data?.toMutableList(), res.isRefresh)
     }
 }

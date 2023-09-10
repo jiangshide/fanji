@@ -52,10 +52,10 @@ class SearchUserFragment(private val users: MutableList<User>? = null) :
         }
 
         user!!.users.observe(viewLifecycleOwner, Observer {
-            refreshFinish(it.isRefresh)
+            finishData(true,true,true)
             if (it.code == HTTP_OK) {
                 showView(it.data!!, it.isRefresh)
-                hiddenTips()
+                finishTips()
             } else if (adapter == null || adapter?.count() == 0) {
                 tips()
             }
