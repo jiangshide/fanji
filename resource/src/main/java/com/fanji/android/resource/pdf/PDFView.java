@@ -1,7 +1,6 @@
 package com.fanji.android.resource.pdf;
 
 import static com.fanji.android.resource.pdf.util.Constants.Cache.CACHE_SIZE;
-import static java.security.AccessController.getContext;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -41,13 +40,19 @@ public class PDFView extends SurfaceView {
 
     private static final String TAG = PDFView.class.getSimpleName();
 
-    /** Rendered parts go to the cache manager */
+    /**
+     * Rendered parts go to the cache manager
+     */
     private CacheManager cacheManager;
 
-    /** Animation manager manage all offset and zoom animation */
+    /**
+     * Animation manager manage all offset and zoom animation
+     */
     private AnimationManager animationManager;
 
-    /** Drag manager manage all touch events */
+    /**
+     * Drag manager manage all touch events
+     */
     private DragPinchManager dragPinchManager;
 
     /**
@@ -68,19 +73,29 @@ public class PDFView extends SurfaceView {
      */
     private int[] filteredUserPageIndexes;
 
-    /** Number of pages in the loaded PDF document */
+    /**
+     * Number of pages in the loaded PDF document
+     */
     private int documentPageCount;
 
-    /** The index of the current sequence */
+    /**
+     * The index of the current sequence
+     */
     private int currentPage;
 
-    /** The index of the current sequence */
+    /**
+     * The index of the current sequence
+     */
     private int currentFilteredPage;
 
-    /** The actual width and height of the pages in the PDF document */
+    /**
+     * The actual width and height of the pages in the PDF document
+     */
     private int pageWidth, pageHeight;
 
-    /** The optimal width and height of the pages to fit the component size */
+    /**
+     * The optimal width and height of the pages to fit the component size
+     */
     private float optimalPageWidth, optimalPageHeight;
 
     /**
@@ -97,70 +112,110 @@ public class PDFView extends SurfaceView {
      */
     private float currentYOffset = 0;
 
-    /** The zoom level, always >= 1 */
+    /**
+     * The zoom level, always >= 1
+     */
     private float zoom = 1f;
 
-    /** Coordinates of the left mask on the screen */
+    /**
+     * Coordinates of the left mask on the screen
+     */
     private RectF leftMask;
 
-    /** Coordinates of the right mask on the screen */
+    /**
+     * Coordinates of the right mask on the screen
+     */
     private RectF rightMask;
 
-    /** True if the PDFView has been recycled */
+    /**
+     * True if the PDFView has been recycled
+     */
     private boolean recycled = true;
 
-    /** Current state of the view */
+    /**
+     * Current state of the view
+     */
     private State state = State.DEFAULT;
 
-    /** The VuDroid DecodeService used for decoding PDF and pages */
+    /**
+     * The VuDroid DecodeService used for decoding PDF and pages
+     */
     private DecodeService decodeService;
 
-    /** Async task used during the loading phase to decode a PDF document */
+    /**
+     * Async task used during the loading phase to decode a PDF document
+     */
     private DecodingAsyncTask decodingAsyncTask;
 
-    /** Async task always playing in the background and proceeding rendering tasks */
+    /**
+     * Async task always playing in the background and proceeding rendering tasks
+     */
     private RenderingAsyncTask renderingAsyncTask;
 
-    /** Call back object to call when the PDF is loaded */
+    /**
+     * Call back object to call when the PDF is loaded
+     */
     private OnLoadCompleteListener onLoadCompleteListener;
 
-    /** Call back object to call when the page has changed */
+    /**
+     * Call back object to call when the page has changed
+     */
     private OnPageChangeListener onPageChangeListener;
 
-    /** Call back object to call when the above layer is to drawn */
+    /**
+     * Call back object to call when the above layer is to drawn
+     */
     private OnDrawListener onDrawListener;
 
-    /** Paint object for drawing */
+    /**
+     * Paint object for drawing
+     */
     private Paint paint;
 
-    /** Paint object for drawing mask */
+    /**
+     * Paint object for drawing mask
+     */
     private Paint maskPaint;
 
-    /** Paint object for drawing debug stuff */
+    /**
+     * Paint object for drawing debug stuff
+     */
     private Paint debugPaint;
 
-    /** Paint object for minimap background */
+    /**
+     * Paint object for minimap background
+     */
     private Paint paintMinimapBack;
 
     private Paint paintMinimapFront;
 
-    /** True if should draw map on the top right corner */
+    /**
+     * True if should draw map on the top right corner
+     */
     private boolean miniMapRequired;
 
-    /** Bounds of the minimap */
+    /**
+     * Bounds of the minimap
+     */
     private RectF minimapBounds;
 
-    /** Bounds of the minimap */
+    /**
+     * Bounds of the minimap
+     */
     private RectF minimapScreenBounds;
 
     private int defaultPage = 0;
 
     private boolean userWantsMinimap = false;
 
-    /** True if should scroll through pages vertically instead of horizontally */
+    /**
+     * True if should scroll through pages vertically instead of horizontally
+     */
     private boolean swipeVertical = false;
 
-    /** Construct the initial view */
+    /**
+     * Construct the initial view
+     */
     public PDFView(Context context, AttributeSet set) {
         super(context, set);
         miniMapRequired = false;
@@ -214,6 +269,7 @@ public class PDFView extends SurfaceView {
 
     /**
      * Go to the given page.
+     *
      * @param page Page number starting from 1.
      */
     public void jumpTo(int page) {
@@ -259,7 +315,7 @@ public class PDFView extends SurfaceView {
         dragPinchManager.setSwipeEnabled(enableSwipe);
     }
 
-    public void enableDoubletap(boolean enableDoubletap){
+    public void enableDoubletap(boolean enableDoubletap) {
         this.dragPinchManager.enableDoubletap(enableDoubletap);
     }
 
@@ -387,7 +443,9 @@ public class PDFView extends SurfaceView {
         invalidate();
     }
 
-    /** Draw a given PagePart on the canvas */
+    /**
+     * Draw a given PagePart on the canvas
+     */
     private void drawPart(Canvas canvas, PagePart part) {
         // Can seem strange, but avoid lot of calls
         RectF pageRelativeBounds = part.getPageRelativeBounds();
@@ -486,6 +544,7 @@ public class PDFView extends SurfaceView {
      * the screen, and start loading these parts in a spiral {@link SpiralLoopManager},
      * only if the given part is not already in the Cache, in which case it
      * moves the part up in the cache.
+     *
      * @param userPage          The user page to load.
      * @param nbOfPartsLoadable Maximum number of parts it can load.
      * @return The number of parts loaded.
@@ -616,7 +675,9 @@ public class PDFView extends SurfaceView {
         return spiralLoopListener.nbItemTreated;
     }
 
-    /** Called when the PDF is loaded */
+    /**
+     * Called when the PDF is loaded
+     */
     public void loadComplete(DecodeService decodeService) {
         this.decodeService = decodeService;
         this.documentPageCount = decodeService.getPageCount();
@@ -637,6 +698,7 @@ public class PDFView extends SurfaceView {
     /**
      * Called when a rendering task is over and
      * a PagePart has been freshly created.
+     *
      * @param part The created PagePart.
      */
     public void onBitmapRendered(PagePart part) {
@@ -652,6 +714,7 @@ public class PDFView extends SurfaceView {
      * Given the UserPage number, this method restrict it
      * to be sure it's an existing page. It takes care of
      * using the user defined pages if any.
+     *
      * @param userPage A page number.
      * @return A restricted valid page number (example : -2 => 0)
      */
@@ -675,6 +738,7 @@ public class PDFView extends SurfaceView {
      * Calculate the x/y-offset needed to have the given
      * page centered on the screen. It doesn't take into
      * account the zoom level.
+     *
      * @param pageNb The page number.
      * @return The x/y-offset to use to have the pageNb centered.
      */
@@ -755,7 +819,9 @@ public class PDFView extends SurfaceView {
         }
     }
 
-    /** Place the left and right masks around the current page. */
+    /**
+     * Place the left and right masks around the current page.
+     */
     private void calculateMasksBounds() {
         leftMask = new RectF(0, 0, getWidth() / 2 - toCurrentScale(optimalPageWidth) / 2, getHeight());
         rightMask = new RectF(getWidth() / 2 + toCurrentScale(optimalPageWidth) / 2, 0, getWidth(), getHeight());
@@ -764,6 +830,7 @@ public class PDFView extends SurfaceView {
     /**
      * Move to the given X and Y offsets, but check them ahead of time
      * to be sure not to go outside the the big strip.
+     *
      * @param offsetX The big strip X offset to use as the left border of the screen.
      * @param offsetY The big strip Y offset to use as the right border of the screen.
      */
@@ -850,6 +917,7 @@ public class PDFView extends SurfaceView {
 
     /**
      * Move relatively to the current position.
+     *
      * @param dx The X difference you want to apply.
      * @param dy The Y difference you want to apply.
      * @see #moveTo(float, float)
@@ -858,7 +926,9 @@ public class PDFView extends SurfaceView {
         moveTo(currentXOffset + dx, currentYOffset + dy);
     }
 
-    /** Change the zoom level */
+    /**
+     * Change the zoom level
+     */
     public void zoomTo(float zoom) {
         this.zoom = zoom;
         calculateMasksBounds();
@@ -868,6 +938,7 @@ public class PDFView extends SurfaceView {
      * Change the zoom level, relatively to a pivot point.
      * It will call moveTo() to make sure the given point stays
      * in the middle of the screen.
+     *
      * @param zoom  The zoom level.
      * @param pivot The point on the screen that should stays.
      */
@@ -881,7 +952,9 @@ public class PDFView extends SurfaceView {
         moveTo(baseX, baseY);
     }
 
-    /** @see #zoomCenteredTo(float, PointF) */
+    /**
+     * @see #zoomCenteredTo(float, PointF)
+     */
     public void zoomCenteredRelativeTo(float dzoom, PointF pivot) {
         zoomCenteredTo(zoom * dzoom, pivot);
     }
@@ -938,7 +1011,9 @@ public class PDFView extends SurfaceView {
         animationManager.startZoomAnimation(zoom, 1f);
     }
 
-    /** Use an asset file as the pdf source */
+    /**
+     * Use an asset file as the pdf source
+     */
     public Configurator fromAsset(String assetName) {
         try {
             File pdfFile = FileUtils.fileFromAsset(getContext(), assetName);
@@ -948,9 +1023,16 @@ public class PDFView extends SurfaceView {
         }
     }
 
-    /** Use a file as the pdf source */
+    public Configurator fromFile(String path) {
+        return this.fromFile(new File(path));
+    }
+
+    /**
+     * Use a file as the pdf source
+     */
     public Configurator fromFile(File file) {
-        if (!file.exists()) throw new FileNotFoundException(file.getAbsolutePath() + "does not exist.");
+        if (!file.exists())
+            throw new FileNotFoundException(file.getAbsolutePath() + "does not exist.");
         return new Configurator(Uri.fromFile(file));
     }
 
@@ -964,7 +1046,7 @@ public class PDFView extends SurfaceView {
 
         private boolean enableSwipe = true;
 
-        private boolean enableDoubletap = true ;
+        private boolean enableDoubletap = true;
 
         private OnDrawListener onDrawListener;
 
@@ -996,9 +1078,9 @@ public class PDFView extends SurfaceView {
             return this;
         }
 
-        public Configurator enableDoubletap(boolean enableDoubletap){
-            this.enableDoubletap = enableDoubletap ;
-            return this ;
+        public Configurator enableDoubletap(boolean enableDoubletap) {
+            this.enableDoubletap = enableDoubletap;
+            return this;
         }
 
         public Configurator onDraw(OnDrawListener onDrawListener) {

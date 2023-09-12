@@ -8,10 +8,12 @@
     <com.fanji.android.ui.FJTabLayout
         android:id="@+id/channelTab"
         android:layout_width="match_parent"
-        android:layout_height="35dp" />
+        android:layout_height="35dp"
+        />
 
     <com.fanji.android.ui.FJViewPager
         android:id="@+id/channelViewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        />
 </LinearLayout>

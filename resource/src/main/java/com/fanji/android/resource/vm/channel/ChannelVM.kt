@@ -8,7 +8,6 @@ import com.fanji.android.net.transformer.CommonTransformer
 import com.fanji.android.net.vm.LiveResult
 import com.fanji.android.net.vm.data.RespData
 import com.fanji.android.resource.Resource
-import com.fanji.android.resource.base.BaseVM
 import com.fanji.android.resource.vm.channel.data.Channel
 import com.fanji.android.resource.vm.channel.data.ChannelBlog
 import com.fanji.android.resource.vm.channel.data.ChannelNature
@@ -16,6 +15,7 @@ import com.fanji.android.resource.vm.channel.data.ChannelType
 import com.fanji.android.resource.vm.channel.data.Word
 import com.fanji.android.resource.vm.channel.remote.ChannelRemote
 import com.fanji.android.resource.vm.feed.OnWordListener
+import com.fanji.android.ui.vm.FJVM
 import com.fanji.android.util.ScreenUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -26,7 +26,7 @@ import kotlin.random.Random
  * created by jiangshide on 2020/3/16.
  * email:18311271399@163.com
  */
-class ChannelVM : BaseVM() {
+class ChannelVM : FJVM() {
     private val iChannel: ChannelRemote = Net.createService(ChannelRemote::class.java)
 
     var followAdd: MutableLiveData<LiveResult<Channel>> = MutableLiveData()

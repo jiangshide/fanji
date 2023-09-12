@@ -15,9 +15,9 @@ import androidx.viewbinding.ViewBinding
 import com.fanji.android.resource.R
 import com.fanji.android.ui.FJTipsView
 import com.fanji.android.ui.FJTopView
-import com.fanji.android.ui.files.view.transferee.loader.GlideImageLoader
-import com.fanji.android.ui.files.view.transferee.transfer.TransferConfig
-import com.fanji.android.ui.files.view.transferee.transfer.Transferee
+import com.fanji.android.files.view.transferee.loader.GlideImageLoader
+import com.fanji.android.files.view.transferee.transfer.TransferConfig
+import com.fanji.android.files.view.transferee.transfer.Transferee
 import com.fanji.android.ui.refresh.FJRefresh
 import com.fanji.android.ui.refresh.api.RefreshLayout
 import com.fanji.android.ui.refresh.listener.OnLoadMoreListener
@@ -43,7 +43,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         t: T, isRefresh: Boolean = false,
         isMore: Boolean = false,
         isTips: Boolean = false,
-        bgColor: Int = com.fanji.android.ui.R.color.white,
+        bgColor: Int = R.drawable.bg_sweep,
         isTitle: Boolean = false,
         isTopPadding: Boolean = false
     ): T {

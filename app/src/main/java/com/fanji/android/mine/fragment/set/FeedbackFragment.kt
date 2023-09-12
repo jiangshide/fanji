@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentSetAboutFeedbackBinding
-import com.fanji.android.files.FJFiles
-import com.fanji.android.files.FileListener
 import com.fanji.android.img.FJImg
 import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.vm.report.ReportVM
 import com.fanji.android.third.aliyun.oss.OssClient
 import com.fanji.android.ui.FJToast
+import com.fanji.android.files.FJFiles
+import com.fanji.android.files.FileListener
 import com.fanji.android.util.data.FileData
 
 /**
@@ -68,7 +68,7 @@ class FeedbackFragment : BaseFragment<FragmentSetAboutFeedbackBinding>(),
 //            .setFloat(true)
 //            .setSingleListener(this)
 //            .open(this)
-        FJFiles.openFile(requireContext(), this)
+//        FJFiles.openFile(requireContext(), this)
     }
 
     private fun validate() {
@@ -110,7 +110,7 @@ class FeedbackFragment : BaseFragment<FragmentSetAboutFeedbackBinding>(),
         FJImg.loadImage(
             mUrl,
             binding.feedbackImg,
-            com.fanji.android.files.R.mipmap.image_placeholder
+            com.fanji.android.ui.R.mipmap.image_placeholder
         )
         OssClient.instance.setListener(this)
             .setFileData(files[0])

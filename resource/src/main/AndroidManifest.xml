@@ -1,101 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
-    <uses-sdk tools:overrideLibrary="tv.danmaku.ijk.media.player_arm64, tv.danmaku.ijk.media.player_x86_64"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.CAMERA" />
+    <application>
+        <activity
+            android:name=".base.WebActivity"
+            android:screenOrientation="portrait" />
 
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
-    <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-
-    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
-    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
-
-    <uses-permission
-        android:name="android.permission.WRITE_SETTINGS"
-        tools:ignore="ProtectedPermissions" />
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-    <!--    &lt;!&ndash;用于获取运营商信息，用于支持提供运营商信息相关的接口&ndash;&gt;-->
-    <!--    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
-    <!--    &lt;!&ndash;用于访问wifi网络信息，wifi信息会用于进行网络定位&ndash;&gt;-->
-    <!--    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
-    <!--    &lt;!&ndash;用于获取wifi的获取权限，wifi信息会用来进行网络定位&ndash;&gt;-->
-    <!--    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />-->
-    <!--    &lt;!&ndash;用于访问网络，网络定位需要上网&ndash;&gt;-->
-    <!--    <uses-permission android:name="android.permission.INTERNET" />-->
-    <!--    &lt;!&ndash;用于读取手机当前的状态&ndash;&gt;-->
-    <!--    <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
-    <!--    &lt;!&ndash;用于读取或写入缓存数据到扩展存储卡&ndash;&gt;-->
-    <!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
-    <!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
-    <!--    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>-->
-    <!--    &lt;!&ndash;用于申请调用A-GPS模块&ndash;&gt;-->
-    <!--    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />-->
-    <!--    &lt;!&ndash;用于申请获取蓝牙信息进行室内定位&ndash;&gt;-->
-    <!--    <uses-permission android:name="android.permission.BLUETOOTH" />-->
-    <!--    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />-->
-
-    <supports-screens
-        android:anyDensity="true"
-        android:largeScreens="true"
-        android:normalScreens="true"
-        android:resizeable="true"
-        android:smallScreens="true"
-        android:xlargeScreens="true" />
-
-    <application android:requestLegacyExternalStorage="true">
-
-        <activity android:name=".base.WebActivity"
-            android:screenOrientation="portrait"
-            />
-
-        <!-- 定位需要的服务 -->
-        <service android:name="com.amap.api.location.APSService" />
-
-        <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="@string/AMAP_KEY" />
-
-        <!--允许绘制到oppo、vivo刘海屏机型的刘海区域 -->
-        <meta-data
-            android:name="android.max_aspect"
-            android:value="2.8" />
-        <!-- 允许绘制到华为刘海屏机型的刘海区域 -->
-        <meta-data
-            android:name="android.notch_support"
-            android:value="true" />
-        <!-- 允许绘制到小米刘海屏机型的刘海区域 -->
-        <meta-data
-            android:name="notch.config"
-            android:value="landscape" />
-
-        <service
-            android:name=".audio.AudioService"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.android.sanskrit.AUDIO_ACTION_CMD" />
-            </intent-filter>
-        </service>
         <service
             android:name=".audio.AudioService"
             android:enabled="true"

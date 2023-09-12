@@ -5,9 +5,9 @@ package com.fanji.android.resource.base
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import com.fanji.android.permission.FJPermission
 import com.fanji.android.resource.interceptor.PermissionInterceptor
 import com.fanji.android.third.Aliyun
-import com.fanji.android.ui.permission.FJPermission
 
 /**
  * created by jiangshide on 5/12/21.

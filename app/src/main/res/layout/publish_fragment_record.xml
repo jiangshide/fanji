@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/publishAudioViewCard"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+
+    <com.fanji.android.ui.FJImageView
+        android:id="@+id/publishAudioCover"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:src="@color/yellow" />
+
+    <com.fanji.android.resource.view.MusicPlayerView
+        android:id="@+id/publishRecordView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/alpha"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/publishAudioViewF"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/alpha"
+        android:visibility="gone">
+
+        <com.fanji.android.play.audio.AudioView
+            android:id="@+id/publishAudioView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/alpha"
+            android:focusable="true"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/publishAudioTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:layout_margin="5dp"
+            android:maxLength="30"
+            android:textColor="@color/fontLight"
+            android:textSize="@dimen/normal" />
+
+        <TextView
+            android:id="@+id/publishAudioTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:layout_margin="5dp"
+            android:text="12:12"
+            android:textColor="@color/font"
+            android:textSize="@dimen/normal" />
+
+        <TextView
+            android:id="@+id/publishAudioRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="5dp"
+            android:text="重选"
+            android:textColor="@color/font"
+            android:textSize="@dimen/normal" />
+
+        <com.fanji.android.ui.FJProgressView
+            android:id="@+id/publishAudioProgress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_gravity="bottom" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/publishAudioCoverAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="封面"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:background="@color/translucent3"
+        android:textColor="@color/font"
+        android:textSize="@dimen/normal" />
+    <com.fanji.android.ui.FJImageView
+        android:id="@+id/publishAudioPlay"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        android:src="@mipmap/play" />
+</FrameLayout>

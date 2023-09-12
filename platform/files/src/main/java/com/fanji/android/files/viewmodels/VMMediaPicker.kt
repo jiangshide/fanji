@@ -15,13 +15,9 @@ import com.fanji.android.files.models.PhotoDirectory
 import com.fanji.android.files.utils.FilePickerConst
 import com.fanji.android.files.utils.PickerManager
 import com.fanji.android.files.utils.registerObserver
-import com.fanji.android.util.AppUtil
-import com.fanji.android.util.LogUtil
-import com.fanji.android.util.Uri2PathUtil
 import com.fanji.android.util.data.FileData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.*
 
 class VMMediaPicker(application: Application) : BaseViewModel(application) {
 
@@ -75,6 +71,7 @@ class VMMediaPicker(application: Application) : BaseViewModel(application) {
                             R.string.all_videos
                         )
                 }
+
                 FilePickerConst.MEDIA_TYPE_AUDIO -> {
                     photoDirectory.name =
                         getApplication<Application>().applicationContext.getString(R.string.all_audios)
@@ -84,6 +81,7 @@ class VMMediaPicker(application: Application) : BaseViewModel(application) {
                     photoDirectory.name =
                         getApplication<Application>().applicationContext.getString(R.string.all_photos)
                 }
+
                 else -> {
                     photoDirectory.name =
                         getApplication<Application>().applicationContext.getString(R.string.all_files)

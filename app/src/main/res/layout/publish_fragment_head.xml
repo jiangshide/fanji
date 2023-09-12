@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fanji.android.ui.FJEditText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/publishContent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="top"
+    android:hint="记下美好时刻..."
+    android:minLines="3"
+    android:padding="@dimen/content"
+    android:textColor="@color/font"
+    android:textColorHint="@color/fontLight"
+    android:textCursorDrawable="@null"
+    android:textSize="28sp" />

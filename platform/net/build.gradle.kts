@@ -98,8 +98,8 @@ dependencies {
     api("io.reactivex.rxjava2:rxandroid:2.1.0")
     api("com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0")
 
-    api(project(":okhttp"))
-//    implementation("com.squareup.okhttp3:okhttp:4.9.1")
+//    api(project(":okhttp"))
+    implementation("com.squareup.okhttp3:okhttp:4.9.1")
     implementation(project(":util"))
     api(project(":thread"))
 //    implementation(project(":scrurity"))

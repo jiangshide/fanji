@@ -28,7 +28,12 @@ class SetFragment : BaseFragment<FragmentSetBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentSetBinding.inflate(layoutInflater), isTitle = true, isTopPadding = true)
+    ) = initView(
+        FragmentSetBinding.inflate(layoutInflater),
+        isTitle = true,
+        isTopPadding = true,
+        bgColor = com.fanji.android.resource.R.drawable.bg_sweep
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

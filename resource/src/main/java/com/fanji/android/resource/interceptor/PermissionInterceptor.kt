@@ -7,10 +7,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import com.fanji.android.resource.R
 import com.fanji.android.ui.FJToast
-import com.fanji.android.ui.permission.FJPermission
-import com.fanji.android.ui.permission.IPermissionInterceptor
-import com.fanji.android.ui.permission.OnPermissionCallback
-import com.fanji.android.ui.permission.Permission
+import com.fanji.android.permission.FJPermission
+import com.fanji.android.permission.IPermissionInterceptor
+import com.fanji.android.permission.OnPermissionCallback
+import com.fanji.android.permission.Permission
 import java.util.*
 
 /**

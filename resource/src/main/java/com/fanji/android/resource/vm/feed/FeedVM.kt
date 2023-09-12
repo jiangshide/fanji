@@ -10,7 +10,6 @@ import com.fanji.android.net.vm.LiveResult
 import com.fanji.android.net.vm.data.RespData
 import com.fanji.android.resource.BLOG_FOLLOW_FROM_FIND
 import com.fanji.android.resource.Resource
-import com.fanji.android.resource.base.BaseVM
 import com.fanji.android.resource.vm.channel.data.Word
 import com.fanji.android.resource.vm.feed.data.Comment
 import com.fanji.android.resource.vm.feed.data.Feed
@@ -19,6 +18,7 @@ import com.fanji.android.resource.vm.feed.data.LrcLInfo
 import com.fanji.android.resource.vm.feed.data.Total
 import com.fanji.android.resource.vm.feed.remote.FeedRemote
 import com.fanji.android.resource.vm.user.data.User
+import com.fanji.android.ui.vm.FJVM
 import com.fanji.android.util.LogUtil
 import com.fanji.android.util.ScreenUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -30,7 +30,7 @@ import kotlin.random.Random
  * created by jiangshide on 4/7/21.
  * email:18311271399@163.com
  */
-class FeedVM : BaseVM() {
+class FeedVM : FJVM() {
     private val iBlog: FeedRemote = Net.createService(FeedRemote::class.java)
     var collection: MutableLiveData<LiveResult<Feed>> = MutableLiveData()
     var top: MutableLiveData<LiveResult<Feed>> = MutableLiveData()

@@ -5,13 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.amap.api.services.core.PoiItem
-import com.amap.api.services.poisearch.PoiResult
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentLocationBinding
+import com.fanji.android.location.data.PoiData
+import com.fanji.android.location.listener.IPoiSearchListener
 import com.fanji.android.resource.base.BaseFragment
-import com.fanji.android.resource.location.FJLocation
-import com.fanji.android.resource.location.listener.IPoiSearchListener
 import com.fanji.android.ui.adapter.KAdapter
 import com.fanji.android.ui.adapter.create
 import com.fanji.android.ui.refresh.api.RefreshLayout
@@ -27,7 +25,7 @@ class LocationFragment(private val onLocationListener: OnLocationListener) :
     BaseFragment<FragmentLocationBinding>(),
     IPoiSearchListener {
 
-    private var adapter: KAdapter<PoiItem>? = null
+    private var adapter: KAdapter<PoiData>? = null
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -62,7 +60,7 @@ class LocationFragment(private val onLocationListener: OnLocationListener) :
             .searchNearPOI(activity, page, 20, this)
     }
 
-    private fun showView(data: ArrayList<PoiItem>) {
+    private fun showView(data: MutableList<PoiData>) {
         if (adapter != null) {
             adapter?.add(data)
             return
@@ -73,20 +71,20 @@ class LocationFragment(private val onLocationListener: OnLocationListener) :
             locationItemName?.text = it.title
             locationItemDes?.text = it.snippet
         }, {
-            onLocationListener?.onPoiItem(this)
+            onLocationListener?.onPoiData(this)
             pop()
         })
 
     }
 
-    override fun onPoiResult(poiResult: PoiResult?) {
-        finishData(true,true,true)
-        showView(poiResult!!.pois)
-        LogUtil.e("size:", poiResult.pois.size)
+    override fun onPoiResult(poiResult: List<PoiData>) {
+        finishData(true, true, true)
+        showView(poiResult.toMutableList())
+        LogUtil.e("size:", poiResult.size)
     }
 
     override fun onError(errors: FJLocation.Errors?) {
-        finishData(true,true,true)
+        finishData(true, true, true)
         LogUtil.e("errors:", errors)
 //        if (!mIsRefresh) {
 //            page--
@@ -98,5 +96,5 @@ class LocationFragment(private val onLocationListener: OnLocationListener) :
 }
 
 interface OnLocationListener {
-    fun onPoiItem(poiItem: PoiItem)
+    fun onPoiData(poiDate: PoiData)
 }

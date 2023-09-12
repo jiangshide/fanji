@@ -36,7 +36,7 @@ open class Panel<T> {
         t: T, isRefresh: Boolean = false,
         isMore: Boolean = false,
         isTips: Boolean = false,
-        bgColor: Int = com.fanji.android.ui.R.color.white,
+        bgColor: Int = -1,
         isTitle: Boolean = false,
         isTopPadding: Boolean = false
     ): T {
@@ -75,7 +75,7 @@ open class Panel<T> {
     ): View {
         val frameLayout = FrameLayout(context)
         if (bgColor != -1) {
-//            frameLayout.setBackgroundColor(color(bgColor))
+            frameLayout.setBackgroundResource(bgColor)
         }
         if (!isRefresh && !isMore && isTips) {
             frameLayout.addView(view)
@@ -101,7 +101,7 @@ open class Panel<T> {
         isRefresh: Boolean,
         isMore: Boolean,
         isTips: Boolean,
-        bgColor: Int = com.fanji.android.ui.R.color.white,
+        bgColor: Int,
         isTitle: Boolean,
         refreshListener: OnRefreshListener,
         onLoadMoreListener: OnLoadMoreListener
@@ -127,7 +127,9 @@ open class Panel<T> {
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
-//        root.setBackgroundColor(color(bgColor))
+        if (bgColor != -1) {
+            root.setBackgroundResource(bgColor)
+        }
         root.orientation = LinearLayout.VERTICAL
         if (topView != null) {
             root.removeView(topView)

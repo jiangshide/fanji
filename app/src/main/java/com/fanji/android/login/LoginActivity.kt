@@ -18,7 +18,7 @@ import com.fanji.android.resource.Resource
 import com.fanji.android.resource.USER_NOT_EXIST
 import com.fanji.android.resource.base.BaseActivity
 import com.fanji.android.resource.data.DeviceData
-import com.fanji.android.resource.data.PositionData
+import com.fanji.android.location.data.PositionData
 import com.fanji.android.resource.vm.user.UserVM
 import com.fanji.android.ui.FJDialog
 import com.fanji.android.ui.FJEditText

@@ -6,7 +6,7 @@ plugins {
 android {
 
     signingConfigs {
-        create("sign"){
+        create("sign") {
             storeFile = file("$rootDir/${providers.gradleProperty("STORE_FILE").get()}")
             storePassword = providers.gradleProperty("STORE_PSW").get()
             keyAlias = providers.gradleProperty("KEY_ALIAS").get()
@@ -14,7 +14,7 @@ android {
             enableV1Signing = true
             enableV2Signing = true
         }
-        getByName("debug"){
+        getByName("debug") {
             storeFile = file("$rootDir/${providers.gradleProperty("STORE_FILE").get()}")
             storePassword = providers.gradleProperty("STORE_PSW").get()
             keyAlias = providers.gradleProperty("KEY_ALIAS").get()
@@ -70,11 +70,13 @@ android {
     defaultConfig {
         applicationId = providers.gradleProperty("APPLICATION_ID").get()
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 29
         versionCode = 1
         versionName = "1.0"
 
-        multiDexEnabled = providers.gradleProperty("MULTIDEXENABLED").get().toBoolean()
+        multiDexEnabled = true
+
+//        multiDexEnabled = providers.gradleProperty("MULTIDEXENABLED").get().toBoolean()
         signingConfig = signingConfigs.getByName("sign")
 
         resConfig("zh")
@@ -101,8 +103,9 @@ android {
             "\"${providers.gradleProperty("PRIVACY_AGREEMENT").get()}\""
         )
 
-        ndk{
-            abiFilters += listOf("x86","armeabi","armeabi-v7a","arm64-v8a")
+        ndk {
+            abiFilters += listOf("armeabi-v7a", "arm64-v8a")
+//            abiFilters += listOf("x86", "armeabi", "armeabi-v7a", "arm64-v8a")
         }
 
         packagingOptions {
@@ -126,13 +129,13 @@ android {
 
     //jniLibs目录指向libs目录
     sourceSets {
-        getByName("main"){
+        getByName("main") {
             jniLibs.srcDirs("libs")
         }
     }
 
     //优化transformClassDexBuilderForDebug的时间
-    dexOptions{
+    dexOptions {
         preDexLibraries = true
         maxProcessCount = 8
     }
@@ -182,7 +185,7 @@ android {
 
     android.applicationVariants.all {
         outputs.all {
-            if(this is com.android.build.gradle.internal.api.ApkVariantOutputImpl){
+            if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) {
                 this.outputFileName = "fanji.apk"
             }
         }
@@ -190,7 +193,7 @@ android {
 }
 
 //获取git提交次数
-fun getGitCommitCount(): String{
+fun getGitCommitCount(): String {
     val os = org.apache.commons.io.output.ByteArrayOutputStream()
     project.exec {
         commandLine = "git rev-list --count HEAD".split(" ")
@@ -213,7 +216,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation(project(":resource"))
-    implementation(project(":files"))
 
     // 版本号带有 @aar 形式的依赖比较特殊，需要按如下方法写
 //    api(bizLibs.***.library) {

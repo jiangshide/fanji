@@ -9,7 +9,6 @@ import com.fanji.android.net.vm.LiveResult
 import com.fanji.android.net.vm.data.RespData
 import com.fanji.android.resource.ACTIVE_SPLASH
 import com.fanji.android.resource.Resource
-import com.fanji.android.resource.base.BaseVM
 import com.fanji.android.resource.vm.user.data.Active
 import com.fanji.android.resource.vm.user.data.Ads
 import com.fanji.android.resource.vm.user.data.App
@@ -20,6 +19,7 @@ import com.fanji.android.resource.vm.user.data.Order
 import com.fanji.android.resource.vm.user.data.Profile
 import com.fanji.android.resource.vm.user.data.User
 import com.fanji.android.resource.vm.user.remote.UserRemote
+import com.fanji.android.ui.vm.FJVM
 import com.fanji.android.util.AppUtil
 import com.fanji.android.util.LogUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -30,7 +30,7 @@ import retrofit2.Response
  * created by jiangshide on 2020/3/16.
  * email:18311271399@163.com
  */
-class UserVM : BaseVM() {
+class UserVM : FJVM() {
 
     private val iUser: UserRemote = Net.createService(UserRemote::class.java)
     var forgetPsw: MutableLiveData<LiveResult<Boolean>> = MutableLiveData()
@@ -644,8 +644,8 @@ class UserVM : BaseVM() {
     }
 
     fun codeLogin(
-        userName: String, validateCode: String, adCode: String, netInfo: String="",
-        device: String=""
+        userName: String, validateCode: String, adCode: String, netInfo: String = "",
+        device: String = ""
     ) {
         iUser.codeLogin(userName, validateCode, netInfo = device, device = device)
             .compose(CommonTransformer<Response<RespData<User>>, User>())
@@ -667,8 +667,8 @@ class UserVM : BaseVM() {
     fun login(
         userName: String,
         password: String,
-        netInfo: String="",
-        device: String=""
+        netInfo: String = "",
+        device: String = ""
     ) {
         iUser.login(userName, md5(password), netInfo, device)
             .compose(CommonTransformer<Response<RespData<User>>, User>())
@@ -692,8 +692,8 @@ class UserVM : BaseVM() {
         name: String,
         password: String,
         validateCode: String, adCode: String,
-        netInfo: String?="",
-        device: String?=""
+        netInfo: String? = "",
+        device: String? = ""
     ) {
         iUser.bind(id, name, md5(password), validateCode, netInfo, device)
             .compose(CommonTransformer<Response<RespData<User>>, User>())
@@ -714,23 +714,23 @@ class UserVM : BaseVM() {
 
     fun weChat(
         code: String,
-        netInfo: String="",
-        device: String=""
+        netInfo: String = "",
+        device: String = ""
     ) {
-        LogUtil.e("----jsd---","code:"+code+" | netInnfo:"+netInfo+" | device:"+device)
+        LogUtil.e("----jsd---", "code:" + code + " | netInnfo:" + netInfo + " | device:" + device)
         iUser!!.weChat(code, netInfo, device)
             .compose(CommonTransformer<Response<RespData<User>>, User>())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : BaseObserver<User>() {
                 override fun onNext(t: User) {
-                    LogUtil.e("--------t:",t)
+                    LogUtil.e("--------t:", t)
                     login.postValue(LiveResult.success(t))
                 }
 
                 override fun onFail(e: NetException) {
                     super.onFail(e)
-                    LogUtil.e("e------:",e)
+                    LogUtil.e("e------:", e)
                     login.postValue(LiveResult.error(e))
                 }
             })

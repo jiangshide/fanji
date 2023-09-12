@@ -40,6 +40,12 @@ project(":ui").projectDir = File("platform/ui")
 project(":thread").projectDir = File("platform/thread")
 project(":third").projectDir = File("platform/third")
 
+include(":permission")
+project(":permission").projectDir = File("platform/permission")
+
+include(":location")
+project(":location").projectDir = File("platform/location")
+
 include(":files")
 project(":files").projectDir = File("platform/files")
 

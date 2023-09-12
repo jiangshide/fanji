@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fanji.android.files.view.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fileItemPhotoL"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.fanji.android.ui.FJImageView
+        android:id="@+id/mediaItemImg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:padding="1dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/splash" />
+
+    <LinearLayout
+        android:id="@+id/mediaItemAddL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/disable"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/mediaItemAddIcon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@mipmap/video" />
+
+        <TextView
+            android:id="@+id/mediaItemAddTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="摄像"
+            android:textColor="@color/font"
+            android:textSize="@dimen/normal"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/mediaItemBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent_black"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/mediaItemCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/select" />
+
+
+    <TextView
+        android:id="@+id/mediaItemDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="5dp"
+        android:textColor="@color/white"
+        android:textSize="6sp" />
+
+    <TextView
+        android:id="@+id/mediaItemTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="5dp"
+        android:textColor="@color/white"
+        android:textSize="6sp" />
+</com.fanji.android.files.view.SquareRelativeLayout>

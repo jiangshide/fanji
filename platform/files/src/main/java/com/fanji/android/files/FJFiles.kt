@@ -4,6 +4,9 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.provider.MediaStore
 import android.text.TextUtils
 import com.fanji.android.util.AppUtil
@@ -63,8 +66,10 @@ object FJFiles {
 
     var DIR = listOf("img", "audio", "video", "doc", "web", "vr", "downloads", "camera")
 
+//    var mDocType: Array<String>? =
+//        arrayOf("text/plain", "application/pdf", "application/msword", "application/vnd.ms-excel")
     var mDocType: Array<String>? =
-        arrayOf("text/plain", "application/pdf", "application/msword", "application/vnd.ms-excel")
+        arrayOf("application/pdf")
 
     fun selectionDoc(): String {
         val selection = StringBuilder()
@@ -126,7 +131,17 @@ object FJFiles {
         return fileList(type, mColumns, mSelectionArgs, mSortOrder)
     }
 
+    private val WHAT = 100
+    private val handle = Handler(Looper.getMainLooper()) {
+        when (it.what) {
+            WHAT -> mFileListener?.onFiles(it.obj as ArrayList<FileData>)
+        }
+        false
+    }
+
+    private var mFileListener: FileListener? = null
     fun fileListSync(type: Int, fileListener: FileListener) {
+        this.mFileListener = fileListener
         thread {
             val list = ArrayList<FileData>()
             fileList(type, mColumns, mSelectionArgs, mSortOrder).forEach {
@@ -134,7 +149,10 @@ object FJFiles {
                     list.add(it)
                 }
             }
-            fileListener?.onFiles(list)
+            handle.sendMessage(Message.obtain().apply {
+                what = WHAT
+                obj = list
+            })
         }
     }
 
@@ -184,6 +202,7 @@ object FJFiles {
                 .query(
                     uri, null, mSelection, mSectionArgs, sortOrder
                 )
+            LogUtil.e("----jsd--", "cursor:", cursor)
             while (cursor!!.moveToNext()) {
                 val fileData = FileData()
                 fileData.format = type
@@ -210,6 +229,7 @@ object FJFiles {
                 )
 
                 fileData.dir = DIR[type]
+                LogUtil.e("----jsd----", "-----fileData:", fileData)
                 when (type) {
                     IMG -> {
                         fileData.bucketName = cursor.getString(
@@ -277,6 +297,29 @@ object FJFiles {
 
     fun openFile(context: Context, type: Int, fileListener: FileListener) {
         FJFilesActivity.openFile(context, type, fileListener)
+    }
+
+    fun getDocs(context: Context):ArrayList<String>{
+        val columns = arrayOf(MediaStore.Files.FileColumns._ID,
+            MediaStore.Files.FileColumns.MIME_TYPE,
+            MediaStore.Files.FileColumns.SIZE,MediaStore.Files.FileColumns.DATE_MODIFIED,
+            MediaStore.Files.FileColumns.DATA)
+        val select = "(_data LIKE '%.pdf')"
+        val cursor = context.contentResolver.query(MediaStore.Files.getContentUri("external"),
+            columns,select,null,null)
+        var columnIndexOrThrow_DATA = 0
+        if(cursor != null){
+            columnIndexOrThrow_DATA = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA)
+        }
+        val list = ArrayList<String>()
+        if(cursor != null){
+            while(cursor.moveToNext()){
+                val path = cursor.getString(columnIndexOrThrow_DATA)
+                LogUtil.e("----jsd---","----path",path)
+                list.add(path)
+            }
+        }
+        return list
     }
 }
 

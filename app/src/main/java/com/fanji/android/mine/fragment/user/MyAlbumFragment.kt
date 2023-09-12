@@ -13,7 +13,6 @@ import com.fanji.android.net.HTTP_OK
 import com.fanji.android.net.vm.LiveResult
 import com.fanji.android.resource.Resource
 import com.fanji.android.resource.base.BaseFragment
-import com.fanji.android.resource.base.BaseVM
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.resource.vm.feed.data.Feed
 import com.fanji.android.ui.FJButton
@@ -21,6 +20,7 @@ import com.fanji.android.ui.FJImageView
 import com.fanji.android.ui.adapter.KAdapter
 import com.fanji.android.ui.adapter.create
 import com.fanji.android.ui.refresh.api.RefreshLayout
+import com.fanji.android.ui.vm.FJVM
 
 /**
  * @Author:jiangshide
@@ -30,7 +30,7 @@ import com.fanji.android.ui.refresh.api.RefreshLayout
  */
 class MyAlbumFragment(private val uid: Long? = Resource.uid) :
     BaseFragment<FragmentMyAlbumBinding>(),
-    BaseVM.VMListener<MutableList<Feed>> {
+    FJVM.VMListener<MutableList<Feed>> {
 
     private var adapter: KAdapter<Feed>? = null
     private var feed: FeedVM? = create(FeedVM::class.java)
@@ -78,7 +78,7 @@ class MyAlbumFragment(private val uid: Long? = Resource.uid) :
     }
 
     override fun onRes(res: LiveResult<MutableList<Feed>>) {
-        finishData(true,true,true)
+        finishData(true, true, true)
         page = res.page
         if (res.code == HTTP_OK) {
             adapter?.add(res.data, res.isRefresh)

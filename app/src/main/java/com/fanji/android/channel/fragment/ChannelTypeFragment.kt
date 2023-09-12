@@ -12,13 +12,13 @@ import com.fanji.android.databinding.FragmentChannelTypeBinding
 import com.fanji.android.img.FJImg
 import com.fanji.android.net.vm.LiveResult
 import com.fanji.android.resource.base.BaseFragment
-import com.fanji.android.resource.base.BaseVM
 import com.fanji.android.resource.vm.channel.ChannelVM
 import com.fanji.android.resource.vm.channel.data.ChannelBlog
 import com.fanji.android.ui.FJImageView
 import com.fanji.android.ui.adapter.KAdapter
 import com.fanji.android.ui.adapter.create
 import com.fanji.android.ui.refresh.api.RefreshLayout
+import com.fanji.android.ui.vm.FJVM
 
 /**
  * @Author:jiangshide
@@ -27,7 +27,7 @@ import com.fanji.android.ui.refresh.api.RefreshLayout
  * @Description:
  */
 class ChannelTypeFragment(private val typeId: Int, var channel: ChannelVM? = null) :
-    BaseFragment<FragmentChannelTypeBinding>(), BaseVM.VMListener<MutableList<ChannelBlog>> {
+    BaseFragment<FragmentChannelTypeBinding>(), FJVM.VMListener<MutableList<ChannelBlog>> {
 
     private var adapter: KAdapter<ChannelBlog>? = null
 

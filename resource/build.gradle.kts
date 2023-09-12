@@ -30,7 +30,7 @@ android {
     }
 
     sourceSets {
-        getByName("main"){
+        getByName("main") {
             jniLibs.srcDirs("libs")
         }
     }
@@ -66,12 +66,10 @@ dependencies {
 
     api(project(":ui"))
     api(project(":play"))
-//    api(project(":files"))
+    api(project(":files"))
+    api(project(":location"))
+    api(project(":permission"))
     api("com.tencent.mm.opensdk:wechat-sdk-android:+")
-
-    api("com.amap.api:location:latest.integration")
-    api("com.amap.api:search:latest.integration")
-//    api("com.amap.api:3dmap:latest.integration")
 
     api(project(":third"))
     api(project(":umeng"))

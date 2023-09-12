@@ -20,8 +20,4 @@
     <string name="srl_content_empty">The content view in SmartRefreshLayout is empty. Do you forget to add it in xml layout file?</string>
     <string name="srl_component_falsify" formatted="false">%s falsify area,\n Represents the height[%.1fdp] of drag at run time,\n It does not show anything.</string>
 
-    <string name="all_photos">All Photos</string>
-    <string name="all_audios">All Audios</string>
-    <string name="all_videos">All Videos</string>
-    <string name="all_files">All Files</string>
 </resources>

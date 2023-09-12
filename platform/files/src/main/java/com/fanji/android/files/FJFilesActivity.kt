@@ -3,9 +3,10 @@ package com.fanji.android.files
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.fanji.android.files.databinding.ActivityFileBinding
-import com.fanji.android.resource.base.BaseActivity
 import com.fanji.android.util.LogUtil
+import com.fanji.android.util.data.IMG
 
 /**
  * @author: jiangshide
@@ -13,7 +14,9 @@ import com.fanji.android.util.LogUtil
  * @email: 18311271399@163.com
  * @description:
  */
-class FJFilesActivity : BaseActivity<ActivityFileBinding>() {
+class FJFilesActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityFileBinding
 
     companion object {
         private var mType: Int = 0
@@ -25,13 +28,13 @@ class FJFilesActivity : BaseActivity<ActivityFileBinding>() {
         }
     }
 
-    override fun getViewBinding() = ActivityFileBinding.inflate(layoutInflater)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.commonHead.topTitle.text = resources.getStringArray(R.array.files)[mType]
-        val list = FJFiles.fileList()
-        LogUtil.e("----jsd----file--->>>", "--------list.size:", list.size," | list:"+list)
+        binding = ActivityFileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+//        binding.commonHead.topTitle.text = resources.getStringArray(R.array.files)[mType]
+        val list = FJFiles.fileList(IMG)
+        LogUtil.e("----jsd----file--->>>", "--------list.size:", list.size, " | list:" + list)
 //        binding.fileRecycleView.create()
     }
 }

@@ -7,10 +7,10 @@ import com.fanji.android.net.observer.BaseObserver
 import com.fanji.android.net.transformer.CommonTransformer
 import com.fanji.android.net.vm.LiveResult
 import com.fanji.android.net.vm.data.RespData
-import com.fanji.android.resource.base.BaseVM
 import com.fanji.android.resource.vm.report.data.Report
 import com.fanji.android.resource.vm.report.data.Type
 import com.fanji.android.resource.vm.report.remote.ReportRemote
+import com.fanji.android.ui.vm.FJVM
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
@@ -19,7 +19,7 @@ import retrofit2.Response
  * created by jiangshide on 2020/4/5.
  * email:18311271399@163.com
  */
-class ReportVM : BaseVM() {
+class ReportVM : FJVM() {
     private val iReport: ReportRemote = Net.createService(ReportRemote::class.java)
 
     var reportAdd: MutableLiveData<LiveResult<Int>> = MutableLiveData()
