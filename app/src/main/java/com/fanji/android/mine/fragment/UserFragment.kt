@@ -13,6 +13,7 @@ import com.fanji.android.img.FJImg
 import com.fanji.android.mine.MENU
 import com.fanji.android.mine.fragment.user.MyAlbumFragment
 import com.fanji.android.mine.fragment.user.MyChannelFragment
+import com.fanji.android.mine.fragment.user.MyDocFragment
 import com.fanji.android.mine.fragment.user.MyFeedFragment
 import com.fanji.android.mine.fragment.user.MyMusicFragment
 import com.fanji.android.mine.fragment.user.MyVideoFragment
@@ -56,7 +57,7 @@ class UserFragment(private val id: Long? = Resource.uid) : BaseFragment<Fragment
                 MyChannelFragment(),
                 MyMusicFragment(),
                 MyVideoFragment(),
-                MyVideoFragment()
+                MyDocFragment()
             )
             .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
             .setTxtSelectedColor(com.fanji.android.ui.R.color.white)
@@ -76,7 +77,7 @@ class UserFragment(private val id: Long? = Resource.uid) : BaseFragment<Fragment
         setProfile(Resource.user)
         binding.userL.userIcon.setOnClickListener {
 //            FJFiles.openFile(requireContext(), this)
-            push(PdfFragment())
+//            push(PdfFragment())
         }
     }
 

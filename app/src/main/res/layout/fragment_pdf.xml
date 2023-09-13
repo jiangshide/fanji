@@ -3,14 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.fanji.android.ui.FJRecycleView
-        android:id="@+id/pdfRecycleView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <com.fanji.android.resource.pdf.PDFView
         android:id="@+id/pdfView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
