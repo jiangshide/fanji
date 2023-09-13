@@ -1,75 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/bg_sweep"
-    >
+    android:orientation="vertical">
 
     <com.fanji.android.ui.FJImageView
         android:id="@+id/aboutIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"
-        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        />
+        android:src="@mipmap/ic_launcher" />
+
     <TextView
         android:id="@+id/aboutVersion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="@dimen/normal"
-        android:textColor="@color/fontLight"
+        android:layout_below="@+id/aboutIcon"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/content"
-        />
+        android:textColor="@color/fontLight"
+        android:textSize="@dimen/normal" />
+
     <com.fanji.android.ui.FJRecycleView
         android:id="@+id/aboutRecycleView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="30dp"
-        />
+        android:layout_marginBottom="30dp" />
 
     <TextView
         android:id="@+id/aboutEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/aboutSoftProtocol"
+        android:layout_centerHorizontal="true"
         android:text="邮箱: 18311271399@163.com"
-        android:textSize="@dimen/normal"
         android:textColor="@color/fontLight"
-        android:layout_gravity="center_horizontal"
-        />
+        android:textSize="@dimen/normal" />
+
     <TextView
         android:id="@+id/aboutSoftProtocol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="《软许可及服务协议件》"
-        android:textSize="@dimen/normal"
+        android:layout_above="@+id/aboutPrivacyProtocol"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/content"
+        android:text="《软许可及服务协议件》"
         android:textColor="@color/fontLight"
-        android:layout_gravity="center_horizontal"
-        />
+        android:textSize="@dimen/normal" />
+
     <TextView
         android:id="@+id/aboutPrivacyProtocol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/content"
         android:text="《隐私保护协议》"
         android:textColor="@color/fontLight"
-        android:layout_gravity="center_horizontal"
-        android:textSize="@dimen/normal"
-        android:layout_marginTop="@dimen/content"
-        />
+        android:textSize="@dimen/normal" />
+
     <TextView
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="梵山科技"
-        android:layout_gravity="center_horizontal"
-        android:textSize="@dimen/small"
-        android:textColor="@color/fontLight"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/content"
         android:layout_marginBottom="30dp"
-        />
-</LinearLayout>
+        android:text="梵山科技"
+        android:textColor="@color/fontLight"
+        android:textSize="@dimen/small" />
+</RelativeLayout>

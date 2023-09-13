@@ -33,7 +33,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ViewPager.OnPageChange
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.homeViewPager.adapter = binding.homeViewPager.create(childFragmentManager)
             .setTitles(
                 resources.getStringArray(R.array.home).toList()

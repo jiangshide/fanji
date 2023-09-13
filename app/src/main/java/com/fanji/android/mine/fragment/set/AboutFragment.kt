@@ -24,7 +24,7 @@ class AboutFragment : BaseFragment<FragmentSetAboutBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentSetAboutBinding.inflate(layoutInflater)
+    ) = initView(FragmentSetAboutBinding.inflate(layoutInflater), title = getString(R.string.about))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

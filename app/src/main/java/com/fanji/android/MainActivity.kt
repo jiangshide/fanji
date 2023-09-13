@@ -190,13 +190,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
         fragment.arguments = bundle
         val beginTransaction = supportFragmentManager.beginTransaction()
         beginTransaction.setCustomAnimations(enter, exit)
-        beginTransaction.add(com.fanji.android.R.id.content, fragment)
+        beginTransaction.add(R.id.content, fragment)
+//        beginTransaction.setMaxLifecycle(fragment, Lifecycle.State.DESTROYED)
         beginTransaction.addToBackStack(fragment.javaClass.canonicalName)
         beginTransaction.commitAllowingStateLoss()
     }
 
     override fun pop(flags: Int) {
-        super.pop(flags)
         supportFragmentManager.popBackStackImmediate(null, flags)
     }
 

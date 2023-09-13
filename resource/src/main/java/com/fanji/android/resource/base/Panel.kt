@@ -12,6 +12,7 @@ import com.fanji.android.ui.refresh.footer.ClassicsFooter
 import com.fanji.android.ui.refresh.header.MaterialHeader
 import com.fanji.android.ui.refresh.listener.OnLoadMoreListener
 import com.fanji.android.ui.refresh.listener.OnRefreshListener
+import com.fanji.android.util.LogUtil
 
 /**
  * @author: jiangshide
@@ -28,6 +29,7 @@ open class Panel<T> {
     private var mIsTitle = false
     var mIsTopPadding = false
 
+    private var mTitle: String? = null
     var topView: FJTopView? = null
     var refresh: FJRefresh? = null
     var tipsView: FJTipsView? = null
@@ -38,6 +40,7 @@ open class Panel<T> {
         isTips: Boolean = false,
         bgColor: Int = -1,
         isTitle: Boolean = false,
+        title: String? = null,
         isTopPadding: Boolean = false
     ): T {
         this.mIsRefresh = isRefresh
@@ -45,7 +48,9 @@ open class Panel<T> {
         this.mIsTips = isTips
         this.mBgColor = bgColor
         this.mIsTitle = isTitle
+        this.mTitle = title
         this.mIsTopPadding = isTopPadding
+        LogUtil.e("-------jsd-----", "----title", mTitle)
         return t
     }
 
@@ -53,12 +58,13 @@ open class Panel<T> {
         context: Context, view: View, refreshListener: OnRefreshListener,
         onLoadMoreListener: OnLoadMoreListener
     ): View {
+        LogUtil.e("-------jsd1-----", "----title", mTitle)
         return view(
             context, view, mIsRefresh,
             mIsMore,
             mIsTips,
             mBgColor,
-            mIsTitle, refreshListener,
+            mIsTitle, mTitle, refreshListener,
             onLoadMoreListener
         )
     }
@@ -73,6 +79,7 @@ open class Panel<T> {
         refreshListener: OnRefreshListener,
         onLoadMoreListener: OnLoadMoreListener
     ): View {
+        LogUtil.e("-----jsd1----", "---isTitle:")
         val frameLayout = FrameLayout(context)
         if (bgColor != -1) {
             frameLayout.setBackgroundResource(bgColor)
@@ -103,13 +110,15 @@ open class Panel<T> {
         isTips: Boolean,
         bgColor: Int,
         isTitle: Boolean,
+        title: String?,
         refreshListener: OnRefreshListener,
         onLoadMoreListener: OnLoadMoreListener
     ): View {
-        if (!isRefresh && !isMore && !isTips && !isTitle) {
+        LogUtil.e("-----jsd1----", "---isTitle:")
+        if (!isRefresh && !isMore && !isTips && !isTitle && title == null) {
             return view
         }
-        if (!isTitle) {
+        if (!isTitle && title == null) {
             return view(
                 context,
                 view,
@@ -121,6 +130,7 @@ open class Panel<T> {
                 onLoadMoreListener
             )
         }
+        LogUtil.e("-----jsd1----", "---isTitle:", isTitle, " | title:", title)
         val root = LinearLayout(context)
         root?.isClickable = true
         root.layoutParams = LinearLayout.LayoutParams(
@@ -135,12 +145,25 @@ open class Panel<T> {
             root.removeView(topView)
         }
         topView = FJTopView(context)
+        if (mTitle != null) {
+            topView?.setTitle(mTitle)
+            mIsTopPadding = true
+        }
         root.addView(
             topView, LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
         root.addView(
-            view(context, view, isRefresh, isMore, isTips, -1, refreshListener, onLoadMoreListener),
+            view(
+                context,
+                view,
+                isRefresh,
+                isMore,
+                isTips,
+                -1,
+                refreshListener,
+                onLoadMoreListener
+            ),
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.MATCH_PARENT
         )

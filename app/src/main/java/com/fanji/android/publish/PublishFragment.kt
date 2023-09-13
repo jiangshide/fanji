@@ -77,103 +77,103 @@ class PublishFragment : BaseFragment<FragmentPublishBinding>(), OnMediaListener,
                 .with(PUBLISH_UPLOAD)
                 .post(publish)
         }
-        val positionData = PositionData()
-        val deviceData = DeviceData(activity)
-        publish.netInfo = positionData.gson
-        publish.device = deviceData.gson
-        binding.publishViewPager?.adapter = binding.publishViewPager.create(childFragmentManager)
-            .setTitles("图片", "音频", "视频", "文件")
-            .setFragment(
-                MediaFragment(IMG, "拍照", com.fanji.android.resource.R.mipmap.unimg, this),
-                MediaFragment(
-                    AUDIO, "录音", com.fanji.android.resource.R.mipmap.record, this
-                ),
-                MediaFragment(VIDEO, "摄像", com.fanji.android.ui.R.mipmap.video, this),
-                MediaFragment(DOC, "文件", com.fanji.android.resource.R.mipmap.follow, this)
-            )
-            .initTabs(requireActivity(), binding.tabsPublish, binding.publishViewPager)
-            .setPersistent(false)
-            .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
-            .setLinePagerIndicator(color(com.fanji.android.ui.R.color.blue))
-        binding.publishContent.publishContent.setKeyBoardListener(activity, this)
-        binding.publishContent.publishContent.setListener { s, input ->
-            publish?.content = input
-            validate()
-        }
-        val layoutManager = LinearLayoutManager(activity)
-        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        adapter = binding.publishImgs?.create(ArrayList(), R.layout.publish_fragment_head_item, {
-            val publishSelectedImg = this.findViewById<ImageView>(R.id.publishSelectedImg)
-            val publishSelectedDel = this.findViewById<ImageView>(R.id.publishSelectedDel)
-            val fileData: FileData = it
-            FJImg.loadImageRound(
-                it.path,
-                publishSelectedImg,
-                5,
-                com.fanji.android.resource.R.mipmap.splash
-            )
-            publishSelectedDel?.setOnClickListener {
-                adapter?.remove(fileData)
-                FJEvent.get().with(REMOVE_SELECTED).post(fileData)
-            }
-        }, {
-            val urls = ArrayList<String>()
-            var position = 0
-            adapter?.datas()?.forEachIndexed { index, fileData ->
-                if (this == fileData) {
-                    position = index
-                }
-                urls.add(fileData.path!!)
-            }
-            viewImg(urls, position)
-        }, layoutManager)
-
-        binding.publishLocation.setOnClickListener {
-            push(LocationFragment(this))
-        }
-        binding.publishLocationTaL.setOnClickListener {
-            push(SearchUserFragment())
-        }
-        binding.publishSetL.setOnClickListener {
-            push(SearchChannelManagerFragment(this))
-        }
-        binding.publishAudioViewCard.publishAudioView.setOnClickListener {
-            if (AudioPlay.getInstance()
-                    .isPlaying
-            ) {
-                AudioPlay.getInstance().pause()
-                return@setOnClickListener
-            }
-            binding.publishAudioViewCard.publishAudioProgress.max =
-                publish.files?.get(0)?.duration!!.toInt()
-            AudioPlay.getInstance()
-                .setPlayStateListener {
-                    if (binding.publishAudioViewCard.publishAudioPlay == null) return@setPlayStateListener
-                    if (it == AudioPlay.PlayState.STATE_PLAYING) {
-                        binding.publishAudioViewCard.publishAudioPlay.visibility = View.GONE
-                        countDown.start()
-                    } else if (it == AudioPlay.PlayState.STATE_PAUSE) {
-                        binding.publishAudioViewCard.publishAudioPlay.visibility = View.VISIBLE
-                        binding.publishAudioViewCard.publishAudioView?.hide()
-                        countDown.pause()
-                    } else if (it == AudioPlay.PlayState.STATE_IDLE) {
-                        binding.publishAudioViewCard.publishAudioPlay.visibility = View.VISIBLE
-                        binding.publishAudioViewCard.publishAudioProgress.progress = 0
-                        binding.publishAudioViewCard.publishAudioView?.hide()
-                        countDown.stop()
-                    }
-                }
-                .setDataCaptureListener(this)
-                .play(publish.files?.get(0)?.path)
-        }
-        binding.publishAudioViewCard.publishAudioCoverAdd?.setOnClickListener {
-        }
-        binding.publishAudioViewCard.publishAudioCover?.setOnClickListener {
-            push(
-                VideoPreviewFragment(publish.files!![0]).setTitle(publish.files!![0].name)
-                    ?.setTopBgIcon(R.color.black)!!
-            )
-        }
+//        val positionData = PositionData()
+//        val deviceData = DeviceData(activity)
+//        publish.netInfo = positionData.gson
+//        publish.device = deviceData.gson
+//        binding.publishViewPager?.adapter = binding.publishViewPager.create(childFragmentManager)
+//            .setTitles("图片", "音频", "视频", "文件")
+//            .setFragment(
+//                MediaFragment(IMG, "拍照", com.fanji.android.resource.R.mipmap.unimg, this),
+//                MediaFragment(
+//                    AUDIO, "录音", com.fanji.android.resource.R.mipmap.record, this
+//                ),
+//                MediaFragment(VIDEO, "摄像", com.fanji.android.ui.R.mipmap.video, this),
+//                MediaFragment(DOC, "文件", com.fanji.android.resource.R.mipmap.follow, this)
+//            )
+//            .initTabs(requireActivity(), binding.tabsPublish, binding.publishViewPager)
+//            .setPersistent(false)
+//            .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
+//            .setLinePagerIndicator(color(com.fanji.android.ui.R.color.blue))
+//        binding.publishContent.publishContent.setKeyBoardListener(activity, this)
+//        binding.publishContent.publishContent.setListener { s, input ->
+//            publish?.content = input
+//            validate()
+//        }
+//        val layoutManager = LinearLayoutManager(activity)
+//        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+//        adapter = binding.publishImgs?.create(ArrayList(), R.layout.publish_fragment_head_item, {
+//            val publishSelectedImg = this.findViewById<ImageView>(R.id.publishSelectedImg)
+//            val publishSelectedDel = this.findViewById<ImageView>(R.id.publishSelectedDel)
+//            val fileData: FileData = it
+//            FJImg.loadImageRound(
+//                it.path,
+//                publishSelectedImg,
+//                5,
+//                com.fanji.android.resource.R.mipmap.splash
+//            )
+//            publishSelectedDel?.setOnClickListener {
+//                adapter?.remove(fileData)
+//                FJEvent.get().with(REMOVE_SELECTED).post(fileData)
+//            }
+//        }, {
+//            val urls = ArrayList<String>()
+//            var position = 0
+//            adapter?.datas()?.forEachIndexed { index, fileData ->
+//                if (this == fileData) {
+//                    position = index
+//                }
+//                urls.add(fileData.path!!)
+//            }
+//            viewImg(urls, position)
+//        }, layoutManager)
+//
+//        binding.publishLocation.setOnClickListener {
+//            push(LocationFragment(this))
+//        }
+//        binding.publishLocationTaL.setOnClickListener {
+//            push(SearchUserFragment())
+//        }
+//        binding.publishSetL.setOnClickListener {
+//            push(SearchChannelManagerFragment(this))
+//        }
+//        binding.publishAudioViewCard.publishAudioView.setOnClickListener {
+//            if (AudioPlay.getInstance()
+//                    .isPlaying
+//            ) {
+//                AudioPlay.getInstance().pause()
+//                return@setOnClickListener
+//            }
+//            binding.publishAudioViewCard.publishAudioProgress.max =
+//                publish.files?.get(0)?.duration!!.toInt()
+//            AudioPlay.getInstance()
+//                .setPlayStateListener {
+//                    if (binding.publishAudioViewCard.publishAudioPlay == null) return@setPlayStateListener
+//                    if (it == AudioPlay.PlayState.STATE_PLAYING) {
+//                        binding.publishAudioViewCard.publishAudioPlay.visibility = View.GONE
+//                        countDown.start()
+//                    } else if (it == AudioPlay.PlayState.STATE_PAUSE) {
+//                        binding.publishAudioViewCard.publishAudioPlay.visibility = View.VISIBLE
+//                        binding.publishAudioViewCard.publishAudioView?.hide()
+//                        countDown.pause()
+//                    } else if (it == AudioPlay.PlayState.STATE_IDLE) {
+//                        binding.publishAudioViewCard.publishAudioPlay.visibility = View.VISIBLE
+//                        binding.publishAudioViewCard.publishAudioProgress.progress = 0
+//                        binding.publishAudioViewCard.publishAudioView?.hide()
+//                        countDown.stop()
+//                    }
+//                }
+//                .setDataCaptureListener(this)
+//                .play(publish.files?.get(0)?.path)
+//        }
+//        binding.publishAudioViewCard.publishAudioCoverAdd?.setOnClickListener {
+//        }
+//        binding.publishAudioViewCard.publishAudioCover?.setOnClickListener {
+//            push(
+//                VideoPreviewFragment(publish.files!![0]).setTitle(publish.files!![0].name)
+//                    ?.setTopBgIcon(R.color.black)!!
+//            )
+//        }
     }
 
     private fun validate() {

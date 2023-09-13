@@ -30,9 +30,7 @@ class SetFragment : BaseFragment<FragmentSetBinding>() {
         container: ViewGroup?
     ) = initView(
         FragmentSetBinding.inflate(layoutInflater),
-        isTitle = true,
-        isTopPadding = true,
-        bgColor = com.fanji.android.resource.R.drawable.bg_sweep
+        title = getString(R.string.setting)
     )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,7 +39,6 @@ class SetFragment : BaseFragment<FragmentSetBinding>() {
         setLeftListener {
             FJEvent.get().with(MENU).post(0)
         }
-        setTitle(getString(R.string.setting))
         val list = resources.getStringArray(R.array.settings).toMutableList()
         setLeft(this)
         binding.mineSetRecycleView.create(list, R.layout.mine_set_fragment_item, {

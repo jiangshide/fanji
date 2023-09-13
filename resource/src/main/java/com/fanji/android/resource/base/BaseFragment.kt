@@ -12,12 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
-import com.fanji.android.resource.R
-import com.fanji.android.ui.FJTipsView
-import com.fanji.android.ui.FJTopView
 import com.fanji.android.files.view.transferee.loader.GlideImageLoader
 import com.fanji.android.files.view.transferee.transfer.TransferConfig
 import com.fanji.android.files.view.transferee.transfer.Transferee
+import com.fanji.android.resource.R
+import com.fanji.android.ui.FJTipsView
+import com.fanji.android.ui.FJTopView
 import com.fanji.android.ui.refresh.FJRefresh
 import com.fanji.android.ui.refresh.api.RefreshLayout
 import com.fanji.android.ui.refresh.listener.OnLoadMoreListener
@@ -45,9 +45,10 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         isTips: Boolean = false,
         bgColor: Int = R.drawable.bg_sweep,
         isTitle: Boolean = false,
+        title: String? = null,
         isTopPadding: Boolean = false
     ): T {
-        panel!!.initView(t, isRefresh, isMore, isTips, bgColor, isTitle, isTopPadding)
+        panel!!.initView(t, isRefresh, isMore, isTips, bgColor, isTitle, title, isTopPadding)
         return t
     }
 
@@ -88,6 +89,11 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
             root.setPadding(0, SystemUtil.getStatusBarHeight(), 0, 0)
         }
         topView = panel.topView
+        if(topView != null){
+            topView!!.setOnLeftClick {
+                setLeftListener()
+            }
+        }
         refresh = panel.refresh
         tipsView = panel.tipsView
         return root

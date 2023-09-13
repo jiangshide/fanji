@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,6 +26,7 @@
         android:id="@+id/feedbackImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/feedbackEdit"
         android:src="@mipmap/image_placeholder"
         android:scaleType="centerCrop"
         />
@@ -33,6 +34,7 @@
         android:id="@+id/feedbackMethod"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/feedbackImg"
         android:hint="@string/contact"
         android:maxLines="1"
         android:imeOptions="actionDone"
@@ -46,10 +48,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/feedbackMethod"
         android:text="@string/feedback_tips"
         android:drawableLeft="@mipmap/unmine"
         android:layout_marginTop="@dimen/content"
         android:textColor="@color/fontLight"
         android:drawablePadding="@dimen/content"
         />
-</LinearLayout>
+</RelativeLayout>

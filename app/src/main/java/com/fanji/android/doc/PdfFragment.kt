@@ -38,16 +38,13 @@ class PdfFragment : BaseFragment<FragmentPdfBinding>(), FileListener {
         container: ViewGroup?
     ) = initView(
         FragmentPdfBinding.inflate(layoutInflater),
-        isTitle = true,
-        isTips = true,
-        isRefresh = true,
-        isTopPadding = true
+        title = "文件"
     )
 
     var start = 0L
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setTitle("文件")!!.setLeftListener {
+        setLeftListener {
             if (isRead) {
                 isRead = false
                 read()
@@ -78,7 +75,7 @@ class PdfFragment : BaseFragment<FragmentPdfBinding>(), FileListener {
             LogUtil.e("------jssds---", "----fileData:", this)
             isRead = true
             read()
-            binding.pdfView.fromFile(path).enableDoubletap(true).swipeVertical(true)
+            binding.pdfView.fromFile(path).swipeVertical(true)
                 .enableSwipe(true).onPageChange { page, pageCount ->
                     LogUtil.e("--------jsd----", "----page:", page, " | pageCount:", pageCount)
                 }.load()

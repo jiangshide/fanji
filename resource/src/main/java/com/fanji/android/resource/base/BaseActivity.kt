@@ -6,6 +6,7 @@ import androidx.annotation.AnimRes
 import androidx.annotation.AnimatorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
@@ -28,7 +29,7 @@ import com.fanji.android.util.SystemUtil
  * created by jiangshide on 4/9/21.
  * email:18311271399@163.com
  */
-abstract class BaseActivity<T : ViewBinding> : AppCompatActivity(), OnRefreshListener,
+abstract class BaseActivity<T : ViewBinding> : FragmentActivity(), OnRefreshListener,
     OnLoadMoreListener,
     FJTipsView.OnRetryListener {
 
@@ -40,15 +41,17 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity(), OnRefreshLis
         t: T, isRefresh: Boolean = false,
         isMore: Boolean = false,
         isTips: Boolean = false,
-        bgColor: Int = com.fanji.android.ui.R.color.white,
+        bgColor: Int = R.drawable.bg_sweep,
         isTitle: Boolean = false,
+        title: String? = null,
         isTopPadding: Boolean = false
     ): T {
-        panel!!.initView(t, isRefresh, isMore, isTips, bgColor, isTitle, isTopPadding)
+        panel!!.initView(t, isRefresh, isMore, isTips, bgColor, isTitle, title, isTopPadding)
         return t
     }
 
     private val panel: Panel<T>? = Panel()
+    private var mTitle: String? = null
     private var topView: FJTopView? = null
     private var refresh: FJRefresh? = null
     protected var tipsView: FJTipsView? = null

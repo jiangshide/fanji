@@ -20,14 +20,10 @@ class ShowSetFragment : BaseFragment<FragmentShowSetBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentShowSetBinding.inflate(layoutInflater)
-
+    ) = initView(FragmentShowSetBinding.inflate(layoutInflater), title = "显示设置")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setLeftListener {
-            pop()
-        }
         val isScroll = SPUtil.getBoolean(TAB_BOTTOM_SCROLL)
         binding.switchBottomMove.isChecked = isScroll
         binding.switchBottomMove.setOnCheckedChangeListener { view, isChecked ->

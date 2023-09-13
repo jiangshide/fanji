@@ -8,13 +8,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentSetAboutFeedbackBinding
+import com.fanji.android.files.FileListener
 import com.fanji.android.img.FJImg
 import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.vm.report.ReportVM
 import com.fanji.android.third.aliyun.oss.OssClient
 import com.fanji.android.ui.FJToast
-import com.fanji.android.files.FJFiles
-import com.fanji.android.files.FileListener
 import com.fanji.android.util.data.FileData
 
 /**
@@ -34,11 +33,13 @@ class FeedbackFragment : BaseFragment<FragmentSetAboutFeedbackBinding>(),
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentSetAboutFeedbackBinding.inflate(layoutInflater)
+    ) = initView(
+        FragmentSetAboutFeedbackBinding.inflate(layoutInflater),
+        title = getString(R.string.help_feedback)
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.feedbackEdit.setListener { s, input ->
             this.content = input
             validate()
