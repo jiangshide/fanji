@@ -9,6 +9,8 @@ import android.os.Looper
 import android.os.Message
 import android.provider.MediaStore
 import android.text.TextUtils
+import com.fanji.android.pdf.model.PDFFileInfo
+import com.fanji.android.pdf.util.PDFUtil
 import com.fanji.android.util.AppUtil
 import com.fanji.android.util.FileUtil
 import com.fanji.android.util.LogUtil
@@ -18,6 +20,7 @@ import com.fanji.android.util.data.DOWNLOADS
 import com.fanji.android.util.data.FileData
 import com.fanji.android.util.data.IMG
 import com.fanji.android.util.data.VIDEO
+import java.io.File
 import kotlin.concurrent.thread
 
 /**
@@ -66,7 +69,7 @@ object FJFiles {
 
     var DIR = listOf("img", "audio", "video", "doc", "web", "vr", "downloads", "camera")
 
-//    var mDocType: Array<String>? =
+    //    var mDocType: Array<String>? =
 //        arrayOf("text/plain", "application/pdf", "application/msword", "application/vnd.ms-excel")
     var mDocType: Array<String>? =
         arrayOf("application/pdf")
@@ -143,12 +146,20 @@ object FJFiles {
     fun fileListSync(type: Int, fileListener: FileListener) {
         this.mFileListener = fileListener
         thread {
-            val list = ArrayList<FileData>()
-            fileList(type, mColumns, mSelectionArgs, mSortOrder).forEach {
-                it.forEach { it ->
-                    list.add(it)
-                }
-            }
+            val list = getDocs(AppUtil.getApplicationContext())
+//            fileList(type, mColumns, mSelectionArgs, mSortOrder).forEach {
+//                it.forEach { it ->
+//                    list.add(it)
+//                }
+//            }
+
+//            PdfUtils.getDocumentData(AppUtil.getApplicationContext()).forEach {
+//                val fileData = FileData()
+//                fileData.name = it.fileName
+//                fileData.path = it.filePath
+//                fileData.size = it.fileSize
+//                list.add(fileData)
+//            }
             handle.sendMessage(Message.obtain().apply {
                 what = WHAT
                 obj = list
@@ -299,24 +310,33 @@ object FJFiles {
         FJFilesActivity.openFile(context, type, fileListener)
     }
 
-    fun getDocs(context: Context):ArrayList<String>{
-        val columns = arrayOf(MediaStore.Files.FileColumns._ID,
+    fun getDocs(context: Context): ArrayList<FileData> {
+        val columns = arrayOf(
+            MediaStore.Files.FileColumns._ID,
             MediaStore.Files.FileColumns.MIME_TYPE,
-            MediaStore.Files.FileColumns.SIZE,MediaStore.Files.FileColumns.DATE_MODIFIED,
-            MediaStore.Files.FileColumns.DATA)
+            MediaStore.Files.FileColumns.SIZE, MediaStore.Files.FileColumns.DATE_MODIFIED,
+            MediaStore.Files.FileColumns.DATA
+        )
         val select = "(_data LIKE '%.pdf')"
-        val cursor = context.contentResolver.query(MediaStore.Files.getContentUri("external"),
-            columns,select,null,null)
+        val cursor = context.contentResolver.query(
+            MediaStore.Files.getContentUri("external"),
+            columns, select, null, null
+        )
         var columnIndexOrThrow_DATA = 0
-        if(cursor != null){
-            columnIndexOrThrow_DATA = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA)
+        if (cursor != null) {
+            columnIndexOrThrow_DATA =
+                cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA)
         }
-        val list = ArrayList<String>()
-        if(cursor != null){
-            while(cursor.moveToNext()){
+        val list = ArrayList<FileData>()
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
                 val path = cursor.getString(columnIndexOrThrow_DATA)
-                LogUtil.e("----jsd---","----path",path)
-                list.add(path)
+                val document: PDFFileInfo = PDFUtil.getFileInfoFromFile(File(path))
+                val fileData = FileData()
+                fileData.path = document.filePath
+                fileData.name = document.fileName
+                fileData.size = document.fileSize
+                list.add(fileData)
             }
         }
         return list

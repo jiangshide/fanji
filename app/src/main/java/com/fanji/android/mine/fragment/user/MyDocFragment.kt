@@ -1,5 +1,6 @@
 package com.fanji.android.mine.fragment.user
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +8,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentUserDocBinding
-import com.fanji.android.doc.PdfFragment
+import com.fanji.android.doc.FileDisplayActivity
 import com.fanji.android.files.FJFiles
 import com.fanji.android.files.FileListener
 import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.ui.adapter.KAdapter
 import com.fanji.android.ui.adapter.create
+import com.fanji.android.util.LogUtil
 import com.fanji.android.util.data.DOC
 import com.fanji.android.util.data.FileData
 
@@ -38,13 +40,18 @@ class MyDocFragment : BaseFragment<FragmentUserDocBinding>(), FileListener {
             docTitle.text = it.name
             docPath.text = it.path
         }, {
-            push(PdfFragment(this))
+//            push(PdfFragment(this))
+            val intent = Intent()
+            intent.putExtra("fileName", this.path)
+            intent.setClass(requireContext(), FileDisplayActivity::class.java)
+            startActivity(intent)
         }
         )
         FJFiles.fileListSync(DOC, this)
     }
 
     override fun onFiles(files: List<FileData>) {
+        LogUtil.e("-----jsd----", "------onFiles~size:", files.size)
         adapter!!.add(files)
     }
 }

@@ -88,6 +88,8 @@
             android:screenOrientation="portrait"
             />
 
+        <activity android:name=".doc.FileDisplayActivity"/>
+
         <provider
             android:name=".FJProvider"
             android:authorities="com.fangji.android" />

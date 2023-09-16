@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.fanji.android.databinding.FragmentRecommendBinding
+import com.fanji.android.pdf.PdfUtils
 import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.vm.feed.FeedVM
+import com.fanji.android.thread.ruler.thread
 import com.fanji.android.ui.refresh.api.RefreshLayout
 import com.fanji.android.util.LogUtil
 
@@ -29,8 +31,8 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         feedVM!!.recommendBlog.observe(requireActivity(), Observer {
-            finishData(true,true,true)
-            if(it.msg != null){
+            finishData(true, true, true)
+            if (it.msg != null) {
                 tips(code = it.code)
             }
         })
@@ -40,6 +42,10 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>() {
     override fun onRetry(view: View?) {
         super.onRetry(view)
         feedVM!!.recommendBlog().loading(tipsView)
+        thread {
+            val list = PdfUtils.getDocumentData(requireContext())
+            LogUtil.e("--------jsd------", "-----pdf~list.size:", list.size)
+        }
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {

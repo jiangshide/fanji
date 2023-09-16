@@ -5,6 +5,7 @@ import android.app.Application.ActivityLifecycleCallbacks
 import android.os.Bundle
 import com.fanji.android.resource.base.BaseApplication
 import com.fanji.android.util.LogUtil
+import com.tencent.smtt.sdk.QbSdk
 import com.umeng.commonsdk.UMConfigure
 
 /**

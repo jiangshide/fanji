@@ -216,7 +216,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation(project(":resource"))
-
+    implementation(project(":pdf"))
     // 版本号带有 @aar 形式的依赖比较特殊，需要按如下方法写
 //    api(bizLibs.***.library) {
 //        artifact {

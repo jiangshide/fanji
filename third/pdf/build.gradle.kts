@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.fanji.android.util"
+    namespace = "com.fanji.android.pdf"
     compileSdk = 33
 
     defaultConfig {
@@ -23,6 +23,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -37,11 +38,10 @@ dependencies {
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")
-    implementation(files("libs/isoparser-1.0.6.jar"))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    api("com.google.code.gson:gson:2.8.6")
-    api("com.tencent:mmkv:1.3.1")
+    implementation(project(":util"))
+    api("com.tencent.tbs:tbssdk:44286")
 }

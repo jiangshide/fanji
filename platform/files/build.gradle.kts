@@ -52,4 +52,6 @@ dependencies {
     implementation(project(":img"))
     implementation(project(":ui"))
     implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.19")
+
+    api(project(":pdf"))
 }

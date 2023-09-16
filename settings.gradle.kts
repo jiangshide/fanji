@@ -57,4 +57,9 @@ project(":screenshort").projectDir = File("platform/screenshort")
 //the third start
 include(":umeng")
 project(":umeng").projectDir = File("third/umeng")
+
+include(":pdf")
+project(":pdf").projectDir = File("third/pdf")
+
 //the third end
+
