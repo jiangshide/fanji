@@ -4,6 +4,6 @@
     <application>
         <provider
             android:name=".provider.ProviderUtil"
-            android:authorities="com.fangji.android" />
+            android:authorities="com.fangji.android.provider.util" />
     </application>
 </manifest>

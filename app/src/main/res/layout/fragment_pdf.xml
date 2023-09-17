@@ -6,12 +6,5 @@
     <com.fanji.android.pdf.PDFView
         android:id="@+id/pdfView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        />
-    <com.tencent.smtt.sdk.TbsReaderView
-        android:id="@+id/tbsPdfView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

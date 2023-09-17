@@ -4,7 +4,6 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
-import com.fanji.android.util.LogUtil
 import com.tencent.mmkv.MMKV
 
 /**
@@ -15,8 +14,7 @@ import com.tencent.mmkv.MMKV
  */
 class ProviderUtil : ContentProvider() {
     override fun onCreate(): Boolean {
-        val rootDir = MMKV.initialize(context)
-        LogUtil.e("ProviderUtil", "onCreate~rootDir:", rootDir)
+        MMKV.initialize(context)
         return true
     }
 

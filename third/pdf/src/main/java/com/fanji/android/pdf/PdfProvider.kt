@@ -5,7 +5,6 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
 import com.fanji.android.util.LogUtil
-import com.tencent.mmkv.MMKV
 import com.tencent.smtt.sdk.QbSdk
 import com.tencent.smtt.sdk.QbSdk.PreInitCallback
 
@@ -19,7 +18,6 @@ class PdfProvider : ContentProvider(), PreInitCallback {
     override fun onCreate(): Boolean {
         QbSdk.setDownloadWithoutWifi(true)
         QbSdk.initX5Environment(context, this)
-        LogUtil.e("pdf--onCreate--", "initX5Environment...")
         return true
     }
 

@@ -20,26 +20,33 @@ import java.util.List;
  */
 public final class SPUtil {
 
-    private static MMKV mmkv = MMKV.defaultMMKV();
+    private volatile static MMKV mmkv = null;
+
+    private static MMKV getMMKV() {
+        if (mmkv == null) {
+            mmkv = MMKV.defaultMMKV();
+        }
+        return mmkv;
+    }
 
     public static void put(String key, int value) {
-        mmkv.encode(key, value);
+        getMMKV().encode(key, value);
     }
 
     public static boolean getMKBoolean(String key) {
-        return mmkv.decodeBool(key);
+        return getMMKV().decodeBool(key);
     }
 
     public static int getMKInt(String key) {
-        return mmkv.decodeInt(key, 0);
+        return getMMKV().decodeInt(key, 0);
     }
 
     public static String getMKString(String key) {
-        return mmkv.decodeString(key);
+        return getMMKV().decodeString(key);
     }
 
-    public static <T> Parcelable getMK(String key, Class<Parcelable> clazz){
-        return mmkv.decodeParcelable(key,clazz);
+    public static <T> Parcelable getMK(String key, Class<Parcelable> clazz) {
+        return getMMKV().decodeParcelable(key, clazz);
     }
 
     public static SharedPreferences.Editor getEdit() {

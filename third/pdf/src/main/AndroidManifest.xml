@@ -7,7 +7,7 @@
     <application>
         <provider
             android:name=".PdfProvider"
-            android:authorities="com.fangji.android" />
+            android:authorities="com.fangji.android.provider.pdf" />
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
             android:label="dexopt"

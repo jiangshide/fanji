@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.os.storage.StorageManager
 import android.provider.MediaStore
 import android.text.TextUtils
 import com.fanji.android.pdf.model.PDFFileInfo
@@ -21,6 +22,7 @@ import com.fanji.android.util.data.FileData
 import com.fanji.android.util.data.IMG
 import com.fanji.android.util.data.VIDEO
 import java.io.File
+import java.lang.reflect.Method
 import kotlin.concurrent.thread
 
 /**
@@ -340,6 +342,25 @@ object FJFiles {
             }
         }
         return list
+    }
+
+    fun getAllSdPaths(context: Context): List<String> {
+        var mMethodGetPaths: Method? = null
+        var paths: Array<String>? = null
+        //通过调用类的实例mStorageManager的getClass()获取StorageManager类对应的Class对象
+        //getMethod("getVolumePaths")返回StorageManager类对应的Class对象的getVolumePaths方法，这里不带参数
+        val mStorageManager = context
+            .getSystemService(Context.STORAGE_SERVICE) as StorageManager //storage
+        try {
+            mMethodGetPaths = mStorageManager.javaClass.getMethod("getVolumePaths")
+            paths = mMethodGetPaths.invoke(mStorageManager) as Array<String>
+        } catch (e: java.lang.Exception) {
+            // TODO Auto-generated catch block
+            e.printStackTrace()
+        }
+        return if (paths != null) {
+            paths.toList()
+        } else java.util.ArrayList()
     }
 }
 

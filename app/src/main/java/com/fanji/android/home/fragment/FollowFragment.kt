@@ -95,31 +95,14 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>() {
         uiScope.launch {
             val file = File("/")
             LogUtil.e("----jsd---", "----listRoots:", file)
-//            files(file)
-            val list = FJFiles.getDocs(requireActivity())
+            val list = FJFiles.getAllSdPaths(requireActivity())
+            list.forEach {
+                LogUtil.e("----jsd---", "----list~name:", it)
+            }
             val duration = System.currentTimeMillis() - startTime
             LogUtil.e("----jsd----", "---list.size:", list.size, " | duration:", duration)
         }
     }
-
-//    val list = ArrayList<File>()
-//    fun files(file: File) {
-//        if (file.exists() && file.isDirectory) {
-//            val datas = file.listFiles()
-//            LogUtil.e("--jsd---", "----datas:", datas)
-//            if (datas != null) {
-//                LogUtil.e("--jsd---", "----datas.size:", datas.size)
-//                for (file in datas) {
-//                    files(file)
-//                }
-//            }
-//        } else if (file.exists() && file.isFile) {
-//            LogUtil.e("----jsd---", "----file:", file)
-//            list.add(file)
-//        } else {
-//            LogUtil.e("----jsd---", "----file exception:", file)
-//        }
-//    }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
         super.onRefresh(refreshLayout)

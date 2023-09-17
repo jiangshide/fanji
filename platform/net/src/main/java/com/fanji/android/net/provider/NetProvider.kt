@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
 import com.fanji.android.net.Net
+import com.fanji.android.util.LogUtil
 
 /**
  * @author 蒋世德
@@ -13,7 +14,6 @@ import com.fanji.android.net.Net
  */
 class NetProvider : ContentProvider() {
     override fun onCreate(): Boolean {
-//        context?.cacheDir?.let { Okhttp.initDir(it) }
         Net.init(context)
         return true
     }
