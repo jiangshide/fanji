@@ -2,7 +2,7 @@ package com.fanji.android.login.activity
 
 import android.os.Bundle
 import com.fanji.android.databinding.ActivityBindPhoneBinding
-import com.fanji.android.resource.base.BaseActivity
+import com.fanji.android.ui.base.BaseActivity
 
 /**
  * @Author:jiangshide

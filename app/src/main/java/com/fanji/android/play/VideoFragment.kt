@@ -3,7 +3,7 @@ package com.fanji.android.play
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.fanji.android.databinding.FragmentVideoBinding
-import com.fanji.android.resource.base.BaseFragment
+import com.fanji.android.ui.base.BaseFragment
 
 /**
  * @Author:jiangshide

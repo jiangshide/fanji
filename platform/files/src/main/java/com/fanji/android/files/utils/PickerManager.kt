@@ -165,6 +165,9 @@ object PickerManager {
 
         val txts = arrayOf("txt")
         fileTypes.add(FileType(FilePickerConst.TXT, txts, R.mipmap.icon_file_unknown))
+
+        val zips = arrayOf("zip","rar","tar","gz","jar","arj","z","lzh")
+        fileTypes.add(FileType(FilePickerConst.ZIP,zips,R.mipmap.icon_file_zip))
     }
 
     fun getFileTypes(): ArrayList<FileType> {

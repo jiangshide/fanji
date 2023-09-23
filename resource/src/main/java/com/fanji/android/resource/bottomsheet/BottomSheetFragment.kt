@@ -19,9 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
-import androidx.viewbinding.ViewBinding
 import com.fanji.android.resource.R
-import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.ui.FJImageView
 import com.fanji.android.util.ScreenUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior

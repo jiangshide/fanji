@@ -16,13 +16,13 @@ import com.fanji.android.net.HTTP_OK
 import com.fanji.android.resource.COUNTDOWN_TIME
 import com.fanji.android.resource.Resource
 import com.fanji.android.resource.USER_NOT_EXIST
-import com.fanji.android.resource.base.BaseActivity
 import com.fanji.android.resource.data.DeviceData
 import com.fanji.android.location.data.PositionData
 import com.fanji.android.resource.vm.user.UserVM
 import com.fanji.android.ui.FJDialog
 import com.fanji.android.ui.FJEditText
 import com.fanji.android.ui.FJToast
+import com.fanji.android.ui.base.BaseActivity
 import com.fanji.android.util.FJEvent
 import com.fanji.android.util.LogUtil
 import com.fanji.android.util.ValidateCodeUtil

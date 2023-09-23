@@ -13,4 +13,8 @@ class FileType constructor(
         var extensions : Array<String>,
         @DrawableRes
         var drawable: Int
-) : Parcelable
+) : Parcelable{
+        override fun toString(): String {
+                return "FileType(title='$title', extensions=${extensions.contentToString()}, drawable=$drawable)"
+        }
+}

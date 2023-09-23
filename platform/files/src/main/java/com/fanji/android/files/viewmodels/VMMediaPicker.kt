@@ -15,6 +15,7 @@ import com.fanji.android.files.models.PhotoDirectory
 import com.fanji.android.files.utils.FilePickerConst
 import com.fanji.android.files.utils.PickerManager
 import com.fanji.android.files.utils.registerObserver
+import com.fanji.android.util.LogUtil
 import com.fanji.android.util.data.FileData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -129,6 +130,8 @@ class VMMediaPicker(application: Application) : BaseViewModel(application) {
 
             if (bucketId != null)
                 selection += " AND " + MediaStore.Images.Media.BUCKET_ID + "='" + bucketId + "'"
+
+            LogUtil.e("-----jsds---","-----selection:",selection," | mediaType:",mediaType)
             val cursor = getApplication<Application>().contentResolver.query(
                 uri,
                 projection,

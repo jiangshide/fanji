@@ -42,6 +42,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     api(project(":util"))
+    api("pl.droidsonroids.gif:android-gif-drawable:1.2.19")
     api("com.github.bumptech.glide:glide:4.12.0")
     api("com.github.bumptech.glide:annotations:4.12.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")

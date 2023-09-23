@@ -5,8 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.fanji.android.files.databinding.ActivityFileBinding
-import com.fanji.android.util.LogUtil
-import com.fanji.android.util.data.IMG
+import com.fanji.android.files.utils.FilePickerConst.PDF
+import com.fanji.android.files.utils.FilePickerConst.PPT
+import com.fanji.android.files.utils.FilePickerConst.DOC
+import com.fanji.android.files.utils.FilePickerConst.TXT
+import com.fanji.android.files.utils.FilePickerConst.ZIP
+import com.fanji.android.files.utils.FilePickerConst.XLS
+
+import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 
 /**
  * @author: jiangshide
@@ -32,9 +38,16 @@ class FJFilesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.fileViewPager.adapter = binding.fileViewPager.create(supportFragmentManager)
+            .setTitles(
+                arrayListOf(PDF, DOC, PPT, TXT, XLS, ZIP)
+            )
+            .setFragment(
+            )
+            .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
+            .setTxtSelectedColor(com.fanji.android.ui.R.color.white)
+            .initTabs(this, binding.fileTab, binding.fileViewPager)
+
 //        binding.commonHead.topTitle.text = resources.getStringArray(R.array.files)[mType]
-        val list = FJFiles.fileList(IMG)
-        LogUtil.e("----jsd----file--->>>", "--------list.size:", list.size, " | list:" + list)
-//        binding.fileRecycleView.create()
     }
 }

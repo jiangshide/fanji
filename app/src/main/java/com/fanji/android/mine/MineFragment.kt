@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.fanji.android.databinding.FragmentMineBinding
 import com.fanji.android.mine.fragment.SetFragment
 import com.fanji.android.mine.fragment.UserFragment
-import com.fanji.android.resource.base.BaseFragment
+import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 import com.fanji.android.util.FJEvent
 

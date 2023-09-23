@@ -14,12 +14,12 @@ import com.fanji.android.databinding.FragmentSearchUserBinding
 import com.fanji.android.img.FJImg
 import com.fanji.android.net.HTTP_OK
 import com.fanji.android.resource.Resource
-import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.vm.user.UserVM
 import com.fanji.android.resource.vm.user.data.User
 import com.fanji.android.ui.FJCircleImg
 import com.fanji.android.ui.adapter.KAdapter
 import com.fanji.android.ui.adapter.create
+import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.refresh.api.RefreshLayout
 
 /**

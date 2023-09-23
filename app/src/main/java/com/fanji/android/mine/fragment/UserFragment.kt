@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentUserBinding
-import com.fanji.android.doc.PdfFragment
 import com.fanji.android.files.FileListener
 import com.fanji.android.img.FJImg
 import com.fanji.android.mine.MENU
@@ -19,10 +18,10 @@ import com.fanji.android.mine.fragment.user.MyMusicFragment
 import com.fanji.android.mine.fragment.user.MyVideoFragment
 import com.fanji.android.net.HTTP_OK
 import com.fanji.android.resource.Resource
-import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.vm.user.UserVM
 import com.fanji.android.resource.vm.user.data.User
 import com.fanji.android.ui.FJTextView
+import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 import com.fanji.android.util.FJEvent
 import com.fanji.android.util.LogUtil

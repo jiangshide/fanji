@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <!-- Required -->
+        <activity
+            android:name="com.cmic.sso.sdk.activity.LoginAuthActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified"
+            android:theme="@style/ActivityDialogStyle"/>
+        <!-- Required -->
+        <activity
+            android:name="cn.jiguang.verifysdk.CtLoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified"
+            android:theme="@style/ActivityDialogStyle"/>
+        <!-- Required -->
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="${JPUSH_APPKEY}" /> <!-- </>值来自开发者平台取得的AppKey -->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="${JPUSH_CHANNEL}" />
+    </application>
+</manifest>

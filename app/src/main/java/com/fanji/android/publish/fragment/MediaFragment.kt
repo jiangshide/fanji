@@ -20,7 +20,6 @@ import com.fanji.android.img.FJImg
 import com.fanji.android.publish.AUDIO_RECORD_RECORDING
 import com.fanji.android.publish.AUDIO_RECORD_STATE
 import com.fanji.android.publish.AUDIO_RECORD_STOP
-import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.ui.FJImageView
 import com.fanji.android.ui.FJToast
 import com.fanji.android.ui.adapter.KAdapter
@@ -28,6 +27,7 @@ import com.fanji.android.ui.adapter.create
 import com.fanji.android.ui.anim.Anim
 import com.fanji.android.files.utils.ImageCaptureManager
 import com.fanji.android.files.viewmodels.VMMediaPicker
+import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.util.AppUtil
 import com.fanji.android.util.DateUtil
 import com.fanji.android.util.FJEvent
@@ -167,6 +167,7 @@ class MediaFragment(
                 mediaItemCheck.isSelected = media.selected
             },
             {
+                LogUtil.e("-----jsd---","-----this:",this)
                 if (uri == null) {
                     when (type) {
                         IMG -> {

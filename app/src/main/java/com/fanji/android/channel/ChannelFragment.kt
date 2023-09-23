@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.fanji.android.channel.fragment.ChannelTypeFragment
 import com.fanji.android.databinding.FragmentChannelBinding
-import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.vm.channel.ChannelVM
 import com.fanji.android.resource.vm.channel.data.ChannelType
+import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.refresh.api.RefreshLayout
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 

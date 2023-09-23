@@ -14,14 +14,14 @@ import com.fanji.android.net.state.NetState
 import com.fanji.android.publish.PublishFragment
 import com.fanji.android.resource.Resource
 import com.fanji.android.resource.TAB_BOTTOM_SCROLL
-import com.fanji.android.resource.base.BaseActivity
-import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.task.PUBLISH_UPLOAD
 import com.fanji.android.resource.task.PublishTask
 import com.fanji.android.resource.vm.publish.PublishVM
 import com.fanji.android.resource.vm.publish.data.Publish
 import com.fanji.android.resource.vm.user.data.User
 import com.fanji.android.ui.FJToast
+import com.fanji.android.ui.base.BaseActivity
+import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.navigation.NavigationController
 import com.fanji.android.ui.navigation.item.SpecialTabRound
 import com.fanji.android.ui.navigation.listener.OnTabItemSelectedListener

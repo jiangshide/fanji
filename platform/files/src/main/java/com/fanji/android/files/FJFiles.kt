@@ -145,10 +145,10 @@ object FJFiles {
     }
 
     private var mFileListener: FileListener? = null
-    fun fileListSync(type: Int, fileListener: FileListener) {
+    fun fileListSync(suffix: String, fileListener: FileListener) {
         this.mFileListener = fileListener
         thread {
-            val list = getDocs(AppUtil.getApplicationContext())
+            val list = getDocs(AppUtil.getApplicationContext(),suffix)
 //            fileList(type, mColumns, mSelectionArgs, mSortOrder).forEach {
 //                it.forEach { it ->
 //                    list.add(it)
@@ -312,14 +312,14 @@ object FJFiles {
         FJFilesActivity.openFile(context, type, fileListener)
     }
 
-    fun getDocs(context: Context): ArrayList<FileData> {
+    fun getDocs(context: Context, suffix: String = "pdf"): ArrayList<FileData> {
         val columns = arrayOf(
             MediaStore.Files.FileColumns._ID,
             MediaStore.Files.FileColumns.MIME_TYPE,
             MediaStore.Files.FileColumns.SIZE, MediaStore.Files.FileColumns.DATE_MODIFIED,
             MediaStore.Files.FileColumns.DATA
         )
-        val select = "(_data LIKE '%.pdf')"
+        val select = "(_data LIKE '%.$suffix' AND LIKE '%.png')"
         val cursor = context.contentResolver.query(
             MediaStore.Files.getContentUri("external"),
             columns, select, null, null

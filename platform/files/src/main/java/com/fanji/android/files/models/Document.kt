@@ -10,4 +10,8 @@ class Document @JvmOverloads constructor(override var id: Long = 0,
                                          var mimeType: String? = null,
                                          var size: String? = null,
                                          var fileType: FileType? = null
-) : BaseFile(id, name, path)
+) : BaseFile(id, name, path){
+    override fun toString(): String {
+        return "Document(id=$id, name='$name', path=$path, mimeType=$mimeType, size=$size, fileType=$fileType)"
+    }
+}

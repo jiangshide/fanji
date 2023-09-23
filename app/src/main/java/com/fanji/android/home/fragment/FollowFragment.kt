@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.fanji.android.databinding.FragmentFollowBinding
-import com.fanji.android.files.FJFiles
-import com.fanji.android.resource.base.BaseFragment
+import com.fanji.android.files.utils.PickerManager
+import com.fanji.android.files.viewmodels.VMDocPicker
 import com.fanji.android.resource.vm.feed.FeedVM
+import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.refresh.api.RefreshLayout
 import com.fanji.android.util.LogUtil
-import kotlinx.coroutines.launch
-import java.io.File
 
 /**
  * @Author:jiangshide
@@ -23,7 +23,8 @@ import java.io.File
 class FollowFragment : BaseFragment<FragmentFollowBinding>() {
 
     private var feedVM: FeedVM? = create(FeedVM::class.java)
-
+    lateinit var viewModel: VMDocPicker
+    var startTime = 0L
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -31,78 +32,33 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
+        ).get(VMDocPicker::class.java)
         feedVM!!.recommendBlog.observe(requireActivity(), Observer {
             finishData(true, true, true)
-            LogUtil.e(
-                "----jsd----",
-                "-----it.msg:",
-                it.msg,
-                " | code:",
-                it.code,
-                " | data:",
-                it.data
-            )
             if (it.msg != null) {
                 tips()
             }
         })
         feedVM!!.recommendBlog().loading(tipsView)
+        viewModel.lvDocData.observe(viewLifecycleOwner, Observer { files ->
+            val duration = System.currentTimeMillis() - startTime
+            LogUtil.e("----jsd---", "---files:", files.size, " | duration:", duration)
+//            setDataOnFragments(files)
+//            adapter!!.add(files)
+        })
     }
 
     override fun onRetry(view: View?) {
         super.onRetry(view)
         feedVM!!.recommendBlog().loading(tipsView)
-        getFilesJsd()
+        startTime = System.currentTimeMillis()
+        PickerManager.addDocTypes()
+        viewModel.getDocs(PickerManager.getFileTypes(), PickerManager.sortingType.comparator)
     }
 
-    fun getFilesJsd() {
-        val filesDir = requireActivity().filesDir
-        val cacheDir = requireActivity().cacheDir
-        val obbDir = requireActivity().obbDir
-        val codeCacheDir = requireActivity().codeCacheDir
-        val externalFilesDir = requireActivity().getExternalFilesDir("*")
-        val externalCacheDir = requireActivity().externalCacheDir
-        val databasePath = requireActivity().getDatabasePath("*")
-//        val dir = requireActivity().getDir("",FileMode)
-        val packageCodePath = requireActivity().packageCodePath
-//        val rootDirectory = requireActivity().getRoot
-//        val externalStorageDirectory = requireActivity().externalS
-//        val externalStoragePublicDirctory = requireActivity().externalStor
-//        val downloadCacheDirectory = requireActivity().getD
-        val fileStreamPath = requireActivity().getFileStreamPath("*")
-        LogUtil.e(
-            "--------jsd---",
-            "----filesDir:",
-            filesDir,
-            "---cacheDir:",
-            cacheDir,
-            "---obbDir:",
-            obbDir,
-            "---codeCacheDir:",
-            codeCacheDir,
-            "---externalFilesDir:",
-            externalFilesDir,
-            " | externalCacheDir:",
-            externalCacheDir,
-            "---databasePath:",
-            databasePath,
-            "---packageCodePath:",
-            packageCodePath,
-            "---fileStreamPath:",
-            fileStreamPath
-        )
-        val startTime = System.currentTimeMillis()
-        uiScope.launch {
-            val file = File("/")
-            LogUtil.e("----jsd---", "----listRoots:", file)
-            val list = FJFiles.getAllSdPaths(requireActivity())
-            list.forEach {
-                LogUtil.e("----jsd---", "----list~name:", it)
-            }
-            val duration = System.currentTimeMillis() - startTime
-            LogUtil.e("----jsd----", "---list.size:", list.size, " | duration:", duration)
-        }
-    }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
         super.onRefresh(refreshLayout)

@@ -64,7 +64,7 @@
     tools:text="1.2MB" />
 
 
-  <com.fanji.android.files.view.SmoothCheckBox
+  <com.fanji.android.img.view.SmoothCheckBox
     android:id="@+id/fileItemDocCheck"
     style="@style/SmoothCheckBoxStyle"
     android:layout_width="@dimen/file_item_checkbox_size"

@@ -37,6 +37,8 @@ class FileData() : Parcelable {
     var dateModified: Long = 0
     var selectedDir = false
     var selectedDirSize = 0
+    var mimeType: String? = null
+
 
     var uri: Uri? = null
 
@@ -80,6 +82,7 @@ class FileData() : Parcelable {
         dateModified = parcel.readLong()
         selectedDir = parcel.readByte() != 0.toByte()
         selectedDirSize = parcel.readInt()
+        mimeType = parcel.readString()
         source = parcel.readInt()
         lrcEs = parcel.readString()
         lrcZh = parcel.readString()
@@ -202,6 +205,7 @@ class FileData() : Parcelable {
         parcel.writeLong(dateModified)
         parcel.writeByte(if (selectedDir) 1 else 0)
         parcel.writeInt(selectedDirSize)
+        parcel.writeString(mimeType)
         parcel.writeInt(source)
         parcel.writeString(lrcEs)
         parcel.writeString(lrcZh)

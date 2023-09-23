@@ -1,12 +1,11 @@
 package com.fanji.android.mine.fragment.user
 
 import android.os.Bundle
-import android.os.Debug
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.fanji.android.databinding.FragmentMyVideoBinding
-import com.fanji.android.resource.base.BaseFragment
+import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.util.LogUtil
 import java.io.File
 

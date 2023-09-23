@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.fanji.android.databinding.FragmentShowSetBinding
-import com.fanji.android.resource.base.BaseFragment
+import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.util.FJEvent
 import com.fanji.android.util.SPUtil
 

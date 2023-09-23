@@ -61,5 +61,7 @@ project(":umeng").projectDir = File("third/umeng")
 include(":pdf")
 project(":pdf").projectDir = File("third/pdf")
 
+include(":jiguang")
+project(":jiguang").projectDir = File("third/jiguang")
 //the third end
 

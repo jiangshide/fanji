@@ -8,8 +8,8 @@ import android.widget.TextView
 import com.fanji.android.BuildConfig
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentSetAboutBinding
-import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.ui.adapter.create
+import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.util.AppUtil
 import com.fanji.android.util.SystemUtil
 

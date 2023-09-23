@@ -25,6 +25,11 @@ android {
         }
     }
 
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -43,9 +48,8 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    api(project(":util"))
     api(project(":img"))
+    api(project(":play"))
     implementation("net.lingala.zip4j:zip4j:1.3.2")
-    implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.19")
     api(project(":net"))
 }

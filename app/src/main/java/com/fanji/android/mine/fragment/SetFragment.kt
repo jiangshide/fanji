@@ -11,8 +11,8 @@ import com.fanji.android.mine.MENU
 import com.fanji.android.mine.fragment.set.AboutFragment
 import com.fanji.android.mine.fragment.set.ShowSetFragment
 import com.fanji.android.resource.Resource
-import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.ui.adapter.create
+import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.util.FJEvent
 import com.fanji.android.util.LogUtil
 import com.fanji.android.util.SPUtil

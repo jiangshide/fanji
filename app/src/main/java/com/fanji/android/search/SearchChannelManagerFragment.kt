@@ -8,10 +8,10 @@ import androidx.lifecycle.Observer
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentSearchChannelManagerBinding
 import com.fanji.android.net.HTTP_OK
-import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.vm.channel.ChannelVM
 import com.fanji.android.resource.vm.channel.data.ChannelBlog
 import com.fanji.android.resource.vm.channel.data.ChannelType
+import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 
 /**

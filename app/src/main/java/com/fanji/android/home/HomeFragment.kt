@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentHomeBinding
-import com.fanji.android.doc.PdfFragment
 import com.fanji.android.home.fragment.FollowFragment
 import com.fanji.android.home.fragment.RecommendFragment
-import com.fanji.android.resource.base.BaseFragment
+import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 
 /**
@@ -42,13 +41,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ViewPager.OnPageChange
                 RecommendFragment(),
                 RecommendFragment(),
             )
+            .initTabs(activity, binding.homeTab, binding.homeViewPager, true)
+            .setPersistent(false)
             .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
             .setLinePagerIndicator(color(com.fanji.android.ui.R.color.alpha))
             .setTxtSelecteSize(16)
             .setTxtSelectedColor(R.color.white)
-            .setPersistent(false)
-            .setTxtSelectedSize(20)
-            .initTabs(activity, binding.homeTab, binding.homeViewPager, true).setListener(this)
+            .setTxtSelectedSize(20).setListener(this)
 
 //        Anim.anim(earth, R.anim.heat)
 

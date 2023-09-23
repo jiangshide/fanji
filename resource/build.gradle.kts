@@ -7,10 +7,6 @@ android {
     namespace = "com.fanji.android.resource"
     compileSdk = 33
 
-    buildFeatures {
-        buildConfig = true
-    }
-
     defaultConfig {
         minSdk = 24
 
@@ -65,7 +61,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     api(project(":ui"))
-    api(project(":play"))
     api(project(":files"))
     api(project(":location"))
     api(project(":permission"))

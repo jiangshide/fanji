@@ -13,8 +13,8 @@ import android.view.View
 import com.fanji.android.BuildConfig
 import com.fanji.android.HUAEI_ADS_PROTOCOL
 import com.fanji.android.R
-import com.fanji.android.resource.base.WebActivity
 import com.fanji.android.ui.FJDialog
+import com.fanji.android.ui.base.WebActivity
 import com.fanji.android.util.SPUtil
 
 /**

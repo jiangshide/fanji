@@ -12,13 +12,13 @@ import com.fanji.android.databinding.FragmentMyAlbumBinding
 import com.fanji.android.net.HTTP_OK
 import com.fanji.android.net.vm.LiveResult
 import com.fanji.android.resource.Resource
-import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.resource.vm.feed.data.Feed
 import com.fanji.android.ui.FJButton
 import com.fanji.android.ui.FJImageView
 import com.fanji.android.ui.adapter.KAdapter
 import com.fanji.android.ui.adapter.create
+import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.refresh.api.RefreshLayout
 import com.fanji.android.ui.vm.FJVM
 

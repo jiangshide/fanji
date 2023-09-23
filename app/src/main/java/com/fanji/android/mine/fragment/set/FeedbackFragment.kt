@@ -10,10 +10,10 @@ import com.fanji.android.R
 import com.fanji.android.databinding.FragmentSetAboutFeedbackBinding
 import com.fanji.android.files.FileListener
 import com.fanji.android.img.FJImg
-import com.fanji.android.resource.base.BaseFragment
 import com.fanji.android.resource.vm.report.ReportVM
 import com.fanji.android.third.aliyun.oss.OssClient
 import com.fanji.android.ui.FJToast
+import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.util.data.FileData
 
 /**

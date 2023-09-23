@@ -8,6 +8,13 @@
         <item>北京</item>
     </string-array>
 
+    <string-array name="files">
+        <item>图片</item>
+        <item>音频</item>
+        <item>视频</item>
+        <item>文件</item>
+    </string-array>
+
     <string-array name="hobby">
         <item>运动</item>
         <item>电影</item>

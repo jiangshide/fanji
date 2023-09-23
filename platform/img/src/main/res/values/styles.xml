@@ -26,4 +26,11 @@
         <attr name="cpv_outerSize" format="dimension" />
         <attr name="cpv_reachCapRound" format="boolean" />
     </declare-styleable>
+
+    <style name="SmoothCheckBoxStyle">
+        <item name="color_checked">@color/checkbox_color</item>
+        <item name="color_unchecked">@android:color/white</item>
+        <item name="color_unchecked_stroke">@color/checkbox_unchecked_color</item>
+        <item name="color_tick">@android:color/white</item>
+    </style>
 </resources>
