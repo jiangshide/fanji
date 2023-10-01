@@ -373,7 +373,7 @@ class AudioService : Service(), AudioPlay.PlayStateListener, OnDataCaptureListen
             if (data.praises == FOLLOW) R.mipmap.liked else R.mipmap.unlike
         )
         remoteView.setImageViewResource(
-            R.id.audioNotificationFollow, if (data.follows == FOLLOW) R.mipmap.unmine else R.mipmap.follow
+            R.id.audioNotificationFollow, if (data.follows == FOLLOW) R.mipmap.unmine else com.fanji.android.files.R.mipmap.follow
         )
 
 //    remoteView.setImageViewUri(id.audioNotificationCover, Uri.parse("http://zd112.oss-cn-beijing.aliyuncs.com/img/IMG_20200424_183201.jpg"))

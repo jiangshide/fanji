@@ -5,6 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import com.fanji.android.img.view.transferee.loader.GlideImageLoader
+import com.fanji.android.img.view.transferee.transfer.TransferConfig
+import com.fanji.android.img.view.transferee.transfer.Transferee
 import com.fanji.android.ui.FJTipsView
 import com.fanji.android.ui.FJTopView
 import com.fanji.android.ui.refresh.FJRefresh
@@ -12,7 +15,7 @@ import com.fanji.android.ui.refresh.footer.ClassicsFooter
 import com.fanji.android.ui.refresh.header.MaterialHeader
 import com.fanji.android.ui.refresh.listener.OnLoadMoreListener
 import com.fanji.android.ui.refresh.listener.OnRefreshListener
-import com.fanji.android.util.LogUtil
+import com.fanji.android.util.AppUtil
 
 /**
  * @author: jiangshide
@@ -20,7 +23,7 @@ import com.fanji.android.util.LogUtil
  * @email: 18311271399@163.com
  * @description:
  */
-open class Panel<T> {
+open class Panel {
 
     var mIsRefresh = false
     private var mIsMore = false
@@ -34,15 +37,17 @@ open class Panel<T> {
     var refresh: FJRefresh? = null
     var tipsView: FJTipsView? = null
 
+    private var transferee: Transferee? = null
+
     public fun initView(
-        t: T, isRefresh: Boolean = false,
+        isRefresh: Boolean = false,
         isMore: Boolean = false,
         isTips: Boolean = false,
         bgColor: Int = -1,
         isTitle: Boolean = false,
         title: String? = null,
         isTopPadding: Boolean = false
-    ): T {
+    ) {
         this.mIsRefresh = isRefresh
         this.mIsMore = isMore
         this.mIsTips = isTips
@@ -50,15 +55,12 @@ open class Panel<T> {
         this.mIsTitle = isTitle
         this.mTitle = title
         this.mIsTopPadding = isTopPadding
-        LogUtil.e("-------jsd-----", "----title", mTitle)
-        return t
     }
 
     fun view(
-        context: Context, view: View, refreshListener: OnRefreshListener,
+        context: Context, view: View?, refreshListener: OnRefreshListener,
         onLoadMoreListener: OnLoadMoreListener
-    ): View {
-        LogUtil.e("-------jsd1-----", "----title", mTitle)
+    ): View? {
         return view(
             context, view, mIsRefresh,
             mIsMore,
@@ -71,7 +73,7 @@ open class Panel<T> {
 
     public fun view(
         context: Context,
-        view: View,
+        view: View?,
         isRefresh: Boolean,
         isMore: Boolean,
         isTips: Boolean,
@@ -79,7 +81,6 @@ open class Panel<T> {
         refreshListener: OnRefreshListener,
         onLoadMoreListener: OnLoadMoreListener
     ): View {
-        LogUtil.e("-----jsd1----", "---isTitle:")
         val frameLayout = FrameLayout(context)
         if (bgColor != -1) {
             frameLayout.setBackgroundResource(bgColor)
@@ -104,7 +105,7 @@ open class Panel<T> {
 
     fun view(
         context: Context,
-        view: View,
+        view: View?,
         isRefresh: Boolean,
         isMore: Boolean,
         isTips: Boolean,
@@ -113,8 +114,7 @@ open class Panel<T> {
         title: String?,
         refreshListener: OnRefreshListener,
         onLoadMoreListener: OnLoadMoreListener
-    ): View {
-        LogUtil.e("-----jsd1----", "---isTitle:")
+    ): View? {
         if (!isRefresh && !isMore && !isTips && !isTitle && title == null) {
             return view
         }
@@ -130,7 +130,6 @@ open class Panel<T> {
                 onLoadMoreListener
             )
         }
-        LogUtil.e("-----jsd1----", "---isTitle:", isTitle, " | title:", title)
         val root = LinearLayout(context)
         root?.isClickable = true
         root.layoutParams = LinearLayout.LayoutParams(
@@ -168,5 +167,18 @@ open class Panel<T> {
             LinearLayout.LayoutParams.MATCH_PARENT
         )
         return root
+    }
+
+    fun viewImg(context: Context, urls: List<String?>, index: Int = 0) {
+        if (transferee == null) {
+            transferee = Transferee.getDefault(context)
+        }
+        transferee?.apply(
+            TransferConfig.build()
+                .setImageLoader(GlideImageLoader.with(AppUtil.getApplicationContext()))
+                .setNowThumbnailIndex(index)
+                .setSourceImageList(urls)
+                .create()
+        )?.show()
     }
 }

@@ -6,12 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.fanji.android.databinding.FragmentRecommendBinding
+import com.fanji.android.files.FJFiles
+import com.fanji.android.files.FileListener
 import com.fanji.android.pdf.PdfUtils
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.thread.ruler.thread
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.refresh.api.RefreshLayout
 import com.fanji.android.util.LogUtil
+import com.fanji.android.util.data.FileData
+import com.fanji.android.util.data.IMG
+import com.fanji.android.util.data.VIDEO
 
 /**
  * @Author:jiangshide
@@ -19,7 +24,7 @@ import com.fanji.android.util.LogUtil
  * @Email:18311271399@163.com
  * @Description:
  */
-class RecommendFragment : BaseFragment<FragmentRecommendBinding>() {
+class RecommendFragment : BaseFragment<FragmentRecommendBinding>(), FileListener {
 
     private var feedVM: FeedVM? = create(FeedVM::class.java)
 
@@ -41,11 +46,12 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>() {
 
     override fun onRetry(view: View?) {
         super.onRetry(view)
-        feedVM!!.recommendBlog().loading(tipsView)
-        thread {
-            val list = PdfUtils.getDocumentData(requireContext())
-            LogUtil.e("--------jsd------", "-----pdf~list.size:", list.size)
-        }
+        FJFiles.openFile(requireContext(), IMG, this)
+//        feedVM!!.recommendBlog().loading(tipsView)
+//        thread {
+//            val list = PdfUtils.getDocumentData(requireContext())
+//            LogUtil.e("--------jsd------", "-----pdf~list.size:", list.size)
+//        }
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
@@ -56,5 +62,9 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>() {
     override fun onLoadMore(refreshLayout: RefreshLayout) {
         super.onLoadMore(refreshLayout)
         feedVM!!.recommendBlog(isRefresh = false)
+    }
+
+    override fun onFiles(files: List<FileData>) {
+        LogUtil.e("----jsd---", "----files:", files)
     }
 }

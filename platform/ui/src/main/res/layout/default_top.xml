@@ -11,7 +11,7 @@
 
     <com.fanji.android.ui.FJButton
         android:id="@+id/topLeftBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
@@ -26,7 +26,7 @@
 
     <LinearLayout
         android:id="@+id/topTitleL"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_toLeftOf="@+id/topRightBtn"
@@ -37,17 +37,20 @@
 
         <com.fanji.android.ui.FJTextView
             android:id="@+id/topTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:ellipsize="end"
             android:maxLines="1"
+            android:text="sdsadasdaddsassdsd"
             android:textSize="@dimen/normal"
             android:textStyle="bold" />
 
         <com.fanji.android.ui.FJTextView
             android:id="@+id/topTitleSmall"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/fontLight"
@@ -59,7 +62,7 @@
 
     <com.fanji.android.ui.FJButton
         android:id="@+id/topRightBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"

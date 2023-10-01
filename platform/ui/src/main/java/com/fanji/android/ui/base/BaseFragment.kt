@@ -9,20 +9,17 @@ import androidx.annotation.AnimRes
 import androidx.annotation.AnimatorRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
-import com.fanji.android.img.view.transferee.loader.GlideImageLoader
-import com.fanji.android.img.view.transferee.transfer.TransferConfig
-import com.fanji.android.img.view.transferee.transfer.Transferee
-import com.fanji.android.ui.R
 import com.fanji.android.ui.FJTipsView
 import com.fanji.android.ui.FJTopView
+import com.fanji.android.ui.R
 import com.fanji.android.ui.refresh.FJRefresh
 import com.fanji.android.ui.refresh.api.RefreshLayout
 import com.fanji.android.ui.refresh.listener.OnLoadMoreListener
 import com.fanji.android.ui.refresh.listener.OnRefreshListener
-import com.fanji.android.util.AppUtil
 import com.fanji.android.util.SystemUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -48,11 +45,11 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         title: String? = null,
         isTopPadding: Boolean = false
     ): T {
-        panel!!.initView(t, isRefresh, isMore, isTips, bgColor, isTitle, title, isTopPadding)
+        panel!!.initView(isRefresh, isMore, isTips, bgColor, isTitle, title, isTopPadding)
         return t
     }
 
-    private val panel: Panel<T>? = Panel()
+    private val panel: Panel? = Panel()
     private var topView: FJTopView? = null
     private var refresh: FJRefresh? = null
     protected var tipsView: FJTipsView? = null
@@ -60,19 +57,25 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
     protected var page = 0
     protected var pageSize = 20
 
-    var transferee: Transferee? = null
-    var config: TransferConfig? = null
+//    var transferee: Transferee? = null
 
     open val uiScope = CoroutineScope(Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        transferee = Transferee.getDefault(activity)
+//        transferee = Transferee.getDefault(activity)
         retainInstance = true
     }
 
     open fun <T : ViewModel> create(modelClass: Class<T>): T {
         return ViewModelProvider.NewInstanceFactory.instance.create(modelClass)
+    }
+
+    open fun <T : AndroidViewModel> create(modelClass: Class<T>): T {
+        return ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
+        )[modelClass]
     }
 
     override fun onCreateView(
@@ -86,10 +89,10 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
             _binding.root, this, this
         )
         if (panel.mIsTopPadding) {
-            root.setPadding(0, SystemUtil.getStatusBarHeight(), 0, 0)
+            root?.setPadding(0, SystemUtil.getStatusBarHeight(), 0, 0)
         }
         topView = panel.topView
-        if(topView != null){
+        if (topView != null) {
             topView!!.setOnLeftClick {
                 setLeftListener()
             }
@@ -110,11 +113,6 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         WebActivity.openUrl(requireContext(), title, url)
     }
 
-    open fun setTopBar(view: View?) {
-        if (view == null) return
-        view.setPadding(0, SystemUtil.getStatusBarHeight(), 0, 0)
-    }
-
     open fun setTopBgIcon(topBgIcon: Int): BaseFragment<*> {
         topView?.setBg(topBgIcon)
         return this
@@ -125,7 +123,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         return this
     }
 
-    open fun setTitle(title: Any?): BaseFragment<*>? {
+    open fun setTopTitle(title: Any?): BaseFragment<*>? {
         topView?.setTitle(title)
         return this
     }
@@ -241,13 +239,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
     }
 
     fun viewImg(urls: List<String?>, index: Int = 0) {
-        transferee?.apply(
-            TransferConfig.build()
-                .setImageLoader(GlideImageLoader.with(AppUtil.getApplicationContext()))
-                .setNowThumbnailIndex(index)
-                .setSourceImageList(urls)
-                .create()
-        )?.show()
+        (activity as BaseActivity<*>).viewImg(urls, index)
     }
 
     open fun push(

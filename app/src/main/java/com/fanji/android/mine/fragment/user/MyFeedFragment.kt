@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.fanji.android.databinding.FragmentMyFeedBinding
+import com.fanji.android.net.vm.LiveResult
 import com.fanji.android.resource.Resource
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.resource.vm.feed.data.Feed
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.refresh.api.RefreshLayout
+import com.fanji.android.ui.vm.FJVM
 
 /**
  * @Author:jiangshide
@@ -17,7 +19,7 @@ import com.fanji.android.ui.refresh.api.RefreshLayout
  * @Email:18311271399@163.com
  * @Description:
  */
-class MyFeedFragment : BaseFragment<FragmentMyFeedBinding>() {
+class MyFeedFragment : BaseFragment<FragmentMyFeedBinding>(), FJVM.VMListener<MutableList<Feed>> {
 
     private val feedVM: FeedVM = create(FeedVM::class.java)
 
@@ -29,15 +31,7 @@ class MyFeedFragment : BaseFragment<FragmentMyFeedBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        feedVM!!.userBlog() {
-            finishData(true, true, true)
-            if (it.msg != null) {
-                tips(it.code)
-                return@userBlog
-            }
-            showView(it.data)
-        }
-        feedVM!!.userBlog(uid = Resource.uid).loading(tipsView)
+        feedVM.userBlog(uid = Resource.uid, listener = this).loading(tipsView)
     }
 
     override fun onRetry(view: View?) {
@@ -57,5 +51,14 @@ class MyFeedFragment : BaseFragment<FragmentMyFeedBinding>() {
 
     private fun showView(data: MutableList<Feed>?) {
 
+    }
+
+    override fun onRes(res: LiveResult<MutableList<Feed>>) {
+        finishData(true, true, true)
+        if (res.msg != null) {
+            tips(res.code)
+            return
+        }
+        showView(res.data)
     }
 }

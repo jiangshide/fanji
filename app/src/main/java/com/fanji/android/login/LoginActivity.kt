@@ -12,12 +12,12 @@ import com.fanji.android.MainActivity
 import com.fanji.android.R
 import com.fanji.android.databinding.ActivityLoginBinding
 import com.fanji.android.img.FJImg
+import com.fanji.android.location.data.PositionData
 import com.fanji.android.net.HTTP_OK
 import com.fanji.android.resource.COUNTDOWN_TIME
 import com.fanji.android.resource.Resource
 import com.fanji.android.resource.USER_NOT_EXIST
 import com.fanji.android.resource.data.DeviceData
-import com.fanji.android.location.data.PositionData
 import com.fanji.android.resource.vm.user.UserVM
 import com.fanji.android.ui.FJDialog
 import com.fanji.android.ui.FJEditText

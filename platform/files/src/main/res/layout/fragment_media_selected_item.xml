@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fanji.android.img.view.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cool="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fileItemPhotoL"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:padding="1dp"
+    >
+
+    <com.fanji.android.ui.FJImageView
+        android:id="@+id/fileSelectedItemIcon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@mipmap/image_placeholder"
+        android:padding="1dp"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/fileSelectedItemCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/input_delete"
+        />
+</com.fanji.android.img.view.SquareRelativeLayout>

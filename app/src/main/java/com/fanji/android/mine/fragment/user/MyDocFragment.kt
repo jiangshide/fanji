@@ -43,7 +43,7 @@ class MyDocFragment : BaseFragment<FragmentUserDocBinding>(), FileListener {
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
-        ).get(VMDocPicker::class.java)
+        )[VMDocPicker::class.java]
         adapter = binding.docRecycleView.create(ArrayList(), R.layout.doc_fragent_pdf_item, {
             val docTitle = findViewById<TextView>(R.id.docTitle)
             val docPath = findViewById<TextView>(R.id.docPath)
@@ -78,7 +78,6 @@ class MyDocFragment : BaseFragment<FragmentUserDocBinding>(), FileListener {
         super.onRetry(view)
         startTime = System.currentTimeMillis()
 //        FJFiles.fileListSync("pdf", this)
-        PickerManager.addDocTypes()
         viewModel.getDocs(PickerManager.getFileTypes(), PickerManager.sortingType.comparator)
     }
 

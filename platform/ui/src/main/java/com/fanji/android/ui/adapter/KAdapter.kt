@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.DRAWING_CACHE_QUALITY_HIGH
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import java.util.Collections
 
@@ -23,12 +25,24 @@ class KAdapter<ITEM>(
     private val itemClick: ITEM.() -> Unit = {}
 ) : AbstractAdapter<ITEM>(items, layoutResId) {
 
+    private var mHasStableIds = true
+
+    override fun setHasStableIds(hasStableIds: Boolean) {
+        this.mHasStableIds = hasStableIds
+        super.setHasStableIds(mHasStableIds)
+    }
+
     override fun onItemClick(
         itemView: View,
         position: Int
     ) {
         if (items == null || items.size < position) return
         items[position].itemClick()
+    }
+
+    override fun getItemId(position: Int): Long {
+//        return super.getItemId(position)
+        return position.toLong()
     }
 
     override fun View.bind(item: ITEM) {
@@ -44,6 +58,11 @@ fun <ITEM> RecyclerView.create(
     manager: RecyclerView.LayoutManager = LinearLayoutManager(this.context)
 ): KAdapter<ITEM> {
     layoutManager = manager
+    val pool = RecycledViewPool()
+    setRecycledViewPool(pool)
+    setItemViewCacheSize(20)
+    isDrawingCacheEnabled = true
+    drawingCacheQuality = DRAWING_CACHE_QUALITY_HIGH
     return KAdapter(items, layoutResId, bindHolder, itemClick).apply { adapter = this }
 }
 

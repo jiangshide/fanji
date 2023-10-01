@@ -82,7 +82,7 @@ class UserFragment(private val id: Long? = Resource.uid) : BaseFragment<Fragment
 
     private fun setProfile(user: User?) {
         if (user == null) return
-        setTitle(user?.nick)
+        setTopTitle(user?.nick)
         FJImg.loadImagBlur(user?.icon, binding.mineBgImg, 20, 1)
         binding.userL.userNick.text = FJTextView.subStr(user?.nick, 10)
         user?.setSex(binding.userL.mineSexAgeAddr)

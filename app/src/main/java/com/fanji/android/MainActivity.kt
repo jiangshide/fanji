@@ -13,7 +13,6 @@ import com.fanji.android.net.HTTP_OK
 import com.fanji.android.net.state.NetState
 import com.fanji.android.publish.PublishFragment
 import com.fanji.android.resource.Resource
-import com.fanji.android.resource.TAB_BOTTOM_SCROLL
 import com.fanji.android.resource.task.PUBLISH_UPLOAD
 import com.fanji.android.resource.task.PublishTask
 import com.fanji.android.resource.vm.publish.PublishVM
@@ -21,13 +20,10 @@ import com.fanji.android.resource.vm.publish.data.Publish
 import com.fanji.android.resource.vm.user.data.User
 import com.fanji.android.ui.FJToast
 import com.fanji.android.ui.base.BaseActivity
-import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.navigation.NavigationController
-import com.fanji.android.ui.navigation.item.SpecialTabRound
 import com.fanji.android.ui.navigation.listener.OnTabItemSelectedListener
 import com.fanji.android.util.FJEvent
 import com.fanji.android.util.LogUtil
-import com.fanji.android.util.SPUtil
 import com.fanji.android.util.data.FileData
 import com.fanji.android.util.data.OnCompressListener
 import com.umeng.commonsdk.UMConfigure
@@ -35,7 +31,6 @@ import com.umeng.commonsdk.UMConfigure
 class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChangeListener,
     View.OnClickListener,
     OnTabItemSelectedListener, OnCompressListener, PublishTask.PublishTaskListener {
-    override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
 
     private var publishVM: PublishVM? = create(PublishVM::class.java)
 
@@ -43,10 +38,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
 
     private var user: User? = null
 
-    private var specialTabRound: SpecialTabRound? = null
+    override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.tabHost.setFragmentManager(supportFragmentManager)
         UMConfigure.init(
             this,
             "64f676418efadc41dcd47426",
@@ -55,81 +51,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
             ""
         )//todo the temp
         user = Resource.user
-        specialTabRound =
-            binding.mainTab.newRoundItem(
-                R.mipmap.publish,
-                R.mipmap.unpublish,
-                getString(R.string.publish)
-            ) as SpecialTabRound?
-        specialTabRound?.setUrl(
-            "http://zd112.oss-cn-beijing.aliyuncs.com/img/-1463646632.jpg",
-            "http://zd112.oss-cn-beijing.aliyuncs.com/img/compress_mmexport1529243703493.jpg"
-        )
         tabController =
-            binding.mainTab.custom()
-                .addItem(
-                    binding.mainTab.newItem(
-                        R.mipmap.unhome,
-                        R.mipmap.homed,
-                        getString(R.string.tab_home)
-                    )
-                )
-                .addItem(
-                    binding.mainTab.newItem(
-                        R.mipmap.unchannel,
-                        R.mipmap.channeled,
-                        getString(R.string.tab_channel)
-                    )
-                )
-                .addItem(specialTabRound)
-                .addItem(
-                    binding.mainTab.newItem(
-                        R.mipmap.unmsg,
-                        R.mipmap.msged,
-                        getString(R.string.tab_message)
-                    )
-                )
-                .addItem(
-                    binding.mainTab.newItem(
-                        R.mipmap.unmine,
-                        R.mipmap.mined,
-                        getString(R.string.tab_mine)
-                    )
-                )
-                .build()
-        tabController?.setMessageNumber(3, 1000)
-        tabController?.setHasMessage(1, true)
-        tabController?.setHasMessage(4, true)
-        tabController?.setHasMessage(0, true)
-        tabController?.addTabItemSelectedListener(this)
-        binding.mainViewPager.adapter = binding.mainViewPager.create(supportFragmentManager)
-            .setFragment(
+            binding.tabHost.setFragments(
+                this,
                 HomeFragment(),
                 ChannelFragment(),
                 PublishFragment(),
                 MessageFragment(),
                 MineFragment()
-            )
-            .initTabs(this, binding.mainViewPager, true).setListener(this)
+            ).addItem(R.mipmap.unhome, R.mipmap.homed, getString(R.string.tab_home))
+                .addItem(R.mipmap.unchannel, R.mipmap.channeled, getString(R.string.tab_channel))
+                .addRoundItem(R.mipmap.publish, R.mipmap.unpublish, getString(R.string.publish))
+                .addItem(R.mipmap.unmsg, R.mipmap.msged, getString(R.string.tab_message))
+                .addItem(R.mipmap.unmine, R.mipmap.mined, getString(R.string.tab_mine)).build()!!
+        tabController?.setMessageNumber(3, 1000)
+        tabController?.setHasMessage(1, true)
+        tabController?.setHasMessage(4, true)
+        tabController?.setHasMessage(0, true)
+        tabController?.addTabItemSelectedListener(this)
 
-        tabController.setupWithViewPager(binding.mainViewPager)
-        binding.mainViewPager.setScanScroll(
-            user != null && SPUtil.getBoolean(
-                TAB_BOTTOM_SCROLL,
-                true
-            )
-        )
-        FJEvent.get().with(TAB_BOTTOM_SCROLL, Boolean::class.java).observes(this, {
-            binding.mainViewPager.setScanScroll(it)
-        })
         supportFragmentManager.addOnBackStackChangedListener {
-            if (supportFragmentManager.backStackEntryCount == 0) {
-                binding.content.visibility = View.GONE
-                binding.mainViewPager.visibility = View.VISIBLE
-                binding.mainTab.visibility = View.VISIBLE
-            } else {
-                binding.content.visibility = View.VISIBLE
-            }
         }
 //        WXApiManager.regToWX(this)
 //        loginIm()
@@ -185,21 +126,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
 //        }
     }
 
-    override fun push(fragment: BaseFragment<*>, bundle: Bundle?, enter: Int, exit: Int) {
-        super.push(fragment, bundle, enter, exit)
-        fragment.arguments = bundle
-        val beginTransaction = supportFragmentManager.beginTransaction()
-        beginTransaction.setCustomAnimations(enter, exit)
-        beginTransaction.add(R.id.content, fragment)
-//        beginTransaction.setMaxLifecycle(fragment, Lifecycle.State.DESTROYED)
-        beginTransaction.addToBackStack(fragment.javaClass.canonicalName)
-        beginTransaction.commitAllowingStateLoss()
-    }
-
-    override fun pop(flags: Int) {
-        supportFragmentManager.popBackStackImmediate(null, flags)
-    }
-
     override fun onDestroy() {
         NetState.Companion.instance.unRegisterObserver(this) //注销网络监听
         super.onDestroy()
@@ -227,7 +153,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
     }
 
     override fun onClick(v: View?) {
-        binding.mainViewPager?.currentItem = 0
+//        binding.mainViewPager?.currentItem = 0
     }
 
     override fun onSelected(index: Int, old: Int) {
@@ -235,13 +161,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
 
     private fun unUser(position: Int) {
         if (position != 0 && user == null) {
-            binding.content.visibility = View.VISIBLE
-            binding.mainViewPager.visibility = View.GONE
-            binding.mainTab.visibility = View.GONE
+//            binding.content.visibility = View.VISIBLE
+//            binding.mainViewPager.visibility = View.GONE
+//            binding.mainTab.visibility = View.GONE
 //            push(LoginFragment(this))
         } else {
-            binding.mainViewPager.visibility = View.VISIBLE
-            binding.mainTab.visibility = View.VISIBLE
+//            binding.mainViewPager.visibility = View.VISIBLE
+//            binding.mainTab.visibility = View.VISIBLE
         }
     }
 

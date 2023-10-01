@@ -5,14 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.fanji.android.databinding.FragmentFollowBinding
+import com.fanji.android.files.FJFiles
+import com.fanji.android.files.FileListener
 import com.fanji.android.files.utils.PickerManager
 import com.fanji.android.files.viewmodels.VMDocPicker
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.refresh.api.RefreshLayout
 import com.fanji.android.util.LogUtil
+import com.fanji.android.util.data.DOC
+import com.fanji.android.util.data.FileData
+import com.fanji.android.util.data.VIDEO
 
 /**
  * @Author:jiangshide
@@ -20,11 +24,10 @@ import com.fanji.android.util.LogUtil
  * @Email:18311271399@163.com
  * @Description:
  */
-class FollowFragment : BaseFragment<FragmentFollowBinding>() {
+class FollowFragment : BaseFragment<FragmentFollowBinding>(), FileListener {
 
     private var feedVM: FeedVM? = create(FeedVM::class.java)
-    lateinit var viewModel: VMDocPicker
-    var startTime = 0L
+
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -32,10 +35,6 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
-        ).get(VMDocPicker::class.java)
         feedVM!!.recommendBlog.observe(requireActivity(), Observer {
             finishData(true, true, true)
             if (it.msg != null) {
@@ -43,22 +42,14 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>() {
             }
         })
         feedVM!!.recommendBlog().loading(tipsView)
-        viewModel.lvDocData.observe(viewLifecycleOwner, Observer { files ->
-            val duration = System.currentTimeMillis() - startTime
-            LogUtil.e("----jsd---", "---files:", files.size, " | duration:", duration)
-//            setDataOnFragments(files)
-//            adapter!!.add(files)
-        })
     }
 
     override fun onRetry(view: View?) {
         super.onRetry(view)
-        feedVM!!.recommendBlog().loading(tipsView)
-        startTime = System.currentTimeMillis()
-        PickerManager.addDocTypes()
-        viewModel.getDocs(PickerManager.getFileTypes(), PickerManager.sortingType.comparator)
+//        feedVM!!.recommendBlog().loading(tipsView)
+        FJFiles.openFile(requireContext(), DOC, this)
+//        viewDoc.getDocs(PickerManager.getFileTypes(), PickerManager.sortingType.comparator)
     }
-
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
         super.onRefresh(refreshLayout)
@@ -68,5 +59,9 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>() {
     override fun onLoadMore(refreshLayout: RefreshLayout) {
         super.onLoadMore(refreshLayout)
         feedVM!!.recommendBlog(isRefresh = false)
+    }
+
+    override fun onFiles(files: List<FileData>) {
+        LogUtil.e("----jsd---", "----files:", files)
     }
 }

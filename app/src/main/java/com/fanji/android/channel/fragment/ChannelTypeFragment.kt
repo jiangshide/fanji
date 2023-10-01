@@ -87,4 +87,5 @@ class ChannelTypeFragment(private val typeId: Int, var channel: ChannelVM? = nul
         }
         adapter?.add(res.data?.toMutableList(), res.isRefresh)
     }
+
 }

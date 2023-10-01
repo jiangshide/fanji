@@ -1,7 +1,7 @@
 package com.fanji.android.files.viewmodels
 
-import android.app.Application
 import android.content.ContentUris
+import android.content.Context
 import android.database.Cursor
 import android.provider.BaseColumns
 import android.provider.MediaStore
@@ -9,31 +9,39 @@ import android.text.TextUtils
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.fanji.android.files.models.Document
 import com.fanji.android.files.models.FileType
 import com.fanji.android.files.utils.FilePickerUtils
 import com.fanji.android.files.utils.PickerManager
-import com.fanji.android.util.LogUtil
+import com.fanji.android.ui.vm.FJVM
 import com.fanji.android.util.data.FileData
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
-class VMDocPicker(application: Application) : BaseViewModel(application) {
+/**
+ * @author: jiangshide
+ * @date: 2023/10/1
+ * @email: 18311271399@163.com
+ * @description:
+ */
+class DocVM : FJVM() {
     private val _lvDocData = MutableLiveData<HashMap<FileType, List<FileData>>>()
     val lvDocData: LiveData<HashMap<FileType, List<FileData>>>
         get() = _lvDocData
 
-    fun getDocs(fileTypes: List<FileType>, comparator: Comparator<FileData>?) {
+    fun getDocs(context: Context, fileTypes: List<FileType>, comparator: Comparator<FileData>?):DocVM {
         PickerManager.addDocTypes()
-        launchDataLoad {
-            val dirs = queryDocs(fileTypes, comparator)
+        uiScope.launch {
+            val dirs = queryDocs(context, fileTypes, comparator)
             _lvDocData.postValue(dirs)
         }
+        return this
     }
 
     @WorkerThread
     suspend fun queryDocs(
+        context: Context,
         fileTypes: List<FileType>,
         comparator: Comparator<FileData>?
     ): HashMap<FileType, List<FileData>> {
@@ -57,7 +65,7 @@ class VMDocPicker(application: Application) : BaseViewModel(application) {
                 MediaStore.Files.FileColumns.TITLE
             )
 
-            val cursor = getApplication<Application>().contentResolver.query(
+            val cursor = context.contentResolver.query(
                 MediaStore.Files.getContentUri("external"),
                 DOC_PROJECTION,
                 selection,
@@ -132,7 +140,8 @@ class VMDocPicker(application: Application) : BaseViewModel(application) {
                     }
 
                     fileData.size =
-                        data.getString(data.getColumnIndexOrThrow(MediaStore.Files.FileColumns.SIZE)).toLong()
+                        data.getString(data.getColumnIndexOrThrow(MediaStore.Files.FileColumns.SIZE))
+                            .toLong()
                     if (!documents.contains(fileData)) documents.add(fileData)
                 }
             }

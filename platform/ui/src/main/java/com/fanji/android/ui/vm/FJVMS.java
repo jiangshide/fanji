@@ -15,11 +15,11 @@ import com.fanji.android.util.EncryptUtil;
  * email:18311271399@163.com
  */
 @Keep
-public class FJVM extends ViewModel {
+public class FJVMS extends ViewModel {
     protected Net net;
     private FJTipsView mFjTipsView;
 
-    public FJVM() {
+    public FJVMS() {
         if (null == net) net = Net.INSTANCE;
     }
 
@@ -34,8 +34,7 @@ public class FJVM extends ViewModel {
         }
     }
 
-    public static <T extends ViewModel> T of(FragmentActivity activity, Class<T> modelClass) {
-//        return ViewModelProvider.of(activity).get(modelClass);
+    public <T extends ViewModel> T of(FragmentActivity activity, Class<T> modelClass) {
         return ViewModelProvider.AndroidViewModelFactory.getInstance(activity.getApplication()).create(modelClass);
     }
 

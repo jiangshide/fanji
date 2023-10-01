@@ -88,12 +88,12 @@ class PublishFragment : BaseFragment<FragmentPublishBinding>(), OnMediaListener,
         binding.publishViewPager?.adapter = binding.publishViewPager.create(childFragmentManager)
             .setTitles(resources.getStringArray(R.array.files).toList())
             .setFragment(
-                MediaFragment(IMG, "拍照", com.fanji.android.resource.R.mipmap.unimg, this),
+                MediaFragment(IMG, "拍照", com.fanji.android.files.R.mipmap.unimg, this),
                 MediaFragment(
-                    AUDIO, "录音", com.fanji.android.resource.R.mipmap.record, this
+                    AUDIO, "录音", com.fanji.android.files.R.mipmap.record, this
                 ),
                 MediaFragment(VIDEO, "摄像", com.fanji.android.ui.R.mipmap.video, this),
-                MediaFragment(DOC, "文件", com.fanji.android.resource.R.mipmap.follow, this)
+                MediaFragment(DOC, "文件", com.fanji.android.files.R.mipmap.follow, this)
             )
             .initTabs(requireActivity(), binding.tabsPublish, binding.publishViewPager)
             .setPersistent(false)
@@ -174,7 +174,7 @@ class PublishFragment : BaseFragment<FragmentPublishBinding>(), OnMediaListener,
         }
         binding.publishAudioViewCard.publishAudioCover?.setOnClickListener {
             push(
-                VideoPreviewFragment(publish.files!![0]).setTitle(publish.files!![0].name)
+                VideoPreviewFragment(publish.files!![0]).setTopTitle(publish.files!![0].name)
                     ?.setTopBgIcon(R.color.black)!!
             )
         }
