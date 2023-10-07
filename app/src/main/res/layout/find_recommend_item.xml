@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.fanji.android.ui.FJCircleImg
+        android:id="@+id/recommendIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/default_user"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/recommendName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="昵称"
+        app:layout_constraintLeft_toRightOf="@+id/recommendIcon"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/recommendSign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="签名"
+        app:layout_constraintBaseline_toBottomOf="@id/recommendIcon"
+        app:layout_constraintLeft_toRightOf="@id/recommendIcon" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="MissingConstraints">
+
+    <com.fanji.android.ui.FJCircleImg
+        android:id="@+id/answersIcons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/default_user" />
+
+    <TextView
+        android:id="@+id/answersName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="昵称"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/answersIcons" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/answersCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="AA圈子"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:corner="10dp"
+        app:layout_constraintLeft_toRightOf="@+id/answersName"
+        app:normal_color="@color/blue" />
+
+    <TextView
+        android:id="@+id/answersTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="1分钟前"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBottomOf="@+id/answersIcons"
+        app:layout_constraintLeft_toRightOf="@+id/answersIcons" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/answersStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="置顶"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:corner="10dp"
+        app:layout_constraintBaseline_toBottomOf="@+id/answersIcons"
+        app:layout_constraintLeft_toRightOf="@+id/answersTime"
+        app:normal_color="@color/blue" />
+
+    <TextView
+        android:id="@+id/answersTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        android:text="问题内容"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/answersIcons" />
+
+    <TextView
+        android:id="@+id/answersContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        android:text="this is the content!!!"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/answersTitle" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        app:layout_constraintTop_toBottomOf="@+id/answersContent">
+
+        <TextView
+            android:id="@+id/bountyCoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="悬赏100梵币"
+            android:textColor="@color/red" />
+
+        <TextView
+            android:id="@+id/patchIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="参与：99"
+            android:textColor="@color/red" />
+
+        <TextView
+            android:id="@+id/depositStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="悬赏已托管"
+            android:textColor="@color/gray" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

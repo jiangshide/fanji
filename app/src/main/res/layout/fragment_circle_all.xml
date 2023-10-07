@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingConstraints">
+
+    <RelativeLayout
+        android:id="@+id/circleAllR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.fanji.android.ui.FJButton
+            android:id="@+id/circleSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/content"
+            android:layout_toLeftOf="@+id/circleCreate"
+            android:drawableLeft="@mipmap/search"
+            android:text="搜索"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:corners="90dp"
+            app:normal_colors="@color/blackLight"
+            tools:ignore="MissingConstraints" />
+
+        <com.fanji.android.ui.FJButton
+            android:id="@+id/circleCreate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="创建圈子"
+            app:normal_colors="@color/blue" />
+    </RelativeLayout>
+
+    <com.fanji.android.ui.FJTabLayout
+        android:id="@+id/circleAllTab"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true"
+        app:layout_constraintTop_toBottomOf="@+id/circleAllR" />
+
+    <com.fanji.android.ui.FJViewPager
+        android:id="@+id/circleAllViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        app:layout_constraintTop_toBottomOf="@+id/circleAllTab" />
+</androidx.constraintlayout.widget.ConstraintLayout>

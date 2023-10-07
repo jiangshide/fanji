@@ -4,8 +4,8 @@
     <string-array name="home">
         <item>关注</item>
         <item>推荐</item>
-        <item>发现</item>
-        <item>北京</item>
+        <item>圈子</item>
+        <item>问答</item>
     </string-array>
 
     <string-array name="files">

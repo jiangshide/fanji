@@ -26,7 +26,7 @@ open class FJVM : ViewModel() {
 
     fun loading(fjTipsView: FJTipsView?) {
         mFjTipsView = fjTipsView
-        mFjTipsView!!.setStatus(true, true, false)
+        mFjTipsView?.setStatus(true, true, false)
     }
 
     fun finishLoading() {

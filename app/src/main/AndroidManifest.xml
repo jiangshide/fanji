@@ -32,7 +32,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <supports-screens
         android:anyDensity="true"
@@ -54,8 +54,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Splash"
         android:usesCleartextTraffic="true"
-        tools:replace="android:allowBackup"
-        >
+        tools:replace="android:allowBackup">
 
         <!--允许绘制到oppo、vivo刘海屏机型的刘海区域 -->
         <meta-data
@@ -81,14 +80,17 @@
                 <data android:scheme="um.64f676418efadc41dcd47426" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".login.LoginActivity"
-            android:screenOrientation="portrait"
-            />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".login.LoginActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".doc.FileDisplayActivity"/>
+        <activity android:name=".login.CodeLoginActivity"/>
+
+        <activity android:name=".doc.FileDisplayActivity" />
 
         <provider
             android:name=".FJProvider"

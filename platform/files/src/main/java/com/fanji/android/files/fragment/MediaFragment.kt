@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.fanji.android.files.FileListener
 import com.fanji.android.files.R
 import com.fanji.android.files.databinding.FragmentMediaBinding
 import com.fanji.android.files.viewmodels.MediaVM
 import com.fanji.android.ui.FJImageView
 import com.fanji.android.ui.FJNumberSelectView
+import com.fanji.android.ui.adapter.HORIZONTAL
 import com.fanji.android.ui.adapter.KAdapter
 import com.fanji.android.ui.adapter.create
 import com.fanji.android.ui.base.BaseFragment
@@ -64,8 +64,6 @@ class MediaFragment(val type: Int, val fileListener: FileListener) :
         }, {
             preview(this)
         }, GridLayoutManager(requireContext(), 4))
-        val linearLayoutManager = LinearLayoutManager(requireContext())
-        linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
         selectedAdapter = binding.selectedMediaRecycleView.create(
             ArrayList(),
             R.layout.fragment_media_selected_item,
@@ -80,7 +78,7 @@ class MediaFragment(val type: Int, val fileListener: FileListener) :
             {
                 preview(this)
             },
-            linearLayoutManager
+            binding.selectedMediaRecycleView.HORIZONTAL()
         )
         mediaVM.lvMediaData.observe(requireActivity(), Observer {
             finishData(isFinishTips = true)

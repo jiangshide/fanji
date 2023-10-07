@@ -1,4 +1,4 @@
-package com.fanji.android.home
+package com.fanji.android.find
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,14 @@ import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentHomeBinding
-import com.fanji.android.home.fragment.FollowFragment
-import com.fanji.android.home.fragment.RecommendFragment
+import com.fanji.android.find.answers.AnswersFragment
+import com.fanji.android.find.circle.CircleManagerFragment
+import com.fanji.android.find.follow.FollowFragment
+import com.fanji.android.find.recommend.RecommendFragment
+import com.fanji.android.mine.fragment.UserFragment
+import com.fanji.android.resource.vm.channel.data.ChannelBlog
+import com.fanji.android.search.OnChannelListener
+import com.fanji.android.search.SearchChannelManagerFragment
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 
@@ -18,7 +24,8 @@ import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
  * @Email:18311271399@163.com
  * @Description:
  */
-class HomeFragment : BaseFragment<FragmentHomeBinding>(), ViewPager.OnPageChangeListener {
+class FindFragment : BaseFragment<FragmentHomeBinding>(), ViewPager.OnPageChangeListener,
+    OnChannelListener {
 
     companion object {
         var currentIndex = 10
@@ -38,8 +45,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ViewPager.OnPageChange
             .setFragment(
                 FollowFragment(),
                 RecommendFragment(),
-                RecommendFragment(),
-                RecommendFragment(),
+                CircleManagerFragment(),
+                AnswersFragment(),
             )
             .initTabs(activity, binding.homeTab, binding.homeViewPager, true)
             .setPersistent(false)
@@ -49,13 +56,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ViewPager.OnPageChange
             .setTxtSelectedColor(R.color.white)
             .setTxtSelectedSize(20).setListener(this)
 
-//        Anim.anim(earth, R.anim.heat)
+        binding.homeViewPager.currentItem = 1
 
-        binding.earth.setOnClickListener {
-
+        binding.personal.setOnClickListener {
+            push(UserFragment())
         }
-        binding.search.setOnClickListener {
 
+        binding.search.setOnClickListener {
+            push(SearchChannelManagerFragment(this))
         }
     }
 
@@ -68,5 +76,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ViewPager.OnPageChange
     }
 
     override fun onPageScrollStateChanged(state: Int) {
+    }
+
+    override fun onChannel(channelBlog: ChannelBlog) {
+
     }
 }

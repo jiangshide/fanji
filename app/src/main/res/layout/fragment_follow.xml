@@ -4,4 +4,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:id="@+id/personalAllRL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/personalTopRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/content"
+            android:layout_marginRight="@dimen/content"
+            android:layout_toLeftOf="@+id/personalAllBtn" />
+
+        <TextView
+            android:id="@+id/personalAllBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/button"
+            android:text="全部"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/followRecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

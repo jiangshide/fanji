@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/topL"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/topBar"
+    android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:background="@null"
     android:orientation="horizontal"
@@ -11,7 +11,7 @@
 
     <com.fanji.android.ui.FJButton
         android:id="@+id/topLeftBtn"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
@@ -62,7 +62,7 @@
 
     <com.fanji.android.ui.FJButton
         android:id="@+id/topRightBtn"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"

@@ -1,5 +1,6 @@
 package com.fanji.android.ui.base
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -42,6 +43,7 @@ abstract class BaseActivity<T : ViewBinding> : FragmentActivity(), OnRefreshList
     private var topView: FJTopView? = null
     private var refresh: FJRefresh? = null
     protected var tipsView: FJTipsView? = null
+    private var rightCallClazz: Class<*>? = null
 
     public fun initView(
         t: T,
@@ -50,10 +52,24 @@ abstract class BaseActivity<T : ViewBinding> : FragmentActivity(), OnRefreshList
         isTips: Boolean = false,
         bgColor: Int = R.drawable.bg_sweep,
         isTitle: Boolean = false,
-        title: String? = null,
+        leftBtn: Any? = null,
+        title: Any? = null,
+        rightBtn: Any? = null,
+        rightCallClazz: Class<*>? = null,
         isTopPadding: Boolean = false
     ): T {
-        panel!!.initView(isRefresh, isMore, isTips, bgColor, isTitle, title, isTopPadding)
+        this.rightCallClazz = rightCallClazz
+        panel!!.initView(
+            isRefresh,
+            isMore,
+            isTips,
+            bgColor,
+            isTitle,
+            leftBtn,
+            title,
+            rightBtn,
+            isTopPadding
+        )
         return t
     }
 
@@ -71,6 +87,11 @@ abstract class BaseActivity<T : ViewBinding> : FragmentActivity(), OnRefreshList
         refresh = panel.refresh
         tipsView = panel.tipsView
         setContentView(root)
+        if (rightCallClazz != null) {
+            setRightListener {
+                activity(rightCallClazz!!)
+            }
+        }
     }
 
     open fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -212,6 +233,18 @@ abstract class BaseActivity<T : ViewBinding> : FragmentActivity(), OnRefreshList
     open fun netState(@INetType netType: Int) {
         FJEvent.get().with(NetState.Companion.instance.NetType).post(netType)
         LogUtil.e("-------netState~netType:", netType)
+    }
+
+    open fun activity(clazz: Class<*>) {
+        activity(clazz, null)
+    }
+
+    open fun activity(clazz: Class<*>, bundle: Bundle? = null) {
+        val intent = Intent(this, clazz)
+        if (bundle != null) {
+            intent.putExtras(bundle)
+        }
+        startActivity(intent)
     }
 
     open fun push(

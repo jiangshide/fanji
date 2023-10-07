@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/content"
+    tools:ignore="MissingConstraints">
+
+    <TextView
+        android:id="@+id/mindItemTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12-12 18:17" />
+
+    <TextView
+        android:id="@+id/mindItemStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="上传了"
+        app:layout_constraintLeft_toRightOf="@+id/mindItemTime" />
+
+    <com.fanji.android.ui.FJCircleImg
+        android:id="@+id/mintItemIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        android:src="@mipmap/default_user"
+        app:layout_constraintTop_toBottomOf="@+id/mindItemTime" />
+
+    <TextView
+        android:id="@+id/mindItemFileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="AAA.jpg"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/mintItemIcon"
+        app:layout_constraintTop_toTopOf="@+id/mintItemIcon" />
+
+    <TextView
+        android:id="@+id/mindItemPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="位置：云盘>"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBottomOf="@+id/mintItemIcon"
+        app:layout_constraintLeft_toRightOf="@+id/mintItemIcon" />
+</androidx.constraintlayout.widget.ConstraintLayout>

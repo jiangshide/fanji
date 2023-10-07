@@ -32,7 +32,9 @@ open class Panel {
     private var mIsTitle = false
     var mIsTopPadding = false
 
-    private var mTitle: String? = null
+    private var mLeftBtn: Any? = null
+    private var mTitle: Any? = null
+    private var mRightBtn: Any? = null
     var topView: FJTopView? = null
     var refresh: FJRefresh? = null
     var tipsView: FJTipsView? = null
@@ -45,7 +47,9 @@ open class Panel {
         isTips: Boolean = false,
         bgColor: Int = -1,
         isTitle: Boolean = false,
-        title: String? = null,
+        leftBtn: Any? = null,
+        title: Any? = null,
+        rightBtn: Any? = null,
         isTopPadding: Boolean = false
     ) {
         this.mIsRefresh = isRefresh
@@ -53,7 +57,9 @@ open class Panel {
         this.mIsTips = isTips
         this.mBgColor = bgColor
         this.mIsTitle = isTitle
+        this.mLeftBtn = leftBtn
         this.mTitle = title
+        this.mRightBtn = rightBtn
         this.mIsTopPadding = isTopPadding
     }
 
@@ -86,7 +92,11 @@ open class Panel {
             frameLayout.setBackgroundResource(bgColor)
         }
         if (!isRefresh && !isMore && isTips) {
-            frameLayout.addView(view)
+            frameLayout.addView(
+                view,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
             tipsView = FJTipsView(context)
             frameLayout.addView(tipsView)
             return frameLayout
@@ -96,7 +106,10 @@ open class Panel {
             ?.setEnableRefresh(isRefresh)?.setEnableLoadMore(isMore)
             ?.setRefreshHeader(MaterialHeader(context))
             ?.setRefreshFooter(ClassicsFooter(context))
-        refresh?.addView(view)
+        refresh?.addView(
+            view, ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
         frameLayout.addView(refresh)
         tipsView = FJTipsView(context)
         frameLayout.addView(tipsView)
@@ -111,7 +124,7 @@ open class Panel {
         isTips: Boolean,
         bgColor: Int,
         isTitle: Boolean,
-        title: String?,
+        title: Any?,
         refreshListener: OnRefreshListener,
         onLoadMoreListener: OnLoadMoreListener
     ): View? {
@@ -144,9 +157,15 @@ open class Panel {
             root.removeView(topView)
         }
         topView = FJTopView(context)
-        if (mTitle != null) {
+        if (mTitle != null || isTitle) {
             topView?.setTitle(mTitle)
             mIsTopPadding = true
+        }
+        if (mLeftBtn != null) {
+            topView?.setLefts(mLeftBtn)
+        }
+        if (mRightBtn != null) {
+            topView?.setRights(mRightBtn)
         }
         root.addView(
             topView, LinearLayout.LayoutParams.MATCH_PARENT,

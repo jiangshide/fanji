@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/content"
+    tools:ignore="MissingConstraints">
+
+    <com.fanji.android.ui.FJCircleImg
+        android:id="@+id/circleListIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/default_user" />
+
+    <TextView
+        android:id="@+id/circleListName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="圈子名称"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/circleListIcon" />
+
+    <TextView
+        android:id="@+id/circleListStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="置顶"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/circleListName" />
+
+    <TextView
+        android:id="@+id/circleListMembers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="成员数量999"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBottomOf="@+id/circleListIcon"
+        app:layout_constraintLeft_toRightOf="@+id/circleListIcon" />
+
+    <TextView
+        android:id="@+id/circleListContents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="内容数量999"
+        android:textSize="13sp"
+        app:layout_constraintBaseline_toBottomOf="@+id/circleListMembers"
+        app:layout_constraintLeft_toRightOf="@+id/circleListMembers" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/circleListBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:normal_color="@color/blue"
+        app:corner="10dp"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/content">
+
+    <com.fanji.android.ui.FJCircleImg
+        android:id="@+id/circleIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/default_user"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/circleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="圈子名称"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/circleIcon"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/circleMembers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="成员数量 99"
+        app:layout_constraintBaseline_toBottomOf="@id/circleIcon"
+        app:layout_constraintLeft_toRightOf="@id/circleIcon" />
+
+    <TextView
+        android:id="@+id/circleSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="圈内搜索"
+        app:layout_constraintBaseline_toBottomOf="@id/circleMembers"
+        app:layout_constraintLeft_toRightOf="@id/circleMembers" />
+
+    <TextView
+        android:id="@+id/circleJoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="入圈1天"
+        app:layout_constraintBaseline_toBottomOf="@id/circleMembers"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.fanji.android.ui.FJTabLayout
+        android:id="@+id/circleTab"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true"
+        app:layout_constraintTop_toBottomOf="@+id/circleIcon" />
+
+    <com.fanji.android.ui.FJViewPager
+        android:id="@+id/circleViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        app:layout_constraintTop_toBottomOf="@+id/circleTab" />
+</androidx.constraintlayout.widget.ConstraintLayout>

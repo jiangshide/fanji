@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
-import com.fanji.android.channel.ChannelFragment
+import com.fanji.android.cloud.CloudManagerFragment
 import com.fanji.android.databinding.ActivityMainBinding
-import com.fanji.android.home.HomeFragment
-import com.fanji.android.message.MessageFragment
+import com.fanji.android.find.FindFragment
+import com.fanji.android.message.MessageManagerFragment
 import com.fanji.android.mine.MineFragment
 import com.fanji.android.net.HTTP_OK
 import com.fanji.android.net.state.NetState
-import com.fanji.android.publish.PublishFragment
+import com.fanji.android.publish.PublishManagerFragment
 import com.fanji.android.resource.Resource
 import com.fanji.android.resource.task.PUBLISH_UPLOAD
 import com.fanji.android.resource.task.PublishTask
@@ -54,15 +54,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
         tabController =
             binding.tabHost.setFragments(
                 this,
-                HomeFragment(),
-                ChannelFragment(),
-                PublishFragment(),
-                MessageFragment(),
+                FindFragment(),
+                MessageManagerFragment(),
+                PublishManagerFragment(),
+                CloudManagerFragment(),
                 MineFragment()
-            ).addItem(R.mipmap.unhome, R.mipmap.homed, getString(R.string.tab_home))
-                .addItem(R.mipmap.unchannel, R.mipmap.channeled, getString(R.string.tab_channel))
-                .addRoundItem(R.mipmap.publish, R.mipmap.unpublish, getString(R.string.publish))
-                .addItem(R.mipmap.unmsg, R.mipmap.msged, getString(R.string.tab_message))
+            ).addItem(R.mipmap.find, R.mipmap.finded, getString(R.string.tab_home))
+                .addItem(R.mipmap.message, R.mipmap.messaged, getString(R.string.tab_channel))
+                .addItem(R.mipmap.issue, R.mipmap.issued, getString(R.string.publish))
+                .addItem(R.mipmap.cloud, R.mipmap.clouded, getString(R.string.tab_message))
                 .addItem(R.mipmap.unmine, R.mipmap.mined, getString(R.string.tab_mine)).build()!!
         tabController?.setMessageNumber(3, 1000)
         tabController?.setHasMessage(1, true)
@@ -94,36 +94,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
 //                .with(HOME_REFRESH)
 //                .post(HOME_REFRESH)
         })
-
-//        Net.registerWebSocket("ws://192.168.1.11:8080/v1/ws", object :
-//            WebSocketHandler.WebSocketCallBack {
-//            override fun onOpen() {
-//                LogUtil.e("------------webSocket:onOpen")
-//            }
-//
-//            override fun onMessage(str: String?) {
-//                LogUtil.e("------------webSocket:onMessage~str:", str)
-//            }
-//
-//            override fun onClose() {
-//                LogUtil.e("------------webSocket:onClose")
-//            }
-//
-//            override fun onConnectError(t: Throwable?) {
-//                LogUtil.e("------------webSocket:onConnectError~t:", t)
-//            }
-//        })
-//
-//        thread {
-//            val okHttpClient = OkHttpClient.Builder().build()
-//            val request = Request.Builder().url("http://192.168.1.11:8080/v1/user").build()
-//            try {
-//                val res = okHttpClient.newCall(request).execute()
-//                LogUtil.e("------------webSocket~res:$res")
-//            } catch (e: Exception) {
-//                LogUtil.e("------------webSocket~e:$e")
-//            }
-//        }
     }
 
     override fun onDestroy() {

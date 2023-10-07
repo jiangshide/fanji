@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingConstraints">
+
+    <RelativeLayout
+        android:id="@+id/publishManagerR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <ImageView
+            android:id="@+id/publishManagerExit"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/input_delete" />
+
+        <com.fanji.android.ui.FJTabLayout
+            android:id="@+id/publishManagerTab"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp" />
+
+        <com.fanji.android.ui.FJButton
+            android:id="@+id/publishManagerDraft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="草稿" />
+    </RelativeLayout>
+
+    <com.fanji.android.ui.FJViewPager
+        android:id="@+id/publishManagerViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/publishManagerR" />
+</androidx.constraintlayout.widget.ConstraintLayout>

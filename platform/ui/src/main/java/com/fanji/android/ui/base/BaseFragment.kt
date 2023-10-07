@@ -42,10 +42,22 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         isTips: Boolean = false,
         bgColor: Int = R.drawable.bg_sweep,
         isTitle: Boolean = false,
-        title: String? = null,
-        isTopPadding: Boolean = false
+        leftBtn: Any? = null,
+        title: Any? = null,
+        rightBtn: Any? = null,
+        isTopPadding: Boolean = true
     ): T {
-        panel!!.initView(isRefresh, isMore, isTips, bgColor, isTitle, title, isTopPadding)
+        panel!!.initView(
+            isRefresh,
+            isMore,
+            isTips,
+            bgColor,
+            isTitle,
+            leftBtn,
+            title,
+            rightBtn,
+            isTopPadding
+        )
         return t
     }
 

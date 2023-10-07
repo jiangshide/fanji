@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingConstraints">
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/mindPic"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:text="图片"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/mindVideo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:normal_color="@color/blue" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/mindVideo"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:text="视频"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/mindAudio"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mindPic"
+        app:normal_color="@color/blue" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/mindAudio"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:text="音频"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/mindDoc"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mindVideo"
+        app:normal_color="@color/blue" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/mindDoc"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:text="文档"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mindAudio"
+        app:normal_color="@color/blue" />
+
+    <TextView
+        android:id="@+id/mindRecent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="最近"
+        app:layout_constraintTop_toBottomOf="@+id/mindPic" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mindRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        app:layout_constraintTop_toBottomOf="@+id/mindRecent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

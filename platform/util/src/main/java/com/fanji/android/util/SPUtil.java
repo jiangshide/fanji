@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.squareup.moshi.Moshi;
 import com.tencent.mmkv.MMKV;
 
 import java.util.ArrayList;
@@ -149,7 +150,8 @@ public final class SPUtil {
         String json = getString(TextUtils.isEmpty(key) ? clazz.getSimpleName() : key);
         if (TextUtils.isEmpty(json)) return null;
         try {
-            return new Gson().fromJson(json, clazz);
+            return new Moshi.Builder().build().adapter(clazz).fromJson(json);
+//            return new Gson().fromJson(json, clazz);
         } catch (Exception e) {
             LogUtil.e(e);
         }
@@ -170,6 +172,7 @@ public final class SPUtil {
             JsonArray array = new JsonParser().parse(json).getAsJsonArray();
             for (JsonElement jsonElement : array) {
                 list.add(new Gson().fromJson(jsonElement, clazz));
+//                list.add(new Moshi.Builder().build().adapter(clazz).toJson(jsonElement));
             }
             return list;
         } catch (Exception e) {

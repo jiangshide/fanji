@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/content">
+
+    <com.fanji.android.ui.FJCircleImg
+        android:id="@+id/personalIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/default_user"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/personalName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="昵称"
+        app:layout_constraintLeft_toRightOf="@+id/personalIcon"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/personalIdentity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="会员身份"
+        app:layout_constraintBaseline_toBottomOf="@id/personalName"
+        app:layout_constraintLeft_toRightOf="@id/personalName" />
+
+    <TextView
+        android:id="@+id/personalFans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="1000粉丝"
+        app:layout_constraintBaseline_toBottomOf="@id/personalIcon"
+        app:layout_constraintLeft_toRightOf="@id/personalIcon" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.DRAWING_CACHE_QUALITY_HIGH
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import java.util.Collections
@@ -104,6 +105,18 @@ fun <ITEM> RecyclerView.create(
         addItemDecoration(itemDecoration)
     }
     return KAdapter(items, layoutResId, bindHolder, itemClick).apply { adapter = this }
+}
+
+fun RecyclerView.HORIZONTAL(): LayoutManager {
+    val layoutManager = LinearLayoutManager(context)
+    layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+    return layoutManager
+}
+
+fun RecyclerView.VERTICAL(): LayoutManager {
+    val layoutManager = LinearLayoutManager(context)
+    layoutManager.orientation = LinearLayoutManager.VERTICAL
+    return layoutManager
 }
 
 abstract class AbstractAdapter<ITEM> constructor(

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingConstraints">
+
+    <RelativeLayout
+        android:id="@+id/cloudManagerR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:layout_marginRight="@dimen/content"
+        >
+
+        <com.fanji.android.ui.FJTabLayout
+            android:id="@+id/cloudManagerTab"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            />
+
+        <com.fanji.android.ui.FJButton
+            android:id="@+id/cloudManagerTransfer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/content"
+            android:layout_marginRight="@dimen/content"
+            android:layout_toLeftOf="@+id/cloudManagerSet"
+            android:text="传输" />
+
+        <com.fanji.android.ui.FJButton
+            android:id="@+id/cloudManagerSet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="云库设置" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/cloudSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:layout_marginTop="@dimen/content"
+        android:text="0B/10G"
+        app:layout_constraintTop_toBottomOf="@+id/cloudManagerR" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/cloudSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content"
+        android:padding="@dimen/content"
+        android:text="文件搜索"
+        app:layout_constraintTop_toBottomOf="@+id/cloudSize" />
+
+    <com.fanji.android.ui.FJViewPager
+        android:id="@+id/cloudManagerViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/cloudSearch" />
+</androidx.constraintlayout.widget.ConstraintLayout>

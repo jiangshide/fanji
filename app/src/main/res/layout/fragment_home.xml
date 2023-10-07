@@ -11,7 +11,7 @@
         android:layout_marginRight="15dp">
 
         <ImageView
-            android:id="@+id/earth"
+            android:id="@+id/personal"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignParentLeft="true"
@@ -34,7 +34,6 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/search" />
     </RelativeLayout>
-
     <com.fanji.android.ui.FJViewPager
         android:id="@+id/homeViewPager"
         android:layout_width="match_parent"

@@ -44,4 +44,7 @@ dependencies {
 
     api("com.google.code.gson:gson:2.8.6")
     api("com.tencent:mmkv:1.3.1")
+
+//    implementation("com.squareup.moshi:moshi:1.14.0")
+    api("com.squareup.moshi:moshi-kotlin:1.14.0")
 }
