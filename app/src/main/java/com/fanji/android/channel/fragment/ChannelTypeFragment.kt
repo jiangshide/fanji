@@ -60,7 +60,7 @@ class ChannelTypeFragment(private val typeId: Int, var channel: ChannelVM? = nul
                 channelItemName.text = it.des
             },
             {},
-            layoutManager
+            manager = layoutManager
         )
         channel!!.channelType(id = typeId, listener = this).loading(tipsView)
     }

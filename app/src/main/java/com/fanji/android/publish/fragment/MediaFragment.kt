@@ -215,7 +215,7 @@ class MediaFragment(
                 listener?.onMedia(data, type)
                 FJEvent.get().with("clearSelected").post(type)
             },
-            GridLayoutManager(activity, 4)
+            manager = GridLayoutManager(activity, 4)
         )
         FJEvent.get().with("clearSelected", Int::class.java).observes(this, Observer {
             if (type != it) {

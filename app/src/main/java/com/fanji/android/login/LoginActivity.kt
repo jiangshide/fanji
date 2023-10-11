@@ -1,14 +1,9 @@
 package com.fanji.android.login
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.text.TextUtils
-import android.view.View
 import androidx.lifecycle.Observer
-import com.android.sanskrit.wxapi.LOGIN_WECHAT
-import com.android.sanskrit.wxapi.WXApiManager
-import com.fanji.android.MainActivity
 import com.fanji.android.R
 import com.fanji.android.databinding.ActivityLoginBinding
 import com.fanji.android.img.FJImg
@@ -23,9 +18,12 @@ import com.fanji.android.ui.FJDialog
 import com.fanji.android.ui.FJEditText
 import com.fanji.android.ui.FJToast
 import com.fanji.android.ui.base.BaseActivity
-import com.fanji.android.util.FJEvent
 import com.fanji.android.util.LogUtil
 import com.fanji.android.util.ValidateCodeUtil
+import com.tencent.tauth.Tencent
+import com.umeng.umverify.UMVerifyHelper
+import com.umeng.umverify.listener.UMTokenResultListener
+
 
 /**
  * @Author:jiangshide
@@ -34,42 +32,31 @@ import com.fanji.android.util.ValidateCodeUtil
  * @Description:
  */
 class LoginActivity : BaseActivity<ActivityLoginBinding>(), FJEditText.OnKeyboardListener,
-    ValidateCodeUtil.ICountDown {
-    override fun getViewBinding() = ActivityLoginBinding.inflate(layoutInflater)
-
-    private var name = ""
-    private var psw = ""
-    private var rePsw = ""
-    private var code = ""
-    private var adCode = "+86"
+    ValidateCodeUtil.ICountDown,UMTokenResultListener {
+    override fun getViewBinding() = initView(
+        ActivityLoginBinding.inflate(layoutInflater),
+        title = "欢迎登录",
+        rightBtn = "验证码登录",
+        rightCallClazz = CodeLoginActivity::class.java
+    )
 
     var user: UserVM? = create(UserVM::class.java)
 
     private var positionData: PositionData? = null
     private var deviceData: DeviceData? = null
-
-    private val handler = Handler {
-        val w = it.what
-        when (w) {
-            1 -> {
-                FJDialog.loading(this)
-                val json = it.obj.toString()
-                user?.weChat(
-                    json, positionData!!.gson,
-                    deviceData!!.gson
-                )
-            }
-        }
-        return@Handler false
-    }
+    private var thirdLogin: ThirdLogin? = null
+    private var umVerifyHelper:UMVerifyHelper?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Tencent.setIsPermissionGranted(true)
+        thirdLogin = ThirdLogin(this, user!!)
+
         setListener()
         observers()
         if (Resource.user != null) {
-            binding.phoneEdit?.setText(Resource.name)
-            binding.appName?.text = Resource.user!!.nick
+            binding.userPhone.text = Resource.name
+//            binding.userAuthor.text = ""
             FJImg.loadImageCircle(Resource.icon, binding.userIcon, R.mipmap.ic_launcher)
         }
         positionData = PositionData()
@@ -77,79 +64,17 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), FJEditText.OnKeyboar
     }
 
     private fun setListener() {
-        binding.weiXinLogin.setOnClickListener {
-            if (!WXApiManager.isWxInstall()) {
-                FJToast.txt(R.string.wechat_not_install)
-                LogUtil.e("----jsd-0---", "----weixin-222----")
-                return@setOnClickListener
-            }
-            WXApiManager.sendLoginRequest()
-        }
-        binding.phoneLogin.setOnClickListener {
-            binding.weiXinLoginL?.visibility = View.GONE
-            binding.phoneLoginL?.visibility = View.VISIBLE
-            binding.appName?.text = "梵记"
-            binding.userIcon?.setImageResource(R.mipmap.ic_launcher)
-            Resource.clearUser()
+
+        binding.userLogin.setOnClickListener {
+            umVerifyHelper = UMVerifyHelper.getInstance(this,this)
+//        umVerifyHelper?.setAuthSDKInfo("")
+
+            val envA = umVerifyHelper?.checkEnvAvailable(1)
+            LogUtil.e("-----jsd----","-----envA:",envA)
+            umVerifyHelper?.getLoginToken(this,5000)
         }
 
-        binding.goWeiXinLogin.setOnClickListener {
-            binding.phoneEdit?.hide()
-            binding.weiXinLoginL?.visibility = View.VISIBLE
-            binding.phoneLoginL?.visibility = View.GONE
-        }
-
-        binding.goPhonePswLogin.setOnClickListener {
-            if (binding.goPhonePswLogin?.text == "验证码登录") {
-                binding.goPhonePswLogin?.text = "密码登录"
-                binding.phoneCodeEdit?.setText("")
-                binding.phoneCodeEdit?.hint = "请输入验证码"
-                binding.phoneCodeEdit.setMaxLength(50)
-                binding.phoneCodeTxt.visibility = View.VISIBLE
-
-            } else {
-                binding.goPhonePswLogin?.text = "验证码登录"
-                binding.phoneCodeEdit?.setText("")
-                binding.phoneCodeEdit?.hint = "请输入密码"
-                binding.phoneCodeEdit.setMaxLength(6)
-                binding.phoneCodeTxt.visibility = View.GONE
-            }
-        }
-
-        binding.phoneEdit.setListener { s, input ->
-            this.name = input
-        }
-
-        binding.phoneCodeEdit.setListener { s, input ->
-            this.psw = input
-        }
-
-        binding.phoneCodeTxt.setOnClickListener {
-            user?.validate("${this.adCode}${this.name}")
-            binding.phoneCodeTxt?.isEnabled = false
-            binding.phoneCodeTxt?.setTextColor(color(com.fanji.android.resource.R.color.disable))
-            binding.phoneCodeEdit?.setText("")
-            binding.phoneCodeEdit?.hint = "请输入验证码"
-            FJDialog.loading(this)
-        }
-
-        binding.loginBtn.setOnClickListener {
-            binding.phoneEdit?.hide()
-            if (binding.goPhonePswLogin?.text == "密码登录") {
-                this.code = this.psw
-                user?.codeLogin(
-                    this.name, this.psw, this.adCode
-                )
-            } else {
-                user?.login(
-                    this.name,
-                    this.psw, positionData!!.gson,
-                    deviceData!!.gson
-                )
-            }
-        }
-
-        binding.protocolUser.setOnClickListener {
+        binding.userProtocol.setOnClickListener {
 //            openUrl(BuildConfig.PRIVACY_AGREEMENT, getString(R.string.user_protocol))
             openUrl(
                 "http://192.168.1.11:8098/static/protocol/user_protocol.txt",
@@ -158,14 +83,29 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), FJEditText.OnKeyboar
 
         }
 
-        binding.protocolPrivacy.setOnClickListener {
+        binding.privacyProtocol.setOnClickListener {
 //            openUrl(BuildConfig.USE_AGREEMENT, getString(R.string.protect_protocol))
             openUrl(
                 "http://192.168.1.11:8098/static/protocol/protect_protocol.txt",
                 getString(R.string.protect_protocol)
             )
+        }
+        binding.thirdProtocol.setOnClickListener {
 
         }
+        thirdLogin?.setListener(this, binding.wxLogin, binding.qqLogin)
+
+        binding.pswLogin.setOnClickListener {
+            activity(PswLoginActivity::class.java)
+        }
+
+        val animator = ObjectAnimator.ofFloat(binding.checkedProtocol, "scaleX", 1.0f, 1.5f, 1.0f)
+        animator.duration = 500
+        animator.start()
+        val animator2 = ObjectAnimator.ofFloat(binding.checkedProtocol, "scaleY", 1.0f, 1.5f, 1.0f)
+        animator2.duration = 500
+        animator2.start()
+        binding.checkedProtocol.toggle()
     }
 
     private fun observers() {
@@ -178,24 +118,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), FJEditText.OnKeyboar
             }
             FJToast.txt("短信发送成功!")
             ValidateCodeUtil.getInstance().countDownSecond(this, COUNTDOWN_TIME)
-            binding.phoneCodeTxt?.isEnabled = true
-            binding.phoneCodeTxt?.setTextColor(color(com.fanji.android.ui.R.color.blue))
-        })
-        user?.login?.observe(this, Observer {
-            LogUtil.e("login------>>>>>it", it.data, " | code:" + it.code + " | msg:" + it.msg)
-            FJDialog.cancelDialog()
-            if (it?.code != HTTP_OK) {
-                FJToast.txt(it.msg)
-                return@Observer
-            }
-            Resource.user = it.data
-            if (it.code == USER_NOT_EXIST) {
-//                startActivity(Intent(this, BindPhoneActivity::class.java))
-            } else {
-//                FJEvent.get().with("main").post("main")
-                startActivity(Intent(this, MainActivity::class.java))
-                LogUtil.e("-----go main")
-            }
         })
 
         user?.codeLogin?.observe(this, Observer {
@@ -204,7 +126,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), FJEditText.OnKeyboar
             if (it.code != HTTP_OK) {
                 val code = it.code
                 if (code == USER_NOT_EXIST) {
-                    setShowPsw()
+//                    setShowPsw()
                 } else {
                     FJToast.txt(it?.msg)
                 }
@@ -220,131 +142,27 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), FJEditText.OnKeyboar
             } else {
             }
         })
-
-        FJEvent.get()
-            .with(LOGIN_WECHAT, String::class.java)
-            .observes(this, Observer {
-                LogUtil.e("---jsd---", "wechat------>>>>>it", it.toString())
-                val msg = handler.obtainMessage()
-                msg.what = 1
-                msg.obj = it
-                handler.sendMessage(msg)
-            })
-    }
-
-    private fun setShowPsw() {
-        binding.phoneLoginL?.visibility = View.GONE
-        binding.setPswL?.visibility = View.VISIBLE
-        this.code = this.psw
-        this.psw = ""
-        setPswLogin()
-        binding.setPswPhone?.text = this.name
-    }
-
-    private fun setPswLogin() {
-        binding.phonePsw?.setListener { s, input ->
-            this.psw = input
-            validateSetPsw()
-        }
-        binding.phoneRePsw?.setListener { s, input ->
-            this.rePsw = input
-            validateSetPsw()
-        }
-        binding.sureLogin?.setOnClickListener {
-            user?.reg(
-                this.name, this.psw, this.code, positionData!!.gson,
-                deviceData!!.gson, adCode = this.adCode
-            )
-            FJDialog.loading(this)
-        }
-        validateSetPsw()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        ValidateCodeUtil.getInstance().countDownSecond(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        ValidateCodeUtil.getInstance().cancel()
-    }
-
-    override fun onCountDown(code: Int) {
-        if (code == 0) {
-            binding.phoneCodeTxt?.text = getString(R.string.resend)
-            binding.phoneCodeTxt?.isEnabled = true
-            binding.phoneCodeTxt?.setTextColor(color(com.fanji.android.resource.R.color.disable))
-            return
-        }
-        binding.phoneCodeTxt?.text =
-            "${code}s后${getString(R.string.resend)}"
-    }
-
-    private fun validate() {
-        if (binding.loginBtn == null) return
-        binding.loginBtn?.isEnabled = binding.phoneEdit?.text?.trim().toString().isNotEmpty()
-        if (!TextUtils.isEmpty(this.name)) {
-            if (binding.goPhonePswLogin?.text == "密码登录") {
-                binding.phoneCodeTxt?.text = "获取验证码"
-//                phoneCodeTxt?.setDrawableRight(R.drawable.alpha)
-                binding.phoneCodeEdit?.setMaxLength(6)
-                if (this.name.length > 7) {
-                    binding.phoneCodeTxt?.setTextColor(color(com.fanji.android.resource.R.color.disable))
-                    binding.phoneCodeTxt?.isEnabled = true
-                } else {
-                    binding.phoneCodeTxt?.setTextColor(color(com.fanji.android.ui.R.color.gray))
-                    binding.phoneCodeTxt?.isEnabled = false
-                }
-//                phoneCodeEdit?.setPswHide(true)
-            } else {
-                binding.phoneCodeTxt.text = ""
-//                phoneCodeTxtTips?.visibility = View.GONE
-//                phoneCodeTxt?.setDrawableRight(R.drawable.eye)
-                binding.phoneCodeEdit?.setMaxLength(50)
-//                phoneCodeEdit?.setPswHide(false)
-            }
-            binding.phoneCodeTxt?.visibility = View.VISIBLE
-
-            if (!TextUtils.isEmpty(this.psw)) {
-                binding.loginBtn.normalColor = com.fanji.android.ui.R.color.blackLightMiddle
-                binding.loginBtn?.setTextColor(color(com.fanji.android.ui.R.color.font))
-            } else {
-                binding.loginBtn.normalColor = com.fanji.android.ui.R.color.blue
-                binding.loginBtn?.setTextColor(color(com.fanji.android.ui.R.color.fontLight))
-            }
-        } else {
-            binding.phoneCodeTxt?.visibility = View.GONE
-            binding.phoneCodeTxt?.isEnabled = false
-//            phoneCodeTxtTips?.visibility = View.GONE
-            binding.loginBtn.normalColor = com.fanji.android.ui.R.color.blue
-            binding.loginBtn?.setTextColor(color(com.fanji.android.ui.R.color.fontLight))
-        }
-    }
-
-    private fun validateSetPsw() {
-        if (!TextUtils.isEmpty(this.psw) && !TextUtils.isEmpty(this.rePsw)) {
-            if (this.psw == this.rePsw) {
-                binding.phoneRePswTips.visibility = View.GONE
-                binding.sureLogin?.isEnabled = true
-                binding.sureLogin?.normalColor = com.fanji.android.ui.R.color.blackLightMiddle
-                binding.sureLogin?.setColor(color(com.fanji.android.ui.R.color.font))
-            } else {
-                binding.phoneRePswTips.visibility = View.VISIBLE
-            }
-        } else {
-            binding.phoneRePswTips.visibility = View.GONE
-            binding.sureLogin?.isEnabled = false
-            binding.sureLogin?.normalColor = com.fanji.android.ui.R.color.gray
-            binding.sureLogin?.setColor(color(com.fanji.android.ui.R.color.fontLight))
-        }
     }
 
     override fun show(height: Int) {
-        binding.userR?.visibility = View.GONE
     }
 
     override fun hide(height: Int) {
-        binding.userR?.visibility = View.VISIBLE
+    }
+
+    override fun onCountDown(code: Int) {
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        thirdLogin?.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onTokenSuccess(p0: String?) {
+        LogUtil.e("----jsd----","-----onTokenSuccess~p0:",p0)
+    }
+
+    override fun onTokenFailed(p0: String?) {
+        LogUtil.e("----jsd----","-----onTokenFailed~p0:",p0)
     }
 }

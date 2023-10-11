@@ -70,7 +70,7 @@ class MyAlbumFragment(private val uid: Long? = Resource.uid) :
                     }
                 },
                 {},
-                layoutManager
+                manager = layoutManager
             )
 
         feed?.userBlog(uid = uid, listener = this)

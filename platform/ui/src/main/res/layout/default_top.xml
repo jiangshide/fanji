@@ -67,7 +67,6 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/content"
-        android:drawableRight="@mipmap/more"
         android:gravity="center"
         android:textSize="@dimen/normal"
         android:textStyle="bold"

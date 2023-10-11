@@ -160,7 +160,7 @@ class SearchUserFragment(private val users: MutableList<User>? = null) :
                     setStatus()
                     adapter?.notifyDataSetChanged()
                 },
-                layoutManager
+                manager = layoutManager
             )
         if (users != null) {
             selectedAdapter?.add(users)

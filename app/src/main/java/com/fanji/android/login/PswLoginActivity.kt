@@ -2,21 +2,19 @@ package com.fanji.android.login
 
 import android.content.Intent
 import android.os.Bundle
-import com.fanji.android.R
-import com.fanji.android.databinding.ActivityCodeLoginBinding
+import com.fanji.android.databinding.ActivityPswLoginBinding
 import com.fanji.android.resource.vm.user.UserVM
 import com.fanji.android.ui.base.BaseActivity
 
 /**
  * @author: jiangshide
- * @date: 2023/10/7
+ * @date: 2023/10/8
  * @email: 18311271399@163.com
  * @description:
  */
-class CodeLoginActivity : BaseActivity<ActivityCodeLoginBinding>() {
+class PswLoginActivity : BaseActivity<ActivityPswLoginBinding>() {
     override fun getViewBinding() = initView(
-        ActivityCodeLoginBinding.inflate(layoutInflater),
-        title = "欢迎登录",
+        ActivityPswLoginBinding.inflate(layoutInflater), title = "欢迎登录",
         rightBtn = "一键登录", rightCallClazz = LoginActivity::class.java
     )
 
@@ -31,11 +29,17 @@ class CodeLoginActivity : BaseActivity<ActivityCodeLoginBinding>() {
         binding.phone.setListener { s, input ->
 
         }
+        binding.psw.setListener { s, input ->
+
+        }
         binding.code.setListener { s, input ->
 
         }
         binding.validateCode.setOnClickListener {
 
+        }
+        binding.forgotPsw.setOnClickListener {
+            activity(ForgetPswActivity::class.java)
         }
         binding.login.setOnClickListener {
 
@@ -44,20 +48,14 @@ class CodeLoginActivity : BaseActivity<ActivityCodeLoginBinding>() {
 
         }
         binding.userProtocol.setOnClickListener {
-            openUrl(
-                "http://192.168.1.11:8098/static/protocol/user_protocol.txt",
-                getString(R.string.user_protocol)
-            )
+
         }
         binding.privacyProtocol.setOnClickListener {
-            openUrl(
-                "http://192.168.1.11:8098/static/protocol/protect_protocol.txt",
-                getString(R.string.protect_protocol)
-            )
+
         }
         thirdLogin?.setListener(this, binding.wxLogin, binding.qqLogin)
-        binding.pswLogin.setOnClickListener {
-            activity(PswLoginActivity::class.java)
+        binding.codeLogin.setOnClickListener {
+            activity(LoginActivity::class.java)
         }
     }
 

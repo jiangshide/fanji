@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
+import com.fanji.android.circle.CircleManagerFragment
 import com.fanji.android.cloud.CloudManagerFragment
 import com.fanji.android.databinding.ActivityMainBinding
 import com.fanji.android.find.FindFragment
@@ -27,6 +28,8 @@ import com.fanji.android.util.LogUtil
 import com.fanji.android.util.data.FileData
 import com.fanji.android.util.data.OnCompressListener
 import com.umeng.commonsdk.UMConfigure
+import com.umeng.socialize.PlatformConfig
+import com.umeng.socialize.PlatformConfig.Platform
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChangeListener,
     View.OnClickListener,
@@ -43,19 +46,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.tabHost.setFragmentManager(supportFragmentManager)
-        UMConfigure.init(
-            this,
-            "64f676418efadc41dcd47426",
-            "fanji",
-            UMConfigure.DEVICE_TYPE_PHONE,
-            ""
-        )//todo the temp
         user = Resource.user
         tabController =
             binding.tabHost.setFragments(
                 this,
                 FindFragment(),
-                MessageManagerFragment(),
+                CircleManagerFragment(),
                 PublishManagerFragment(),
                 CloudManagerFragment(),
                 MineFragment()
@@ -72,7 +68,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
 
         supportFragmentManager.addOnBackStackChangedListener {
         }
-//        WXApiManager.regToWX(this)
 //        loginIm()
         FJEvent.get()
             .with(PUBLISH_UPLOAD)

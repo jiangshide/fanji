@@ -88,9 +88,21 @@
             android:name=".login.LoginActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".login.CodeLoginActivity"/>
-
-        <activity android:name=".doc.FileDisplayActivity" />
+        <activity
+            android:name=".login.CodeLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.PswLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.ForgetPswActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.SetPswActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".doc.FileDisplayActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name=".FJProvider"

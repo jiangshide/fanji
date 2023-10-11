@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentRecommendBinding
 import com.fanji.android.files.FJFiles
@@ -38,9 +40,9 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(), FileListener
         container: ViewGroup?
     ) = initView(
         FragmentRecommendBinding.inflate(layoutInflater),
-        isRefresh = true,
         isMore = true,
-        isTopPadding = false
+        isTopPadding = false,
+        isRefresh = true
     )
 
     private var recommendAdapter: KAdapter<User>? = null
@@ -48,17 +50,6 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(), FileListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recommendL.setOnClickListener {
-
-        }
-        recommendAdapter =
-            binding.recommendRecyclerView.create(ArrayList(), R.layout.find_recommend_item, {
-                val recommendIcon = findViewById<FJCircleImg>(R.id.recommendIcon)
-                val recommendName = findViewById<TextView>(R.id.recommendName)
-                val recommendSign = findViewById<TextView>(R.id.recommendSign)
-
-            }, {}, GridLayoutManager(requireContext(), 3))
-
         carefullyChosenAdapter = binding.carefullyChosenRecyclerView.create(
             ArrayList(),
             R.layout.find_follow_item,
@@ -76,34 +67,55 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(), FileListener
                 val like = findViewById<TextView>(R.id.like)
                 name.text = it.name
             },
-            {})
+            {}, headResId = R.layout.find_follow_item
+        )
+        val headView = carefullyChosenAdapter?.addHeaderView(
+            requireContext(),
+            R.layout.fragment_recommend_header
+        )
+        carefullyChosenAdapter?.adjustSpanSize(binding.carefullyChosenRecyclerView)
+        val recommend = headView?.findViewById<TextView>(R.id.recommend)
+        val recommendL = headView?.findViewById<LinearLayout>(R.id.recommendL)
+        val recommendRecyclerView = headView?.findViewById<RecyclerView>(R.id.recommendRecyclerView)
+        recommendL?.setOnClickListener {
+
+        }
+        recommendAdapter =
+            recommendRecyclerView?.create(ArrayList(), R.layout.find_recommend_item, {
+                val recommendIcon = findViewById<FJCircleImg>(R.id.recommendIcon)
+                val recommendName = findViewById<TextView>(R.id.recommendName)
+                val recommendSign = findViewById<TextView>(R.id.recommendSign)
+
+            }, {}, manager = GridLayoutManager(requireContext(), 3))
+
 
         feedVM!!.recommendBlog.observe(requireActivity(), Observer {
             finishData(true, true, true)
 //            if (it.msg != null) {
 //                tips(code = it.code)
 //            }
-            test()
+            tips(it.code)
+//            test(it.isRefresh)
         })
         feedVM!!.recommendBlog().loading(tipsView)
     }
 
-    private fun test() {
+    private fun test(isRefresh: Boolean) {
         val users = ArrayList<User>()
         for (i in 1..10) {
             val user = User()
             user.name = "梵山科技$i"
             users.add(user)
         }
-        recommendAdapter?.add(users)
+        recommendAdapter?.update(users)
 
         val feeds = ArrayList<Feed>()
-        for (i in 1..40) {
+        for (i in 1..10) {
             val feed = Feed()
             feed.name = "梵山科技$i"
             feeds.add(feed)
         }
-        carefullyChosenAdapter?.add(feeds)
+        carefullyChosenAdapter?.add(feeds, isRefresh)
     }
 
     override fun onRetry(view: View?) {

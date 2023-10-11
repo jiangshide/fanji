@@ -1,4 +1,4 @@
-package com.fanji.android.find.circle
+package com.fanji.android.circle
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,7 +18,7 @@ class CircleAllFragment : BaseFragment<FragmentCircleAllBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentCircleAllBinding.inflate(layoutInflater))
+    ) = initView(FragmentCircleAllBinding.inflate(layoutInflater), title = "全部圈子")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

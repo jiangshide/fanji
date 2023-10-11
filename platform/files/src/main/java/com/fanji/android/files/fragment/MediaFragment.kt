@@ -63,7 +63,7 @@ class MediaFragment(val type: Int, val fileListener: FileListener) :
             fileItemIcon.load(it.path)
         }, {
             preview(this)
-        }, GridLayoutManager(requireContext(), 4))
+        }, manager = GridLayoutManager(requireContext(), 4))
         selectedAdapter = binding.selectedMediaRecycleView.create(
             ArrayList(),
             R.layout.fragment_media_selected_item,
@@ -78,7 +78,7 @@ class MediaFragment(val type: Int, val fileListener: FileListener) :
             {
                 preview(this)
             },
-            binding.selectedMediaRecycleView.HORIZONTAL()
+            manager = binding.selectedMediaRecycleView.HORIZONTAL()
         )
         mediaVM.lvMediaData.observe(requireActivity(), Observer {
             finishData(isFinishTips = true)

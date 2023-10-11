@@ -1,5 +1,7 @@
 package com.fanji.android.ui.adapter
 
+import android.content.Context
+import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.DRAWING_CACHE_QUALITY_HIGH
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.fanji.android.util.LogUtil
 import java.util.Collections
 
 /**
@@ -24,7 +25,7 @@ class KAdapter<ITEM>(
     layoutResId: Int,
     private val bindHolder: View.(ITEM) -> Unit,
     private val itemClick: ITEM.() -> Unit = {}
-) : AbstractAdapter<ITEM>(items, layoutResId) {
+) : AbstractAdapter<ITEM>(items!!, layoutResId) {
 
     private var mHasStableIds = true
 
@@ -51,60 +52,67 @@ class KAdapter<ITEM>(
     }
 }
 
-fun <ITEM> RecyclerView.create(
-    items: MutableList<ITEM>,
-    layoutResId: Int,
-    bindHolder: View.(ITEM) -> Unit,
-    itemClick: ITEM.() -> Unit = {},
-    manager: RecyclerView.LayoutManager = LinearLayoutManager(this.context)
-): KAdapter<ITEM> {
-    layoutManager = manager
-    val pool = RecycledViewPool()
-    setRecycledViewPool(pool)
-    setItemViewCacheSize(20)
-    isDrawingCacheEnabled = true
-    drawingCacheQuality = DRAWING_CACHE_QUALITY_HIGH
-    return KAdapter(items, layoutResId, bindHolder, itemClick).apply { adapter = this }
-}
+//fun <ITEM> RecyclerView.create(
+//    items: MutableList<ITEM>,
+//    layoutResId: Int,
+//    bindHolder: View.(ITEM) -> Unit,
+//    itemClick: ITEM.() -> Unit = {},
+//    manager: RecyclerView.LayoutManager = LinearLayoutManager(this.context)
+//): KAdapter<ITEM> {
+//    layoutManager = manager
+//    val pool = RecycledViewPool()
+//    setRecycledViewPool(pool)
+//    setItemViewCacheSize(20)
+//    isDrawingCacheEnabled = true
+//    drawingCacheQuality = DRAWING_CACHE_QUALITY_HIGH
+//    return KAdapter(items, -1,layoutResId,-1, bindHolder, itemClick).apply { adapter = this }
+//}
+
+//fun <ITEM> RecyclerView.create(
+//    items: MutableList<ITEM>,
+//    layoutResId: Int,
+//    bindHolder: View.(ITEM) -> Unit,
+//    itemClick: ITEM.() -> Unit = {},
+//    manager: RecyclerView.LayoutManager = LinearLayoutManager(this.context),
+//    position: Int
+//): KAdapter<ITEM> {
+//    layoutManager = manager
+//    return KAdapter(items,-1, layoutResId,-1, bindHolder, itemClick).apply { adapter = this }
+//}
+
+//fun <ITEM> RecyclerView.create(
+//    items: MutableList<ITEM>,
+//    layoutResId: Int,
+//    bindHolder: View.(ITEM) -> Unit,
+//    itemClick: ITEM.() -> Unit = {},
+//    itemDecoration: ItemDecoration
+//): KAdapter<ITEM> {
+//    if (itemDecorationCount == 0) {
+//        addItemDecoration(itemDecoration)
+//    }
+//    return KAdapter(items, -1,layoutResId,-1, bindHolder, itemClick).apply { adapter = this }
+//}
 
 fun <ITEM> RecyclerView.create(
-    items: MutableList<ITEM>,
+    items: MutableList<ITEM>? = ArrayList(),
     layoutResId: Int,
     bindHolder: View.(ITEM) -> Unit,
     itemClick: ITEM.() -> Unit = {},
-    manager: RecyclerView.LayoutManager = LinearLayoutManager(this.context),
-    position: Int
+    headResId: Int? = -1,
+    footResId: Int? = -1,
+    manager: LayoutManager = LinearLayoutManager(this.context),
+    itemDecoration: ItemDecoration? = null
 ): KAdapter<ITEM> {
     layoutManager = manager
-    return KAdapter(items, layoutResId, bindHolder, itemClick).apply { adapter = this }
-}
-
-fun <ITEM> RecyclerView.create(
-    items: MutableList<ITEM>,
-    layoutResId: Int,
-    bindHolder: View.(ITEM) -> Unit,
-    itemClick: ITEM.() -> Unit = {},
-    itemDecoration: ItemDecoration
-): KAdapter<ITEM> {
-    if (itemDecorationCount == 0) {
+    if (itemDecorationCount == 0 && itemDecoration != null) {
         addItemDecoration(itemDecoration)
     }
-    return KAdapter(items, layoutResId, bindHolder, itemClick).apply { adapter = this }
-}
-
-fun <ITEM> RecyclerView.create(
-    items: MutableList<ITEM>,
-    layoutResId: Int,
-    bindHolder: View.(ITEM) -> Unit,
-    itemClick: ITEM.() -> Unit = {},
-    manager: RecyclerView.LayoutManager = LinearLayoutManager(this.context),
-    itemDecoration: ItemDecoration
-): KAdapter<ITEM> {
-    layoutManager = manager
-    if (itemDecorationCount == 0) {
-        addItemDecoration(itemDecoration)
-    }
-    return KAdapter(items, layoutResId, bindHolder, itemClick).apply { adapter = this }
+    return KAdapter(
+        items!!,
+        layoutResId,
+        bindHolder,
+        itemClick
+    ).apply { adapter = this }
 }
 
 fun RecyclerView.HORIZONTAL(): LayoutManager {
@@ -126,6 +134,131 @@ abstract class AbstractAdapter<ITEM> constructor(
 
     private var mOnItemListener: OnItemListener<ITEM>? = null
 
+    private var headerView: SparseArray<View> = SparseArray()
+    private var footerView: SparseArray<View> = SparseArray()
+
+    //头部类型开始位置，用于viewType
+    private var BASE_ITEM_TYPE_HEADER = 1000000
+
+    //底部类型开始位置，用于viewType
+    private var BASE_ITEM_TYPE_FOOTER = 2000000
+
+//    private var adapter: RecyclerView.Adapter<AbstractAdapter.Holder>?=null
+
+    override fun getItemViewType(position: Int): Int {
+        if (isHeaderViewPosition(position)) {
+            //如果是headerView
+            return headerView.keyAt(position)
+        }
+        if (isFooterViewPosition(position)) {
+            //如果是footerView
+            val footerPosition = position - headerView.size() - itemCount
+            return footerView.keyAt(footerPosition)
+        }
+        //则为普通adapter的ViewType
+        val adapterPosition = position - headerView.size()
+        return super.getItemViewType(adapterPosition)
+    }
+
+    private fun createHeaderFooterViewHolder(view: View): AbstractAdapter.Holder {
+        return object : AbstractAdapter.Holder(view) {}
+    }
+
+    fun addHeaderView(context: Context, resId: Int): View {
+        return addHeaderView(LayoutInflater.from(context).inflate(resId, null))
+    }
+
+    fun addHeaderView(view: View): View {
+        val position = headerView.indexOfValue(view)
+        if (position < 0) {
+            headerView.put(BASE_ITEM_TYPE_HEADER++, view)
+        }
+        notifyDataSetChanged()
+        return view
+    }
+
+    fun removeHeaderView(context: Context, resId: Int): View {
+        return removeHeaderView(LayoutInflater.from(context).inflate(resId, null))
+    }
+
+    fun removeHeaderView(view: View): View {
+        val position = headerView.indexOfValue(view)
+        if (position < 0) {
+            return view
+        }
+        headerView.removeAt(position)
+        notifyDataSetChanged()
+        return view
+    }
+
+    fun addFooterView(context: Context, resId: Int): View {
+        return addFooterView(LayoutInflater.from(context).inflate(resId, null))
+    }
+
+    fun addFooterView(view: View): View {
+        val position = footerView.indexOfValue(view)
+        if (position < 0) {
+            footerView.put(BASE_ITEM_TYPE_FOOTER++, view)
+        }
+        notifyDataSetChanged()
+        return view
+    }
+
+    fun removeFooterView(context: Context, resId: Int): View {
+        return removeFooterView(LayoutInflater.from(context).inflate(resId, null))
+    }
+
+    fun removeFooterView(view: View): View {
+        val position = footerView.indexOfValue(view)
+        if (position < 0) {
+            return view
+        }
+        footerView.removeAt(position)
+        notifyDataSetChanged()
+        return view
+    }
+
+    private fun isHeaderViewType(viewType: Int): Boolean {
+        val position = headerView.indexOfKey(viewType)
+        return position >= 0
+    }
+
+    private fun isFooterViewType(viewType: Int): Boolean {
+        val position = footerView.indexOfKey(viewType)
+        return position >= 0
+    }
+
+
+    private fun isHeaderViewPosition(position: Int): Boolean {
+        return position < headerView.size()
+    }
+
+    private fun isFooterViewPosition(position: Int): Boolean {
+        return position >= headerView.size() + itemCount
+    }
+
+
+    /**
+     * 解决GridLayoutManager添加头部和底部不占用一行的问题
+     */
+    fun adjustSpanSize(recyclerView: RecyclerView) {
+        if (recyclerView.layoutManager is GridLayoutManager) {
+            val layoutManager = recyclerView.layoutManager as GridLayoutManager
+            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    val isHeaderOrFooter =
+                        isHeaderViewPosition(position) || isFooterViewPosition(position)
+                    return if (isHeaderOrFooter) {
+                        layoutManager.spanCount
+                    } else {
+                        1
+                    }
+                }
+
+            }
+        }
+    }
+
     protected abstract fun onItemClick(
         itemView: View,
         position: Int
@@ -139,17 +272,28 @@ abstract class AbstractAdapter<ITEM> constructor(
         parent: ViewGroup,
         viewType: Int
     ): Holder {
+
+        if (isHeaderViewType(viewType)) {
+            val headerView = headerView.get(viewType)
+            return createHeaderFooterViewHolder(headerView)
+        }
+        if (isFooterViewType(viewType)) {
+            val footerView = footerView.get(viewType)
+            return createHeaderFooterViewHolder(footerView)
+        }
+
         val view = LayoutInflater.from(parent.context)
             .inflate(layoutResId, parent, false)
         val viewHolder = Holder(view)
         val itemView = viewHolder.itemView
         itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
+            val itemAdapterPosition = position - headerView.size()
             if (position != RecyclerView.NO_POSITION) {
-                onItemClick(itemView, position)
+                onItemClick(itemView, itemAdapterPosition)
             }
-            if (mOnItemListener != null && itemList != null && position < itemList?.size!!) {
-                mOnItemListener?.onItem(position, itemList[position])
+            if (mOnItemListener != null && itemList != null && itemAdapterPosition < itemList?.size!!) {
+                mOnItemListener?.onItem(position, itemList[itemAdapterPosition])
             }
         }
         return viewHolder
@@ -159,8 +303,23 @@ abstract class AbstractAdapter<ITEM> constructor(
         holder: Holder,
         position: Int
     ) {
-        if (itemList == null || itemList?.size!! < position) return
-        holder.itemView.bind(itemList[position])
+        if (isHeaderViewPosition(position) || isFooterViewPosition(position)) {
+            return
+        }
+        val itemAdapterPosition = position - headerView.size()
+        LogUtil.e(
+            "--------jsd----",
+            "---position:",
+            position,
+            " | headerView.size:",
+            headerView.size(),
+            " | itemAdapterPosition:",
+            itemAdapterPosition
+        )
+//        adapter.onBindViewHolder(holder, itemAdapterPosition)
+
+        if (itemList == null || itemList?.size!! < itemAdapterPosition) return
+        holder.itemView.bind(itemList[itemAdapterPosition])
     }
 
     fun setItemListener(listener: OnItemListener<ITEM>?): KAdapter<ITEM> {
@@ -173,9 +332,10 @@ abstract class AbstractAdapter<ITEM> constructor(
         index: Int,
         t: ITEM
     ) {
-        if (itemList == null || itemList.size < index) return
-        itemList.removeAt(index)
-        itemList.add(index, t)
+        val itemAdapterPosition = index - headerView.size()
+        if (itemList == null || itemList.size < itemAdapterPosition) return
+        itemList.removeAt(itemAdapterPosition)
+        itemList.add(itemAdapterPosition, t)
         notifyDataSetChanged()
     }
 
@@ -195,6 +355,10 @@ abstract class AbstractAdapter<ITEM> constructor(
     }
 
     fun update(items: List<ITEM>) {
+        if (itemList.isEmpty()) {
+            add(items)
+            return
+        }
         DiffUtil.calculateDiff(DiffUtilCallback(itemList, items))
             .dispatchUpdatesTo(this)
     }
@@ -252,9 +416,10 @@ abstract class AbstractAdapter<ITEM> constructor(
     }
 
     fun remove(position: Int) {
-        if (itemList == null || itemList?.size!! < position) return
-        itemList?.removeAt(position)
-        notifyItemRemoved(position)
+        val itemAdapterPosition = position - headerView.size()
+        if (itemList == null || itemList?.size!! < itemAdapterPosition) return
+        itemList?.removeAt(itemAdapterPosition)
+        notifyItemRemoved(itemAdapterPosition)
     }
 
     fun remove(item: ITEM) {
@@ -347,7 +512,7 @@ abstract class AbstractAdapter<ITEM> constructor(
         return Kadapter@ this as KAdapter<ITEM>
     }
 
-    class Holder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    open class Holder(itemView: View) : RecyclerView.ViewHolder(itemView)
     interface OnMoveListener<ITEM> {
         fun move(
             fromPosition: Int,

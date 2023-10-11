@@ -4,7 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.fanji.android.login.CodeLoginActivity
+import com.fanji.android.login.LoginActivity
 import com.fanji.android.permission.FJPermission
 import com.fanji.android.permission.OnPermissionCallback
 import com.fanji.android.resource.Resource
@@ -36,9 +36,9 @@ class SplashActivity : AppCompatActivity(), OnPermissionCallback {
 
     override fun onGranted(permissions: List<String?>?, all: Boolean) {
         if (Resource.user == null) {
-            startActivity(Intent(this, CodeLoginActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         } else {
-            startActivity(Intent(this, CodeLoginActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         }
         finish()
     }

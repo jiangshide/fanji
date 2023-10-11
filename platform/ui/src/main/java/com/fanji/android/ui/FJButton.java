@@ -147,9 +147,8 @@ public class FJButton extends AppCompatButton {
   private void initAttrs(AttributeSet attrs) {
     if (attrs != null) {
       TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ButtonStyle);
-      int color = getResources().getColor(R.color.line);
-      mTxtColor = typedArray.getColor(R.styleable.ButtonStyle_txt_color,color);
-      mNormalColor = typedArray.getColor(R.styleable.ButtonStyle_normal_color, color);
+      mTxtColor = typedArray.getColor(R.styleable.ButtonStyle_txt_color,getResources().getColor(R.color.white));
+      mNormalColor = typedArray.getColor(R.styleable.ButtonStyle_normal_color, getResources().getColor(R.color.blue));
       mStrokeWidth = typedArray.getDimension(R.styleable.ButtonStyle_stroke, 0);
       mStrokeColor = typedArray.getColor(R.styleable.ButtonStyle_stroke_color, Color.TRANSPARENT);
       mPressedColor = typedArray.getColor(R.styleable.ButtonStyle_press_color,
@@ -178,6 +177,7 @@ public class FJButton extends AppCompatButton {
     }
     mLeftPadding = getPaddingLeft();
     mRightPadding = getPaddingRight();
+    setPadding(20,10,20,10);
   }
 
   @Override

@@ -1,4 +1,4 @@
-package com.fanji.android.find.circle
+package com.fanji.android.circle
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,7 +26,7 @@ class CircleOrderFragment : BaseFragment<FragmentCircleOrderBinding>(),
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentCircleOrderBinding.inflate(layoutInflater), isTips = true)
+    ) = initView(FragmentCircleOrderBinding.inflate(layoutInflater), leftBtn = "", title = "编辑圈子顺序", rightBtn = "取消")
 
     private var circleAdapter: KAdapter<ChannelType>? = null
 
@@ -40,7 +40,7 @@ class CircleOrderFragment : BaseFragment<FragmentCircleOrderBinding>(),
                 val circleName = findViewById<TextView>(R.id.circleName)
                 circleName.text = it.name
             },
-            {}, GridLayoutManager(requireActivity(), 4)
+            {}, manager = GridLayoutManager(requireActivity(), 4)
         )
         circleAdapter?.drag(binding.orderRecyclerView, this)
 

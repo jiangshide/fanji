@@ -106,7 +106,13 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         topView = panel.topView
         if (topView != null) {
             topView!!.setOnLeftClick {
+                if (panel.mLeftBtn != null && panel.mLeftBtn == "") {
+                    return@setOnLeftClick
+                }
                 setLeftListener()
+            }
+            topView!!.setOnRightClick {
+                setRightListener()
             }
         }
         refresh = panel.refresh
@@ -172,6 +178,10 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
     open fun setLeftListener(listener: View.OnClickListener): BaseFragment<*> {
         topView?.setOnLeftClick(listener)
         return this
+    }
+
+    open fun setRightListener() {
+        pop()
     }
 
     open fun setRightListener(listener: View.OnClickListener): BaseFragment<*> {

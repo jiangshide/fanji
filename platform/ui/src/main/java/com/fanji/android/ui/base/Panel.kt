@@ -32,7 +32,7 @@ open class Panel {
     private var mIsTitle = false
     var mIsTopPadding = false
 
-    private var mLeftBtn: Any? = null
+    var mLeftBtn: Any? = null
     private var mTitle: Any? = null
     private var mRightBtn: Any? = null
     var topView: FJTopView? = null

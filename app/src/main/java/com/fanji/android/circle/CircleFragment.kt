@@ -1,4 +1,4 @@
-package com.fanji.android.find.circle
+package com.fanji.android.circle
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +19,7 @@ class CircleFragment(circleId: Int) : BaseFragment<FragmentCircleBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentCircleBinding.inflate(layoutInflater), isTopPadding = false)
+    ) = initView(FragmentCircleBinding.inflate(layoutInflater))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -10,30 +10,32 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp">
 
-        <ImageView
-            android:id="@+id/personal"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/earth" />
-
         <com.fanji.android.ui.FJTabLayout
             android:id="@+id/homeTab"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp" />
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/search" />
+
+        <com.fanji.android.ui.FJButton
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="12sp"
+            android:layout_marginRight="@dimen/content"
+            android:layout_toLeftOf="@+id/personal"
+            android:text="搜索" />
 
         <ImageView
-            android:id="@+id/search"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:id="@+id/personal"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/search" />
+            android:src="@mipmap/default_user" />
     </RelativeLayout>
+
     <com.fanji.android.ui.FJViewPager
         android:id="@+id/homeViewPager"
         android:layout_width="match_parent"

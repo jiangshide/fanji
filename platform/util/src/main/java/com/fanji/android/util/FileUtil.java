@@ -48,10 +48,10 @@ public final class FileUtil {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    public static final String ZD112 = "/zd112";
+    public static final String ZD112 = "/sanskrit";
     private static final String APP_ROOT_DIR =
             Environment.getExternalStorageDirectory().getPath() + ZD112;
-    public static final String AUTHORITY = "com.android.zd112.fileprovider";
+    public static final String AUTHORITY = "com.android.sanskrit.fileprovider";
     private static File cacheDir =
             !isExternalStorageWritable() ? AppUtil.getApplicationContext().getFilesDir()
                     : AppUtil.getApplicationContext().getExternalCacheDir();

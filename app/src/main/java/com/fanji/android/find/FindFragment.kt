@@ -8,7 +8,6 @@ import androidx.viewpager.widget.ViewPager
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentHomeBinding
 import com.fanji.android.find.answers.AnswersFragment
-import com.fanji.android.find.circle.CircleManagerFragment
 import com.fanji.android.find.follow.FollowFragment
 import com.fanji.android.find.recommend.RecommendFragment
 import com.fanji.android.mine.fragment.UserFragment
@@ -45,10 +44,9 @@ class FindFragment : BaseFragment<FragmentHomeBinding>(), ViewPager.OnPageChange
             .setFragment(
                 FollowFragment(),
                 RecommendFragment(),
-                CircleManagerFragment(),
                 AnswersFragment(),
             )
-            .initTabs(activity, binding.homeTab, binding.homeViewPager, true)
+            .initTabs(activity, binding.homeTab, binding.homeViewPager)
             .setPersistent(false)
             .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
             .setLinePagerIndicator(color(com.fanji.android.ui.R.color.alpha))

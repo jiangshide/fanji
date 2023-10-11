@@ -42,7 +42,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding>() {
                 val productCircleName = findViewById<TextView>(R.id.productCircleName)
                 productCircleName.text = it.name
             },
-            {}, binding.productCircleRecyclerView.HORIZONTAL()
+            {}, manager = binding.productCircleRecyclerView.HORIZONTAL()
         )
 
         val list = ArrayList<Feed>()

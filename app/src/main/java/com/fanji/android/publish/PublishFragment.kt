@@ -130,7 +130,7 @@ class PublishFragment : BaseFragment<FragmentPublishBinding>(), OnMediaListener,
                 urls.add(fileData.path!!)
             }
             viewImg(urls, position)
-        }, layoutManager)
+        }, manager = layoutManager)
 
         binding.publishLocation.setOnClickListener {
             push(LocationFragment(this))
