@@ -4,10 +4,10 @@
         <shape>
             <solid android:color="@color/blackLightMiddle" />
             <corners
-                android:bottomLeftRadius="@dimen/default_corner"
-                android:bottomRightRadius="@dimen/default_corner"
-                android:topLeftRadius="@dimen/default_corner"
-                android:topRightRadius="@dimen/default_corner" />
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp"
+                android:topLeftRadius="0dp"
+                android:topRightRadius="0dp" />
             <stroke
                 android:width="0dp"
                 android:color="@color/bg" />

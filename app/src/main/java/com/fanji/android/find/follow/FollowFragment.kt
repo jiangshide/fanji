@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentFollowBinding
+import com.fanji.android.feed.FeedDetailFragment
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.resource.vm.feed.data.Feed
 import com.fanji.android.resource.vm.user.data.User
@@ -60,7 +61,7 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>() {
                 name.text = it.name
             }, {
                 LogUtil.e("----jsd---", "----this:", this)
-                push(FollowContentFragment(this))
+                push(FeedDetailFragment(this))
             })
 
         val headView =

@@ -15,6 +15,7 @@ import com.fanji.android.HUAEI_ADS_PROTOCOL
 import com.fanji.android.R
 import com.fanji.android.ui.FJDialog
 import com.fanji.android.ui.base.WebActivity
+import com.fanji.android.util.LogUtil
 import com.fanji.android.util.SPUtil
 
 /**
@@ -23,7 +24,17 @@ import com.fanji.android.util.SPUtil
  * @email: 18311271399@163.com
  * @description:
  */
-object Protocol {
+object CurDialog {
+
+    fun share(context: Context) {
+        val list = ArrayList<String>()
+        list.add("微信")
+        list.add("微信朋友圈")
+        list.add("复制链接")
+        FJDialog.createList(context, list).setOnItemListener { parent, view, position, id ->
+            LogUtil.e("----jsd---", "-----position:", position, " | id:", id)
+        }.show()
+    }
 
     fun protocolDialog(context: Context) {
         FJDialog.cancelDialog()

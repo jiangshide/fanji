@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mineL"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null"
+    android:orientation="vertical">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null">
+
+        <com.fanji.android.ui.FJAppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            app:elevation="0dp">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/coolToolLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:fitsSystemWindows="true"
+                app:collapsedTitleTextAppearance="@color/alpha"
+                app:expandedTitleMarginEnd="10dp"
+                app:expandedTitleMarginStart="10dp"
+                app:expandedTitleTextAppearance="@color/alpha"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/content"
+                    app:layout_collapseMode="parallax"
+                    tools:ignore="MissingConstraints">
+
+                    <include
+                        android:id="@+id/feedDetailRoot"
+                        layout="@layout/fragment_feed_detail_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/content" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/content"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:id="@+id/commentDes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="全部评论"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/commentNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="9999"
+                    android:textColor="@color/blue"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/commentDes"
+                    app:layout_constraintLeft_toRightOf="@+id/commentDes"
+                    app:layout_constraintTop_toTopOf="@+id/commentDes" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content"
+                    app:layout_constraintTop_toBottomOf="@+id/commentDes">
+
+                    <com.fanji.android.ui.FJCircleImg
+                        android:id="@+id/commentIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/default_user" />
+
+                    <com.fanji.android.ui.FJButton
+                        android:id="@+id/comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/content"
+                        android:layout_toRightOf="@+id/commentIcon"
+                        android:padding="@dimen/content"
+                        android:text="写评论" />
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.fanji.android.ui.FJTabLayout
+                android:id="@+id/commentTab"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:visibility="gone" />
+        </com.fanji.android.ui.FJAppBarLayout>
+
+        <com.fanji.android.ui.FJViewPager
+            android:id="@+id/commentViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
