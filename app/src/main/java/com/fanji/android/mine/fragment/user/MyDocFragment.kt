@@ -44,7 +44,7 @@ class MyDocFragment : BaseFragment<FragmentUserDocBinding>(), FileListener {
             this,
             ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
         )[VMDocPicker::class.java]
-        adapter = binding.docRecycleView.create(ArrayList(), R.layout.doc_fragent_pdf_item, {
+        adapter = binding.docRecycleView.create(R.layout.doc_fragent_pdf_item, {
             val docTitle = findViewById<TextView>(R.id.docTitle)
             val docPath = findViewById<TextView>(R.id.docPath)
             docTitle.text = it.name

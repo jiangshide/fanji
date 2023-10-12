@@ -65,7 +65,7 @@ class LocationFragment(private val onLocationListener: OnLocationListener) :
             adapter?.add(data)
             return
         }
-        adapter = binding.locationRecycleView?.create(data, R.layout.location_fragment_item, {
+        adapter = binding.locationRecycleView?.create(R.layout.location_fragment_item, {
             val locationItemName: TextView = this.findViewById(R.id.locationItemName)
             val locationItemDes: TextView = this.findViewById(R.id.locationItemDes)
             locationItemName?.text = it.title
@@ -73,7 +73,7 @@ class LocationFragment(private val onLocationListener: OnLocationListener) :
         }, {
             onLocationListener?.onPoiData(this)
             pop()
-        })
+        },data)
 
     }
 

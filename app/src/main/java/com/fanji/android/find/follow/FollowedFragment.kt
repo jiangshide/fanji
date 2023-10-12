@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentPersonalBinding
+import com.fanji.android.databinding.FragmentResyclerviewBinding
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.resource.vm.user.data.User
+import com.fanji.android.ui.FJButton
 import com.fanji.android.ui.FJCircleImg
 import com.fanji.android.ui.adapter.KAdapter
 import com.fanji.android.ui.adapter.create
@@ -22,13 +23,14 @@ import com.fanji.android.ui.refresh.api.RefreshLayout
  * @email: 18311271399@163.com
  * @description:
  */
-class PersonalFragment(val type: Int) : BaseFragment<FragmentPersonalBinding>() {
+class FollowedFragment(val type: Int, val title: String = "我的关注") :
+    BaseFragment<FragmentResyclerviewBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = initView(
-        FragmentPersonalBinding.inflate(layoutInflater),
-        title = "我的关注",
+        FragmentResyclerviewBinding.inflate(layoutInflater),
+        title = title,
         isRefresh = true,
         isMore = true
     )
@@ -38,15 +40,20 @@ class PersonalFragment(val type: Int) : BaseFragment<FragmentPersonalBinding>() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        personalAdapter = binding.personalRecyclerView.create(
-            ArrayList(),
-            R.layout.fragment_personal_item,
+        personalAdapter = binding.recyclerView.create(
+            R.layout.fragment_followed_item,
             {
                 val icon = findViewById<FJCircleImg>(R.id.personalIcon)
                 val name = findViewById<TextView>(R.id.personalName)
                 val identity = findViewById<TextView>(R.id.personalIdentity)
                 val fans = findViewById<TextView>(R.id.personalFans)
+                val followed = findViewById<FJButton>(R.id.personalFollowed)
+                if(type==1){
+                    followed.text = "已关注"
+                }
+                if(type==2){
+                    followed.text = "移除"
+                }
                 name.text = it.name
                 fans.text = "${it.fansNum}粉丝"
             },

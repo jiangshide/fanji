@@ -36,7 +36,6 @@ class ProductFragment : BaseFragment<FragmentProductBinding>() {
 
         }
         circleAdapter = binding.productCircleRecyclerView.create(
-            ArrayList(),
             R.layout.fragment_publish_product_circle,
             {
                 val productCircleName = findViewById<TextView>(R.id.productCircleName)

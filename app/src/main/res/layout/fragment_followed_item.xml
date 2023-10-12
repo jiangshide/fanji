@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/content">
+    android:padding="@dimen/content"
+    tools:ignore="MissingConstraints">
 
     <com.fanji.android.ui.FJCircleImg
         android:id="@+id/personalIcon"
@@ -28,8 +29,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
         android:text="会员身份"
-        app:layout_constraintBaseline_toBottomOf="@id/personalName"
-        app:layout_constraintLeft_toRightOf="@id/personalName" />
+        app:layout_constraintBottom_toBottomOf="@id/personalName"
+        app:layout_constraintLeft_toRightOf="@id/personalName"
+        app:layout_constraintTop_toTopOf="@+id/personalName" />
 
     <TextView
         android:id="@+id/personalFans"
@@ -39,4 +41,13 @@
         android:text="1000粉丝"
         app:layout_constraintBaseline_toBottomOf="@id/personalIcon"
         app:layout_constraintLeft_toRightOf="@id/personalIcon" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/personalFollowed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已关注"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

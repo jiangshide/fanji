@@ -62,7 +62,7 @@ class MyVideoFragment : BaseFragment<FragmentMyVideoBinding>() {
 
 
         adapter =
-            binding.videoRecyclerView.create(ArrayList(), R.layout.fragment_cloud_file_item, {
+            binding.videoRecyclerView.create(R.layout.fragment_cloud_file_item, {
                 val fileItemName = findViewById<TextView>(R.id.fileItemName)
 //                fileItemName.text = it.name + "---jsd"
             }, {
@@ -75,7 +75,6 @@ class MyVideoFragment : BaseFragment<FragmentMyVideoBinding>() {
             headView.findViewById<RecyclerView>(R.id.videoRecyclerView)
 
         adapter1 = videoRecyclerView.create(
-            ArrayList(),
             R.layout.fragment_cloud_file_item,
             {
                 val fileItemName = findViewById<TextView>(R.id.fileItemName)

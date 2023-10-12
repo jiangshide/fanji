@@ -23,7 +23,7 @@
             android:text="搜索"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:corners="90dp"
+            app:corner="90dp"
             app:normal_colors="@color/blackLight"
             tools:ignore="MissingConstraints" />
 

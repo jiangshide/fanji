@@ -47,7 +47,7 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         followAdapter =
-            binding.followRecycleView.create(ArrayList(), R.layout.find_follow_item, {
+            binding.followRecycleView.create(R.layout.find_follow_item, {
                 val icon = findViewById<FJCircleImg>(R.id.icon)
                 val name = findViewById<TextView>(R.id.name)
                 val fans = findViewById<TextView>(R.id.fans)
@@ -60,6 +60,7 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>() {
                 name.text = it.name
             }, {
                 LogUtil.e("----jsd---", "----this:", this)
+                push(FollowContentFragment(this))
             })
 
         val headView =
@@ -68,7 +69,7 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>() {
             headView?.findViewById<RecyclerView>(R.id.personalTopRecyclerView)
         val personalAllBtn = headView?.findViewById<TextView>(R.id.personalAllBtn)
         personalAdapter =
-            personalTopRecyclerView?.create(ArrayList(), R.layout.find_follow_personal, {
+            personalTopRecyclerView?.create(R.layout.find_follow_personal, {
                 val personalIcon = findViewById<FJCircleImg>(R.id.personalIcon)
                 val personalName = findViewById<TextView>(R.id.personalName)
 //                personalIcon.load(it.icon)
@@ -78,7 +79,7 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>() {
             }, manager = personalTopRecyclerView.HORIZONTAL())
 //
         personalAllBtn?.setOnClickListener {
-            push(PersonalFragment(0))
+            push(FollowedFragment(0))
         }
 
 

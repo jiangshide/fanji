@@ -51,6 +51,7 @@ public class FJEditText extends AppCompatEditText
 
     //当前圆角
     private float mCurrCorner;
+    private float mLeftCorner, mTopCorner, mRightCorner, mBottomCorner;
 
     //当前颜色
     private int mNormalColor;
@@ -83,7 +84,12 @@ public class FJEditText extends AppCompatEditText
             mStart = array.getInteger(R.styleable.CusEditText_formatStart, 0);
             mEnd = array.getInteger(R.styleable.CusEditText_formatEnd, 0);
             mIsDelete = array.getBoolean(R.styleable.CusEditText_isDelete, true);
-            mCurrCorner = array.getDimension(R.styleable.CusEditText_corners, 0);
+            mCurrCorner = array.getDimension(R.styleable.CusEditText_corner, 0);
+            mLeftCorner = array.getDimension(R.styleable.CusEditText_leftCorner, 0);
+            mTopCorner = array.getDimension(R.styleable.CusEditText_topCorner, 0);
+            mRightCorner = array.getDimension(R.styleable.CusEditText_rightCorner, 0);
+            mBottomCorner = array.getDimension(R.styleable.CusEditText_bottomCorner, 0);
+
             mNormalColor = array.getColor(R.styleable.CusEditText_normal_colors, color);
             mStrokeWidth = array.getDimension(R.styleable.CusEditText_strokes, 0);
             mStrokeColor = array.getColor(R.styleable.CusEditText_stroke_colors, Color.TRANSPARENT);
@@ -226,8 +232,15 @@ public class FJEditText extends AppCompatEditText
         mGradientDrawable = new GradientDrawable();
 
         mGradientDrawable.setColor(mNormalColor);
-        mGradientDrawable.setCornerRadius(mCurrCorner);
-        if (mCurrCorner > 0) {
+        if (mLeftCorner > 0 || mTopCorner > 0 || mRightCorner > 0 || mBottomCorner > 0) {
+            mGradientDrawable.setCornerRadii(new float[]{
+                    mLeftCorner, mLeftCorner, mTopCorner, mTopCorner, mRightCorner, mRightCorner,
+                    mBottomCorner, mBottomCorner
+            });
+        } else {
+            mGradientDrawable.setCornerRadius(mCurrCorner);
+        }
+        if (mCurrCorner > 0 || mLeftCorner > 0 || mTopCorner > 0 || mRightCorner > 0 || mBottomCorner > 0) {
             setBackgroundDrawable(mGradientDrawable);
         }
         if (mStrokeWidth > 0) {

@@ -10,10 +10,10 @@ import com.fanji.android.databinding.FragmentHomeBinding
 import com.fanji.android.find.answers.AnswersFragment
 import com.fanji.android.find.follow.FollowFragment
 import com.fanji.android.find.recommend.RecommendFragment
-import com.fanji.android.mine.fragment.UserFragment
+import com.fanji.android.mine.personal.PersonalFragment
 import com.fanji.android.resource.vm.channel.data.ChannelBlog
 import com.fanji.android.search.OnChannelListener
-import com.fanji.android.search.SearchChannelManagerFragment
+import com.fanji.android.search.SearchFragment
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 
@@ -57,11 +57,11 @@ class FindFragment : BaseFragment<FragmentHomeBinding>(), ViewPager.OnPageChange
         binding.homeViewPager.currentItem = 1
 
         binding.personal.setOnClickListener {
-            push(UserFragment())
+            push(PersonalFragment())
         }
 
         binding.search.setOnClickListener {
-            push(SearchChannelManagerFragment(this))
+            push(SearchFragment())
         }
     }
 

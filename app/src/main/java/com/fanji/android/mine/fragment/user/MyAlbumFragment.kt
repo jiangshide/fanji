@@ -45,7 +45,6 @@ class MyAlbumFragment(private val uid: Long? = Resource.uid) :
         val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         adapter =
             binding.albumRecycleView.create(
-                ArrayList<Feed>(),
                 R.layout.mine_user_album_fragment_item,
                 {
                     val albumItemFormat: FJImageView = this.findViewById(R.id.albumItemFormat)

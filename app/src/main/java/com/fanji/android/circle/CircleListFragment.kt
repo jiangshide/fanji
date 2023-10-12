@@ -30,7 +30,6 @@ class CircleListFragment(val type:Int) : BaseFragment<FragmentCircleListBinding>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         circleListAdapter = binding.circleListRecyclerView.create(
-            ArrayList(),
             R.layout.fragment_circle_list_item,
             {
                 val circleListIcon = findViewById<FJCircleImg>(R.id.circleListIcon)

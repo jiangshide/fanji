@@ -30,7 +30,7 @@
             android:textColor="@color/font"
             android:textColorHint="@color/fontLight"
             android:textSize="@dimen/normal"
-            app:corners="5dp"
+            app:corner="5dp"
             app:isDelete="true"
             app:normal_colors="@color/blue"
             />

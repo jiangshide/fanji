@@ -30,7 +30,7 @@ class AnswersFragment : BaseFragment<FragmentAnswersBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         answersAdapter =
-            binding.answersRecyclerView.create(ArrayList(), R.layout.fragment_answers_item, {
+            binding.answersRecyclerView.create(R.layout.fragment_answers_item, {
                 val answersIcons = findViewById<FJCircleImg>(R.id.answersIcons)
                 val answersName = findViewById<TextView>(R.id.answersName)
                 val answersCircle = findViewById<TextView>(R.id.answersCircle)

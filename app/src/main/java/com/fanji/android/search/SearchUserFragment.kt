@@ -89,7 +89,7 @@ class SearchUserFragment(private val users: MutableList<User>? = null) :
             adapter?.add(data, isRefresh)
             return
         }
-        adapter = binding.usesRecycleView.create(data, R.layout.search_user_fragment_item, {
+        adapter = binding.usesRecycleView.create(R.layout.search_user_fragment_item, {
             val usersIcon: FJCircleImg = this.findViewById(R.id.usersIcon)
             val usersNick: TextView = this.findViewById(R.id.usersNick)
             val usersDes: TextView = this.findViewById(R.id.usersDes)
@@ -131,7 +131,7 @@ class SearchUserFragment(private val users: MutableList<User>? = null) :
             }
             adapter?.notifyDataSetChanged()
             setStatus()
-        })
+        },data)
     }
 
     private fun setStatus() {
@@ -149,7 +149,6 @@ class SearchUserFragment(private val users: MutableList<User>? = null) :
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         selectedAdapter =
             binding.usesSelectedRecycleView.create(
-                arrayListOf(),
                 R.layout.search_user_selected_fragment_item,
                 {
                     val usersSelectedIcon: ImageView = this.findViewById(R.id.usersSelectedIcon)

@@ -10,6 +10,7 @@
         android:id="@+id/recommend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
         android:text="推荐达人"
         android:textSize="16sp"
         android:textStyle="bold" />
@@ -20,7 +21,11 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_marginRight="@dimen/content"
+        app:layout_constraintBottom_toBottomOf="@+id/recommend"
+        app:layout_constraintTop_toTopOf="@+id/recommend"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
 
         <ImageView
             android:id="@+id/recommendExchange"
@@ -44,6 +49,7 @@
         android:id="@+id/carefullyChosen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
         android:layout_marginTop="@dimen/content"
         android:text="内容精选"
         android:textSize="16sp"

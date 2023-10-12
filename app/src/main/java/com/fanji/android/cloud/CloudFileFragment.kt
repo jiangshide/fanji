@@ -31,7 +31,6 @@ class CloudFileFragment : BaseFragment<FragmentCloudFileBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fileAdapter = binding.cloudFileRecyclerView.create(
-            ArrayList(),
             R.layout.fragment_cloud_file_item,
             {
                 val fileItemIcon = findViewById<FJCircleImg>(R.id.fileItemIcon)

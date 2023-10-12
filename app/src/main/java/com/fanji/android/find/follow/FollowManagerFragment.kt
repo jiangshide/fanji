@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.fanji.android.databinding.FragmentPersonalManagerBinding
+import com.fanji.android.databinding.FragmentFollowManagerBinding
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 
@@ -14,12 +14,12 @@ import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
  * @email: 18311271399@163.com
  * @description:
  */
-class PersonalManagerFragment : BaseFragment<FragmentPersonalManagerBinding>() {
+class FollowManagerFragment : BaseFragment<FragmentFollowManagerBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = initView(
-        FragmentPersonalManagerBinding.inflate(layoutInflater),
+        FragmentFollowManagerBinding.inflate(layoutInflater),
         isTitle = true,
         title = "关注"
     )
@@ -32,8 +32,8 @@ class PersonalManagerFragment : BaseFragment<FragmentPersonalManagerBinding>() {
                 "已关注", "新推荐"
             )
             .setFragment(
-                PersonalFragment(0),
-                PersonalFragment(1)
+                FollowedFragment(0),
+                FollowedFragment(1)
             )
             .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
             .setTxtSelectedColor(com.fanji.android.ui.R.color.white)

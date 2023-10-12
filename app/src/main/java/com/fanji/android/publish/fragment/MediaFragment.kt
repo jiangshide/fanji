@@ -82,7 +82,6 @@ class MediaFragment(
         })
 
         adapter = binding.mediaRecycleView.create(
-            ArrayList(),
             R.layout.publish_fragment_list_item, {
                 val mediaItemCheck = findViewById<ImageView>(R.id.mediaItemCheck)
                 val mediaItemAddL = findViewById<LinearLayout>(R.id.mediaItemAddL)

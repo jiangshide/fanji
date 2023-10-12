@@ -29,7 +29,7 @@
         android:textColorHint="@color/fontLight"
         android:textCursorDrawable="@null"
         android:textSize="@dimen/normal"
-        app:corners="90dp"
+        app:corner="90dp"
         app:isDelete="true" />
 
     <com.fanji.android.ui.FJRecycleView

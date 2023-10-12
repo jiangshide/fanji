@@ -31,13 +31,7 @@ class AboutFragment : BaseFragment<FragmentSetAboutBinding>() {
         val version = getString(R.string.version)
         binding.aboutVersion.text = "$version ${AppUtil.getAppVersionName()}"
 
-        binding.aboutRecycleView.create(
-            arrayListOf(
-                getString(R.string.function_introducation),
-                getString(R.string.help_feedback),
-                getString(R.string.check_version),
-                getString(R.string.business_cooperation)
-            ), R.layout.mine_set_about_fragment_item, {
+        binding.aboutRecycleView.create(R.layout.mine_set_about_fragment_item, {
                 val aboutItem = this.findViewById<TextView>(R.id.aboutItem)
                 val aboutItemDes = this.findViewById<TextView>(R.id.aboutItemDes)
                 aboutItem.text = it
@@ -70,7 +64,12 @@ class AboutFragment : BaseFragment<FragmentSetAboutBinding>() {
                         SystemUtil.call(context, "18311271399")
                     }
                 }
-            })
+            },arrayListOf(
+            getString(R.string.function_introducation),
+            getString(R.string.help_feedback),
+            getString(R.string.check_version),
+            getString(R.string.business_cooperation)
+        ))
 
         binding.aboutEmail.setOnClickListener {
             SystemUtil.sendEmail(context, "18311271399@163.com")

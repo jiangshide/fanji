@@ -21,11 +21,11 @@ import java.util.Collections
  * email:18311271399@163.com
  */
 class KAdapter<ITEM>(
-    private val items: MutableList<ITEM>,
     layoutResId: Int,
     private val bindHolder: View.(ITEM) -> Unit,
-    private val itemClick: ITEM.() -> Unit = {}
-) : AbstractAdapter<ITEM>(items!!, layoutResId) {
+    private val itemClick: ITEM.() -> Unit = {},
+    private val items: MutableList<ITEM>
+) : AbstractAdapter<ITEM>(layoutResId, items!!) {
 
     private var mHasStableIds = true
 
@@ -94,12 +94,10 @@ class KAdapter<ITEM>(
 //}
 
 fun <ITEM> RecyclerView.create(
-    items: MutableList<ITEM>? = ArrayList(),
     layoutResId: Int,
     bindHolder: View.(ITEM) -> Unit,
     itemClick: ITEM.() -> Unit = {},
-    headResId: Int? = -1,
-    footResId: Int? = -1,
+    items: MutableList<ITEM>? = ArrayList(),
     manager: LayoutManager = LinearLayoutManager(this.context),
     itemDecoration: ItemDecoration? = null
 ): KAdapter<ITEM> {
@@ -108,10 +106,10 @@ fun <ITEM> RecyclerView.create(
         addItemDecoration(itemDecoration)
     }
     return KAdapter(
-        items!!,
         layoutResId,
         bindHolder,
-        itemClick
+        itemClick,
+        items!!
     ).apply { adapter = this }
 }
 
@@ -128,8 +126,8 @@ fun RecyclerView.VERTICAL(): LayoutManager {
 }
 
 abstract class AbstractAdapter<ITEM> constructor(
-    private var itemList: MutableList<ITEM>,
-    private val layoutResId: Int
+    private val layoutResId: Int,
+    private var itemList: MutableList<ITEM>
 ) : RecyclerView.Adapter<AbstractAdapter.Holder>() {
 
     private var mOnItemListener: OnItemListener<ITEM>? = null

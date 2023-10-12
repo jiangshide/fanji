@@ -32,7 +32,6 @@ class TransferFragment(val type: Int) : BaseFragment<FragmentTransferBinding>() 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         transferAdapter = binding.transferRecyclerView.create(
-            ArrayList(),
             R.layout.fragment_transfer_item,
             {
                 val transferItemIcon = findViewById<FJCircleImg>(R.id.transferItemIcon)

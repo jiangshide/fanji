@@ -11,19 +11,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentRecommendBinding
-import com.fanji.android.files.FJFiles
-import com.fanji.android.files.FileListener
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.resource.vm.feed.data.Feed
 import com.fanji.android.resource.vm.user.data.User
+import com.fanji.android.ui.FJButton
 import com.fanji.android.ui.FJCircleImg
 import com.fanji.android.ui.adapter.KAdapter
 import com.fanji.android.ui.adapter.create
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.refresh.api.RefreshLayout
-import com.fanji.android.util.LogUtil
-import com.fanji.android.util.data.FileData
-import com.fanji.android.util.data.IMG
 
 /**
  * @Author:jiangshide
@@ -31,7 +27,7 @@ import com.fanji.android.util.data.IMG
  * @Email:18311271399@163.com
  * @Description:
  */
-class RecommendFragment : BaseFragment<FragmentRecommendBinding>(), FileListener {
+class RecommendFragment : BaseFragment<FragmentRecommendBinding>() {
 
     private var feedVM: FeedVM? = create(FeedVM::class.java)
 
@@ -51,15 +47,13 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(), FileListener
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         carefullyChosenAdapter = binding.carefullyChosenRecyclerView.create(
-            ArrayList(),
             R.layout.find_follow_item,
             {
                 val icon = findViewById<FJCircleImg>(R.id.icon)
                 val name = findViewById<TextView>(R.id.name)
                 val fans = findViewById<TextView>(R.id.fans)
                 val time = findViewById<TextView>(R.id.time)
-                val follow = findViewById<TextView>(R.id.follow)
-                follow.visibility = View.VISIBLE
+                val follow = findViewById<FJButton>(R.id.follow)
                 val title = findViewById<TextView>(R.id.title)
                 val contents = findViewById<TextView>(R.id.contents)
                 val collect = findViewById<TextView>(R.id.collect)
@@ -67,7 +61,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(), FileListener
                 val like = findViewById<TextView>(R.id.like)
                 name.text = it.name
             },
-            {}, headResId = R.layout.find_follow_item
+            {}
         )
         val headView = carefullyChosenAdapter?.addHeaderView(
             requireContext(),
@@ -81,11 +75,11 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(), FileListener
 
         }
         recommendAdapter =
-            recommendRecyclerView?.create(ArrayList(), R.layout.find_recommend_item, {
+            recommendRecyclerView?.create(R.layout.find_recommend_item, {
                 val recommendIcon = findViewById<FJCircleImg>(R.id.recommendIcon)
                 val recommendName = findViewById<TextView>(R.id.recommendName)
                 val recommendSign = findViewById<TextView>(R.id.recommendSign)
-
+                recommendName.text = it.name
             }, {}, manager = GridLayoutManager(requireContext(), 3))
 
 
@@ -94,15 +88,15 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(), FileListener
 //            if (it.msg != null) {
 //                tips(code = it.code)
 //            }
-            tips(it.code)
-//            test(it.isRefresh)
+//            tips(it.code)
+            test(it.isRefresh)
         })
         feedVM!!.recommendBlog().loading(tipsView)
     }
 
     private fun test(isRefresh: Boolean) {
         val users = ArrayList<User>()
-        for (i in 1..10) {
+        for (i in 1..9) {
             val user = User()
             user.name = "梵山科技$i"
             users.add(user)
@@ -120,8 +114,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(), FileListener
 
     override fun onRetry(view: View?) {
         super.onRetry(view)
-        FJFiles.openFile(requireContext(), IMG, this)
-//        feedVM!!.recommendBlog().loading(tipsView)
+        feedVM!!.recommendBlog().loading(tipsView)
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
@@ -132,9 +125,5 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(), FileListener
     override fun onLoadMore(refreshLayout: RefreshLayout) {
         super.onLoadMore(refreshLayout)
         feedVM!!.recommendBlog(isRefresh = false)
-    }
-
-    override fun onFiles(files: List<FileData>) {
-        LogUtil.e("----jsd---", "----files:", files)
     }
 }

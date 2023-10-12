@@ -41,7 +41,7 @@ class SetFragment : BaseFragment<FragmentSetBinding>() {
         }
         val list = resources.getStringArray(R.array.settings).toMutableList()
         setLeft(this)
-        binding.mineSetRecycleView.create(list, R.layout.mine_set_fragment_item, {
+        binding.mineSetRecycleView.create(R.layout.mine_set_fragment_item, {
             val mineSetItemName = this.findViewById<TextView>(R.id.mineSetItemName)
             mineSetItemName.text = it
         }, {
@@ -92,7 +92,7 @@ class SetFragment : BaseFragment<FragmentSetBinding>() {
 
                 }
             }
-        })
+        },list)
     }
 
     override fun onClick(v: View?) {

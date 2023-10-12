@@ -106,7 +106,7 @@ class PublishFragment : BaseFragment<FragmentPublishBinding>(), OnMediaListener,
         }
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        adapter = binding.publishImgs?.create(ArrayList(), R.layout.publish_fragment_head_item, {
+        adapter = binding.publishImgs?.create(R.layout.publish_fragment_head_item, {
             val publishSelectedImg = this.findViewById<ImageView>(R.id.publishSelectedImg)
             val publishSelectedDel = this.findViewById<ImageView>(R.id.publishSelectedDel)
             val fileData: FileData = it

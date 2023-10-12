@@ -177,6 +177,7 @@ public class FJButton extends AppCompatButton {
     }
     mLeftPadding = getPaddingLeft();
     mRightPadding = getPaddingRight();
+    setTextColor(getResources().getColor(R.color.white));
     setPadding(20,10,20,10);
   }
 

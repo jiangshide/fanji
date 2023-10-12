@@ -44,7 +44,6 @@ class ChannelTypeFragment(private val typeId: Int, var channel: ChannelVM? = nul
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = StaggeredGridLayoutManager(2, GridLayoutManager.VERTICAL)
         adapter = binding.channelRecycleView.create(
-            ArrayList(),
             R.layout.channel_fragment_type_item,
             {
                 val channelItemImg: FJImageView = this.findViewById(R.id.channelItemImg)

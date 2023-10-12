@@ -85,7 +85,7 @@ class SearchChannelFragment(
 
     private fun showView(data: MutableList<ChannelBlog>) {
         adapter =
-            binding.publishChannelListRecycleView.create(data,
+            binding.publishChannelListRecycleView.create(
                 R.layout.search_channel_fragment_item,
                 {
                     val channelListItemIcon: FJImageView =
@@ -112,7 +112,7 @@ class SearchChannelFragment(
 //                            .post(this)
                     }
                     pop()
-                })
+                },data)
     }
 
     override fun onRes(res: LiveResult<MutableList<ChannelBlog>>) {

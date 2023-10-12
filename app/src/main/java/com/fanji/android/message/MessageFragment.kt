@@ -31,7 +31,7 @@ class MessageFragment(val type: Int) : BaseFragment<FragmentMessageBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         messageAdapter =
-            binding.messageRecyclerView.create(ArrayList(), R.layout.fragment_message_item, {
+            binding.messageRecyclerView.create(R.layout.fragment_message_item, {
                 val messageDot = findViewById<ImageView>(R.id.messageDot)
                 val messageIcon = findViewById<FJCircleImg>(R.id.messageIcon)
                 val messageName = findViewById<TextView>(R.id.messageName)

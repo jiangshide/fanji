@@ -50,7 +50,7 @@ class MediaFragment(val type: Int, val fileListener: FileListener) :
             fileListener.onFiles(list)
             pop()
         }
-        adapter = binding.mediaRecycleView.create(ArrayList(), R.layout.fragment_media_item, {
+        adapter = binding.mediaRecycleView.create(R.layout.fragment_media_item, {
             val fileItemIcon = findViewById<FJImageView>(R.id.fileItemIcon)
             val fileItemCheck = findViewById<FJNumberSelectView>(R.id.fileItemCheck)
             fileItemCheck.isSelected = it.selected
@@ -65,7 +65,6 @@ class MediaFragment(val type: Int, val fileListener: FileListener) :
             preview(this)
         }, manager = GridLayoutManager(requireContext(), 4))
         selectedAdapter = binding.selectedMediaRecycleView.create(
-            ArrayList(),
             R.layout.fragment_media_selected_item,
             {
                 val fileSelectedItemIcon = findViewById<FJImageView>(R.id.fileSelectedItemIcon)

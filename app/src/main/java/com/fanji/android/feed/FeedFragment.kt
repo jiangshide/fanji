@@ -29,7 +29,7 @@ class FeedFragment(id: Int) : BaseFragment<FragmentFeedBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         feedAdapter =
-            binding.feedRecyclerView.create(ArrayList(), R.layout.fragment_feed_item, {
+            binding.feedRecyclerView.create(R.layout.fragment_feed_item, {
                 val icon = findViewById<FJCircleImg>(R.id.icon)
                 val name = findViewById<TextView>(R.id.name)
                 val top = findViewById<TextView>(R.id.top)

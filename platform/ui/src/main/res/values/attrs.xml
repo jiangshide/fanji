@@ -21,12 +21,17 @@
         <attr name="circle_dot_radius" format="dimension" />
     </declare-styleable>
 
+    <attr name="corner" format="dimension" />
+    <attr name="leftCorner" format="dimension" />
+    <attr name="topCorner" format="dimension" />
+    <attr name="rightCorner" format="dimension" />
+    <attr name="bottomCorner" format="dimension" />
     <declare-styleable name="ButtonStyle">
-        <attr name="corner" format="dimension" />
-        <attr name="leftCorner" format="dimension" />
-        <attr name="topCorner" format="dimension" />
-        <attr name="rightCorner" format="dimension" />
-        <attr name="bottomCorner" format="dimension" />
+        <attr name="corner" />
+        <attr name="leftCorner" />
+        <attr name="topCorner" />
+        <attr name="rightCorner" />
+        <attr name="bottomCorner" />
         <attr name="press_color" format="reference|color" />
         <attr name="normal_color" format="reference|color" />
         <attr name="txt_color" format="reference|color" />
@@ -64,11 +69,15 @@
     </declare-styleable>
 
     <declare-styleable name="CusEditText">
+        <attr name="corner" />
+        <attr name="leftCorner" />
+        <attr name="topCorner" />
+        <attr name="rightCorner" />
+        <attr name="bottomCorner" />
         <attr name="format" format="integer" />
         <attr name="formatStart" format="integer" />
         <attr name="formatEnd" format="integer" />
         <attr name="isDelete" format="boolean" />
-        <attr name="corners" format="dimension" />
         <attr name="normal_colors" format="reference|color" />
         <attr name="strokes" format="dimension" />
         <attr name="stroke_colors" format="reference|color" />

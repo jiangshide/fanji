@@ -34,7 +34,6 @@ class CircleOrderFragment : BaseFragment<FragmentCircleOrderBinding>(),
         super.onViewCreated(view, savedInstanceState)
 
         circleAdapter = binding.orderRecyclerView.create(
-            ArrayList(),
             R.layout.fragment_circle_order_item,
             {
                 val circleName = findViewById<TextView>(R.id.circleName)

@@ -41,7 +41,7 @@ class CloudMindFragment : BaseFragment<FragmentCloudMindBinding>() {
 
         }
         mindAdapter =
-            binding.mindRecyclerView.create(ArrayList(), R.layout.fragment_cloud_mind_item, {
+            binding.mindRecyclerView.create(R.layout.fragment_cloud_mind_item, {
                 val mindItemTime = findViewById<TextView>(R.id.mindItemTime)
                 val mindItemStatus = findViewById<TextView>(R.id.mindItemStatus)
                 val mintItemIcon = findViewById<FJCircleImg>(R.id.mintItemIcon)
