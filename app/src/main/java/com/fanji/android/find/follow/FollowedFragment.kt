@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentResyclerviewBinding
+import com.fanji.android.databinding.FragmentRecyclerviewBinding
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.resource.vm.user.data.User
 import com.fanji.android.ui.FJButton
@@ -24,12 +24,12 @@ import com.fanji.android.ui.refresh.api.RefreshLayout
  * @description:
  */
 class FollowedFragment(val type: Int, val title: String = "我的关注") :
-    BaseFragment<FragmentResyclerviewBinding>() {
+    BaseFragment<FragmentRecyclerviewBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = initView(
-        FragmentResyclerviewBinding.inflate(layoutInflater),
+        FragmentRecyclerviewBinding.inflate(layoutInflater),
         title = title,
         isRefresh = true,
         isMore = true
