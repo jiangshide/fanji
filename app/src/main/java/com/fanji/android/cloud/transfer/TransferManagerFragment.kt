@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.fanji.android.databinding.FragmentTransferManagerBinding
+import com.fanji.android.databinding.CommonViewpagerBinding
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 
@@ -14,16 +14,16 @@ import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
  * @email: 18311271399@163.com
  * @description:
  */
-class TransferManagerFragment : BaseFragment<FragmentTransferManagerBinding>() {
+class TransferManagerFragment : BaseFragment<CommonViewpagerBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentTransferManagerBinding.inflate(layoutInflater))
+    ) = initView(CommonViewpagerBinding.inflate(layoutInflater))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.transferManagerViewPager.adapter =
-            binding.transferManagerViewPager.create(childFragmentManager)
+        binding.viewPager.adapter =
+            binding.viewPager.create(childFragmentManager)
                 .setTitles(
                     "上传列表", "下载列表"
                 )
@@ -35,8 +35,8 @@ class TransferManagerFragment : BaseFragment<FragmentTransferManagerBinding>() {
                 .setTxtSelectedColor(com.fanji.android.ui.R.color.white)
                 .initTabs(
                     activity,
-                    binding.transferManagerTab,
-                    binding.transferManagerViewPager,
+                    binding.tab,
+                    binding.viewPager,
                     true
                 )
     }

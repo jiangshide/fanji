@@ -11,10 +11,7 @@ import com.fanji.android.files.FileListener
 import com.fanji.android.img.FJImg
 import com.fanji.android.mine.MENU
 import com.fanji.android.mine.fragment.user.MyAlbumFragment
-import com.fanji.android.mine.fragment.user.MyChannelFragment
 import com.fanji.android.mine.fragment.user.MyDocFragment
-import com.fanji.android.mine.fragment.user.MyFeedFragment
-import com.fanji.android.mine.fragment.user.MyMusicFragment
 import com.fanji.android.mine.fragment.user.MyVideoFragment
 import com.fanji.android.net.HTTP_OK
 import com.fanji.android.resource.Resource
@@ -48,13 +45,10 @@ class UserFragment(private val id: Long? = Resource.uid) : BaseFragment<Fragment
         super.onViewCreated(view, savedInstanceState)
         binding.userViewPager.adapter = binding.userViewPager.create(childFragmentManager)
             .setTitles(
-                "动态", "相册", "频道", "乐听", "乐视", "乐读"
+                "相册", "乐视", "乐读"
             )
             .setFragment(
-                MyFeedFragment(),
                 MyAlbumFragment(),
-                MyChannelFragment(),
-                MyMusicFragment(),
                 MyVideoFragment(),
                 MyDocFragment()
             )

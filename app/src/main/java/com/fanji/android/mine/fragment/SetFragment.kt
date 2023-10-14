@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentSetBinding
+import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.mine.MENU
 import com.fanji.android.mine.fragment.set.AboutFragment
 import com.fanji.android.mine.fragment.set.ShowSetFragment
@@ -23,13 +23,13 @@ import com.fanji.android.util.SPUtil
  * @Email:18311271399@163.com
  * @Description:
  */
-class SetFragment : BaseFragment<FragmentSetBinding>() {
+class SetFragment : BaseFragment<CommonRecyclerviewBinding>() {
 
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = initView(
-        FragmentSetBinding.inflate(layoutInflater),
+        CommonRecyclerviewBinding.inflate(layoutInflater),
         title = getString(R.string.setting)
     )
 
@@ -41,7 +41,7 @@ class SetFragment : BaseFragment<FragmentSetBinding>() {
         }
         val list = resources.getStringArray(R.array.settings).toMutableList()
         setLeft(this)
-        binding.mineSetRecycleView.create(R.layout.mine_set_fragment_item, {
+        binding.recyclerView.create(R.layout.mine_set_fragment_item, {
             val mineSetItemName = this.findViewById<TextView>(R.id.mineSetItemName)
             mineSetItemName.text = it
         }, {
@@ -92,7 +92,7 @@ class SetFragment : BaseFragment<FragmentSetBinding>() {
 
                 }
             }
-        },list)
+        }, list)
     }
 
     override fun onClick(v: View?) {

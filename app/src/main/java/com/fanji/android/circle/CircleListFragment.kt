@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentCircleListBinding
+import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.resource.vm.channel.data.ChannelType
 import com.fanji.android.ui.FJCircleImg
 import com.fanji.android.ui.adapter.KAdapter
@@ -19,17 +19,17 @@ import com.fanji.android.ui.base.BaseFragment
  * @email: 18311271399@163.com
  * @description:
  */
-class CircleListFragment(val type:Int) : BaseFragment<FragmentCircleListBinding>() {
+class CircleListFragment(val type: Int) : BaseFragment<CommonRecyclerviewBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentCircleListBinding.inflate(layoutInflater))
+    ) = initView(CommonRecyclerviewBinding.inflate(layoutInflater))
 
     private var circleListAdapter: KAdapter<ChannelType>? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        circleListAdapter = binding.circleListRecyclerView.create(
+        circleListAdapter = binding.recyclerView.create(
             R.layout.fragment_circle_list_item,
             {
                 val circleListIcon = findViewById<FJCircleImg>(R.id.circleListIcon)

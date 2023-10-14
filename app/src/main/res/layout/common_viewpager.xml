@@ -7,15 +7,14 @@
     tools:ignore="MissingConstraints">
 
     <com.fanji.android.ui.FJTabLayout
-        android:id="@+id/messageTab"
+        android:id="@+id/tab"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        />
+        android:layout_height="35dp" />
 
     <com.fanji.android.ui.FJViewPager
-        android:id="@+id/messageViewPager"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content"
-        app:layout_constraintTop_toBottomOf="@+id/messageTab" />
+        app:layout_constraintTop_toBottomOf="@+id/tab" />
 </androidx.constraintlayout.widget.ConstraintLayout>

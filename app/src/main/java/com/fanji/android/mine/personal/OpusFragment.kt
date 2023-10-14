@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentRecyclerviewBinding
+import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.resource.vm.feed.data.Feed
 import com.fanji.android.ui.FJCircleImg
@@ -22,9 +22,9 @@ import com.fanji.android.ui.refresh.api.RefreshLayout
  * @email: 18311271399@163.com
  * @description:
  */
-class OpusFragment : BaseFragment<FragmentRecyclerviewBinding>() {
+class OpusFragment : BaseFragment<CommonRecyclerviewBinding>() {
     override fun viewBinding(inflater: LayoutInflater, container: ViewGroup?) = initView(
-        FragmentRecyclerviewBinding.inflate(layoutInflater),
+        CommonRecyclerviewBinding.inflate(layoutInflater),
         isRefresh = true,
         isMore = true,
         isTopPadding = false

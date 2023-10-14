@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentSearchChannelBinding
+import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.img.FJImg
 import com.fanji.android.net.HTTP_OK
 import com.fanji.android.net.vm.LiveResult
@@ -29,14 +29,14 @@ import com.fanji.android.ui.vm.FJVM
 class SearchChannelFragment(
     private val fromId: Int = 0,
     private val listener: OnChannelListener? = null
-) : BaseFragment<FragmentSearchChannelBinding>(), FJVM.VMListener<MutableList<ChannelBlog>> {
+) : BaseFragment<CommonRecyclerviewBinding>(), FJVM.VMListener<MutableList<ChannelBlog>> {
 
     var channel: ChannelVM? = create(ChannelVM::class.java)
     private var adapter: KAdapter<ChannelBlog>? = null
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentSearchChannelBinding.inflate(layoutInflater)
+    ) = CommonRecyclerviewBinding.inflate(layoutInflater)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -85,7 +85,7 @@ class SearchChannelFragment(
 
     private fun showView(data: MutableList<ChannelBlog>) {
         adapter =
-            binding.publishChannelListRecycleView.create(
+            binding.recyclerView.create(
                 R.layout.search_channel_fragment_item,
                 {
                     val channelListItemIcon: FJImageView =
@@ -112,7 +112,8 @@ class SearchChannelFragment(
 //                            .post(this)
                     }
                     pop()
-                },data)
+                }, data
+            )
     }
 
     override fun onRes(res: LiveResult<MutableList<ChannelBlog>>) {

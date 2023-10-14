@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.fanji.android.databinding.FragmentMessageManagerBinding
+import com.fanji.android.databinding.CommonViewpagerBinding
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 
@@ -14,17 +14,17 @@ import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
  * @Email:18311271399@163.com
  * @Description:
  */
-class MessageManagerFragment : BaseFragment<FragmentMessageManagerBinding>() {
+class MessageManagerFragment : BaseFragment<CommonViewpagerBinding>() {
 
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentMessageManagerBinding.inflate(layoutInflater))
+    ) = initView(CommonViewpagerBinding.inflate(layoutInflater))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.messageViewPager.adapter =
-            binding.messageViewPager.create(childFragmentManager)
+        binding.viewPager.adapter =
+            binding.viewPager.create(childFragmentManager)
                 .setTitles(
                     "回复", "通知", "点赞", "私信"
                 )
@@ -36,6 +36,6 @@ class MessageManagerFragment : BaseFragment<FragmentMessageManagerBinding>() {
                 )
                 .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
                 .setTxtSelectedColor(com.fanji.android.ui.R.color.white)
-                .initTabs(activity, binding.messageTab, binding.messageViewPager, true)
+                .initTabs(activity, binding.tab, binding.viewPager, true)
     }
 }

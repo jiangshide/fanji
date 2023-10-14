@@ -61,7 +61,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), AppBarLayout.OnOff
             adapter?.clear()
         }
         adapter = binding.searchHistoryRoot.searchHistoryRecyclerView.create(
-            R.layout.comon_recyclerview_item,
+            R.layout.common_recyclerview_item,
             {
                 val itemName = findViewById<TextView>(R.id.itemName)
                 itemName.text = it.name

@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentRecommendBinding
+import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.resource.vm.feed.data.Feed
 import com.fanji.android.resource.vm.user.data.User
@@ -27,7 +27,7 @@ import com.fanji.android.ui.refresh.api.RefreshLayout
  * @Email:18311271399@163.com
  * @Description:
  */
-class RecommendFragment : BaseFragment<FragmentRecommendBinding>() {
+class RecommendFragment : BaseFragment<CommonRecyclerviewBinding>() {
 
     private var feedVM: FeedVM? = create(FeedVM::class.java)
 
@@ -35,7 +35,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = initView(
-        FragmentRecommendBinding.inflate(layoutInflater),
+        CommonRecyclerviewBinding.inflate(layoutInflater),
         isMore = true,
         isTopPadding = false,
         isRefresh = true
@@ -46,7 +46,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        carefullyChosenAdapter = binding.carefullyChosenRecyclerView.create(
+        carefullyChosenAdapter = binding.recyclerView.create(
             R.layout.find_follow_item,
             {
                 val icon = findViewById<FJCircleImg>(R.id.icon)
@@ -67,7 +67,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>() {
             requireContext(),
             R.layout.fragment_recommend_header
         )
-        carefullyChosenAdapter?.adjustSpanSize(binding.carefullyChosenRecyclerView)
+        carefullyChosenAdapter?.adjustSpanSize(binding.recyclerView)
         val recommend = headView?.findViewById<TextView>(R.id.recommend)
         val recommendL = headView?.findViewById<LinearLayout>(R.id.recommendL)
         val recommendRecyclerView = headView?.findViewById<RecyclerView>(R.id.recommendRecyclerView)

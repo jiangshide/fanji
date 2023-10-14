@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentMessageBinding
+import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.resource.vm.feed.data.Feed
 import com.fanji.android.ui.FJCircleImg
 import com.fanji.android.ui.adapter.KAdapter
@@ -20,18 +20,18 @@ import com.fanji.android.ui.base.BaseFragment
  * @email: 18311271399@163.com
  * @description:
  */
-class MessageFragment(val type: Int) : BaseFragment<FragmentMessageBinding>() {
+class MessageFragment(val type: Int) : BaseFragment<CommonRecyclerviewBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentMessageBinding.inflate(layoutInflater))
+    ) = initView(CommonRecyclerviewBinding.inflate(layoutInflater))
 
     private var messageAdapter: KAdapter<Feed>? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         messageAdapter =
-            binding.messageRecyclerView.create(R.layout.fragment_message_item, {
+            binding.recyclerView.create(R.layout.fragment_message_item, {
                 val messageDot = findViewById<ImageView>(R.id.messageDot)
                 val messageIcon = findViewById<FJCircleImg>(R.id.messageIcon)
                 val messageName = findViewById<TextView>(R.id.messageName)

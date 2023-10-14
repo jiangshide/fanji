@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.fanji.android.databinding.FragmentFollowManagerBinding
+import com.fanji.android.databinding.CommonViewpagerBinding
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 
@@ -14,12 +14,12 @@ import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
  * @email: 18311271399@163.com
  * @description:
  */
-class FollowManagerFragment : BaseFragment<FragmentFollowManagerBinding>() {
+class FollowManagerFragment : BaseFragment<CommonViewpagerBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = initView(
-        FragmentFollowManagerBinding.inflate(layoutInflater),
+        CommonViewpagerBinding.inflate(layoutInflater),
         isTitle = true,
         title = "关注"
     )
@@ -27,7 +27,7 @@ class FollowManagerFragment : BaseFragment<FragmentFollowManagerBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.personalViewPager.adapter = binding.personalViewPager.create(childFragmentManager)
+        binding.viewPager.adapter = binding.viewPager.create(childFragmentManager)
             .setTitles(
                 "已关注", "新推荐"
             )
@@ -37,6 +37,6 @@ class FollowManagerFragment : BaseFragment<FragmentFollowManagerBinding>() {
             )
             .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
             .setTxtSelectedColor(com.fanji.android.ui.R.color.white)
-            .initTabs(activity, binding.personalTab, binding.personalViewPager, true)
+            .initTabs(activity, binding.tab, binding.viewPager, true)
     }
 }

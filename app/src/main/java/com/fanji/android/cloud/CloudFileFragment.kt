@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentCloudFileBinding
+import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.ui.FJCircleImg
 import com.fanji.android.ui.adapter.KAdapter
 import com.fanji.android.ui.adapter.create
@@ -20,17 +20,17 @@ import com.fanji.android.util.data.FileData
  * @email: 18311271399@163.com
  * @description:
  */
-class CloudFileFragment : BaseFragment<FragmentCloudFileBinding>() {
+class CloudFileFragment : BaseFragment<CommonRecyclerviewBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentCloudFileBinding.inflate(layoutInflater))
+    ) = initView(CommonRecyclerviewBinding.inflate(layoutInflater))
 
     private var fileAdapter: KAdapter<FileData>? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fileAdapter = binding.cloudFileRecyclerView.create(
+        fileAdapter = binding.recyclerView.create(
             R.layout.fragment_cloud_file_item,
             {
                 val fileItemIcon = findViewById<FJCircleImg>(R.id.fileItemIcon)

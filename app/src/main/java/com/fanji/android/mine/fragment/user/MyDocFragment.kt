@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentUserDocBinding
+import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.doc.PdfFragment
 import com.fanji.android.files.FileListener
 import com.fanji.android.files.utils.PickerManager
@@ -26,7 +26,7 @@ import com.fanji.android.util.data.FileData
  * @email: 18311271399@163.com
  * @description:
  */
-class MyDocFragment : BaseFragment<FragmentUserDocBinding>(), FileListener {
+class MyDocFragment : BaseFragment<CommonRecyclerviewBinding>(), FileListener {
 
     private var feedVM: FeedVM? = create(FeedVM::class.java)
     private var adapter: KAdapter<FileData>? = null
@@ -36,7 +36,11 @@ class MyDocFragment : BaseFragment<FragmentUserDocBinding>(), FileListener {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentUserDocBinding.inflate(layoutInflater), isRefresh = true, isTips = true)
+    ) = initView(
+        CommonRecyclerviewBinding.inflate(layoutInflater),
+        isRefresh = true,
+        isTips = true
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,7 +48,7 @@ class MyDocFragment : BaseFragment<FragmentUserDocBinding>(), FileListener {
             this,
             ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
         )[VMDocPicker::class.java]
-        adapter = binding.docRecycleView.create(R.layout.doc_fragent_pdf_item, {
+        adapter = binding.recyclerView.create(R.layout.doc_fragent_pdf_item, {
             val docTitle = findViewById<TextView>(R.id.docTitle)
             val docPath = findViewById<TextView>(R.id.docPath)
             docTitle.text = it.name
@@ -63,8 +67,8 @@ class MyDocFragment : BaseFragment<FragmentUserDocBinding>(), FileListener {
         viewModel.lvDocData.observe(viewLifecycleOwner, Observer { files ->
             val duration = System.currentTimeMillis() - startTime
             val list = arrayListOf<FileData>()
-            for((key,value) in files){
-                LogUtil.e("---jsd---","-----key>----:",key," | size:",value.size)
+            for ((key, value) in files) {
+                LogUtil.e("---jsd---", "-----key>----:", key, " | size:", value.size)
                 adapter!!.add(value)
             }
             LogUtil.e("----jsd---", "---files:", files.size, " | duration:", duration)

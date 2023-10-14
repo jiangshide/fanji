@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentTransferBinding
+import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.ui.FJButton
 import com.fanji.android.ui.FJCircleImg
 import com.fanji.android.ui.adapter.KAdapter
@@ -21,17 +21,17 @@ import com.fanji.android.util.data.FileData
  * @email: 18311271399@163.com
  * @description:
  */
-class TransferFragment(val type: Int) : BaseFragment<FragmentTransferBinding>() {
+class TransferFragment(val type: Int) : BaseFragment<CommonRecyclerviewBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentTransferBinding.inflate(layoutInflater))
+    ) = initView(CommonRecyclerviewBinding.inflate(layoutInflater))
 
     private var transferAdapter: KAdapter<FileData>? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        transferAdapter = binding.transferRecyclerView.create(
+        transferAdapter = binding.recyclerView.create(
             R.layout.fragment_transfer_item,
             {
                 val transferItemIcon = findViewById<FJCircleImg>(R.id.transferItemIcon)

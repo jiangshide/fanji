@@ -15,7 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentPublishMediaBinding
+import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.files.utils.ImageCaptureManager
 import com.fanji.android.files.viewmodels.VMMediaPicker
 import com.fanji.android.img.FJImg
@@ -52,7 +52,7 @@ class MediaFragment(
     private val title: String,
     private val res: Int,
     private val listener: OnMediaListener
-) : BaseFragment<FragmentPublishMediaBinding>() {
+) : BaseFragment<CommonRecyclerviewBinding>() {
 
     private var adapter: KAdapter<FileData>? = null
     private val data = ArrayList<FileData>()
@@ -66,7 +66,7 @@ class MediaFragment(
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentPublishMediaBinding.inflate(layoutInflater)
+    ) = CommonRecyclerviewBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -81,7 +81,7 @@ class MediaFragment(
             adapter?.add(0, FileData())
         })
 
-        adapter = binding.mediaRecycleView.create(
+        adapter = binding.recyclerView.create(
             R.layout.publish_fragment_list_item, {
                 val mediaItemCheck = findViewById<ImageView>(R.id.mediaItemCheck)
                 val mediaItemAddL = findViewById<LinearLayout>(R.id.mediaItemAddL)

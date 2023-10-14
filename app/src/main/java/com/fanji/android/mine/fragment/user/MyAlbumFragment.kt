@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentMyAlbumBinding
+import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.net.HTTP_OK
 import com.fanji.android.net.vm.LiveResult
 import com.fanji.android.resource.Resource
@@ -29,7 +29,7 @@ import com.fanji.android.ui.vm.FJVM
  * @Description:
  */
 class MyAlbumFragment(private val uid: Long? = Resource.uid) :
-    BaseFragment<FragmentMyAlbumBinding>(),
+    BaseFragment<CommonRecyclerviewBinding>(),
     FJVM.VMListener<MutableList<Feed>> {
 
     private var adapter: KAdapter<Feed>? = null
@@ -37,14 +37,14 @@ class MyAlbumFragment(private val uid: Long? = Resource.uid) :
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentMyAlbumBinding.inflate(layoutInflater)
+    ) = CommonRecyclerviewBinding.inflate(layoutInflater)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         adapter =
-            binding.albumRecycleView.create(
+            binding.recyclerView.create(
                 R.layout.mine_user_album_fragment_item,
                 {
                     val albumItemFormat: FJImageView = this.findViewById(R.id.albumItemFormat)

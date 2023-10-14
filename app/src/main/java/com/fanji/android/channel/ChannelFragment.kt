@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.fanji.android.channel.fragment.ChannelTypeFragment
-import com.fanji.android.databinding.FragmentChannelBinding
+import com.fanji.android.databinding.CommonViewpagerBinding
 import com.fanji.android.resource.vm.channel.ChannelVM
 import com.fanji.android.resource.vm.channel.data.ChannelType
 import com.fanji.android.ui.base.BaseFragment
@@ -18,14 +18,14 @@ import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
  * @Email:18311271399@163.com
  * @Description:
  */
-class ChannelFragment : BaseFragment<FragmentChannelBinding>() {
+class ChannelFragment : BaseFragment<CommonViewpagerBinding>() {
 
     private var channel: ChannelVM? = create(ChannelVM::class.java)
 
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentChannelBinding.inflate(layoutInflater), isTips = true, isTopPadding = true)
+    ) = initView(CommonViewpagerBinding.inflate(layoutInflater), isTips = true, isTopPadding = true)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,7 +47,7 @@ class ChannelFragment : BaseFragment<FragmentChannelBinding>() {
             list.add(it.name)
             fragmens.add(ChannelTypeFragment(it.id, channel))
         }
-        binding.channelViewPager.adapter = binding.channelViewPager.create(childFragmentManager)
+        binding.viewPager.adapter = binding.viewPager.create(childFragmentManager)
             .setTitles(
                 list
             )
@@ -56,7 +56,7 @@ class ChannelFragment : BaseFragment<FragmentChannelBinding>() {
             )
             .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
             .setTxtSelectedColor(com.fanji.android.ui.R.color.white)
-            .initTabs(activity, binding.channelTab, binding.channelViewPager)
+            .initTabs(activity, binding.tab, binding.viewPager)
     }
 
     override fun onRetry(view: View?) {

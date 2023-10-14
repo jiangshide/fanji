@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentFollowBinding
+import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.feed.FeedDetailFragment
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.resource.vm.feed.data.Feed
@@ -27,7 +27,7 @@ import com.fanji.android.util.LogUtil
  * @Email:18311271399@163.com
  * @Description:
  */
-class FollowFragment : BaseFragment<FragmentFollowBinding>() {
+class FollowFragment : BaseFragment<CommonRecyclerviewBinding>() {
 
     private var feedVM: FeedVM? = create(FeedVM::class.java)
 
@@ -38,7 +38,7 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = initView(
-        FragmentFollowBinding.inflate(layoutInflater),
+        CommonRecyclerviewBinding.inflate(layoutInflater),
         isRefresh = true,
         isMore = true,
         isTopPadding = false
@@ -48,7 +48,7 @@ class FollowFragment : BaseFragment<FragmentFollowBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         followAdapter =
-            binding.followRecycleView.create(R.layout.find_follow_item, {
+            binding.recyclerView.create(R.layout.find_follow_item, {
                 val icon = findViewById<FJCircleImg>(R.id.icon)
                 val name = findViewById<TextView>(R.id.name)
                 val fans = findViewById<TextView>(R.id.fans)

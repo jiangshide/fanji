@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentFeedBinding
+import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.resource.vm.feed.data.Feed
 import com.fanji.android.ui.FJCircleImg
 import com.fanji.android.ui.adapter.KAdapter
@@ -19,9 +19,9 @@ import com.fanji.android.ui.base.BaseFragment
  * @email: 18311271399@163.com
  * @description:
  */
-class FeedFragment(id: Int) : BaseFragment<FragmentFeedBinding>() {
+class FeedFragment(id: Int) : BaseFragment<CommonRecyclerviewBinding>() {
     override fun viewBinding(inflater: LayoutInflater, container: ViewGroup?) = initView(
-        FragmentFeedBinding.inflate(layoutInflater)
+        CommonRecyclerviewBinding.inflate(layoutInflater)
     )
 
     private var feedAdapter: KAdapter<Feed>? = null
@@ -29,7 +29,7 @@ class FeedFragment(id: Int) : BaseFragment<FragmentFeedBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         feedAdapter =
-            binding.feedRecyclerView.create(R.layout.fragment_feed_item, {
+            binding.recyclerView.create(R.layout.fragment_feed_item, {
                 val icon = findViewById<FJCircleImg>(R.id.icon)
                 val name = findViewById<TextView>(R.id.name)
                 val top = findViewById<TextView>(R.id.top)

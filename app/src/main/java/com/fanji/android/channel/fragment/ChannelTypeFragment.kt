@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentChannelTypeBinding
+import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.img.FJImg
 import com.fanji.android.net.vm.LiveResult
 import com.fanji.android.resource.vm.channel.ChannelVM
@@ -27,7 +27,7 @@ import com.fanji.android.ui.vm.FJVM
  * @Description:
  */
 class ChannelTypeFragment(private val typeId: Int, var channel: ChannelVM? = null) :
-    BaseFragment<FragmentChannelTypeBinding>(), FJVM.VMListener<MutableList<ChannelBlog>> {
+    BaseFragment<CommonRecyclerviewBinding>(), FJVM.VMListener<MutableList<ChannelBlog>> {
 
     private var adapter: KAdapter<ChannelBlog>? = null
 
@@ -35,7 +35,7 @@ class ChannelTypeFragment(private val typeId: Int, var channel: ChannelVM? = nul
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = initView(
-        FragmentChannelTypeBinding.inflate(layoutInflater),
+        CommonRecyclerviewBinding.inflate(layoutInflater),
         isRefresh = true,
         isMore = true
     )
@@ -43,7 +43,7 @@ class ChannelTypeFragment(private val typeId: Int, var channel: ChannelVM? = nul
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = StaggeredGridLayoutManager(2, GridLayoutManager.VERTICAL)
-        adapter = binding.channelRecycleView.create(
+        adapter = binding.recyclerView.create(
             R.layout.channel_fragment_type_item,
             {
                 val channelItemImg: FJImageView = this.findViewById(R.id.channelItemImg)

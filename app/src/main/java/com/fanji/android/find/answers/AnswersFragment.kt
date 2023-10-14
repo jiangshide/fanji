@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.fanji.android.R
-import com.fanji.android.databinding.FragmentAnswersBinding
+import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.resource.vm.feed.data.Feed
 import com.fanji.android.ui.FJCircleImg
 import com.fanji.android.ui.adapter.KAdapter
@@ -19,18 +19,18 @@ import com.fanji.android.ui.base.BaseFragment
  * @email: 18311271399@163.com
  * @description:
  */
-class AnswersFragment : BaseFragment<FragmentAnswersBinding>() {
+class AnswersFragment : BaseFragment<CommonRecyclerviewBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentAnswersBinding.inflate(layoutInflater))
+    ) = initView(CommonRecyclerviewBinding.inflate(layoutInflater))
 
     private var answersAdapter: KAdapter<Feed>? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         answersAdapter =
-            binding.answersRecyclerView.create(R.layout.fragment_answers_item, {
+            binding.recyclerView.create(R.layout.fragment_answers_item, {
                 val answersIcons = findViewById<FJCircleImg>(R.id.answersIcons)
                 val answersName = findViewById<TextView>(R.id.answersName)
                 val answersCircle = findViewById<TextView>(R.id.answersCircle)
