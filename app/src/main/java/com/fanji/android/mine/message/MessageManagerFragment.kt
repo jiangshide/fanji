@@ -1,4 +1,4 @@
-package com.fanji.android.message
+package com.fanji.android.mine.message
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +19,7 @@ class MessageManagerFragment : BaseFragment<CommonViewpagerBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(CommonViewpagerBinding.inflate(layoutInflater))
+    ) = initView(CommonViewpagerBinding.inflate(layoutInflater), isTips = true, title = "消息")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

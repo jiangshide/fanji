@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/content">
+
+    <com.fanji.android.ui.FJCircleImg
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/default_user" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:drawableRight="@mipmap/video"
+        android:drawablePadding="@dimen/content"
+        android:text="用户名"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/icon"
+        app:layout_constraintLeft_toRightOf="@+id/icon"
+        app:layout_constraintTop_toTopOf="@+id/icon" />
+
+    <RelativeLayout
+        android:id="@+id/vipStatusRL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_radius_4"
+        android:padding="@dimen/content"
+        app:layout_constraintTop_toBottomOf="@+id/icon">
+
+        <TextView
+            android:id="@+id/vip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="梵山会员VIP"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/vipDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vip"
+            android:layout_marginTop="@dimen/content"
+            android:text="未开通梵山会员" />
+
+        <ImageView
+            android:id="@+id/vipIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/video" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/privilegeDes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        android:text="尊享6项特权"
+        app:layout_constraintTop_toBottomOf="@+id/vipStatusRL" />
+
+    <TextView
+        android:id="@+id/privilegeRatio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@mipmap/video"
+        android:text="特权对比"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBottomOf="@+id/privilegeDes"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/privilegeRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        app:layout_constraintTop_toBottomOf="@+id/privilegeRatio" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/investRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        app:layout_constraintTop_toBottomOf="@+id/privilegeRecyclerView" />
+
+    <TextView
+        android:id="@+id/investProtocol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        android:text="开通既代表您已阅读并同意《梵山增值服务协议》"
+        app:layout_constraintTop_toBottomOf="@+id/investRecyclerView" />
+
+    <RadioGroup
+        android:id="@+id/payType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        app:layout_constraintTop_toBottomOf="@+id/investProtocol">
+
+        <include
+            android:id="@+id/payment"
+            layout="@layout/payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/sureProtocolPay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        android:text="确认协议并支付"
+        app:layout_constraintTop_toBottomOf="@+id/payType" />
+</androidx.constraintlayout.widget.ConstraintLayout>

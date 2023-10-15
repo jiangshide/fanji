@@ -12,6 +12,7 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.text.style.StrikethroughSpan;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
@@ -249,6 +250,12 @@ public class FJTextView extends AppCompatTextView implements View.OnClickListene
 
     public Spannable getText(String text) {
         return EmojiManager.INSTANCE.getSpannableByPattern(getContext(), text);
+    }
+
+    public void underLine(String str) {
+        SpannableString spannableString = new SpannableString(str);
+        spannableString.setSpan(new StrikethroughSpan(), 0, str.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        setText(spannableString);
     }
 
     public static String subStr(String abc, int len) {

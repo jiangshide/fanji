@@ -1,4 +1,4 @@
-package com.fanji.android.message
+package com.fanji.android.mine.message
 
 import android.os.Bundle
 import android.view.LayoutInflater

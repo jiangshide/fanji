@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toStartOf="@+id/mindVideo"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:normal_color="@color/blue" />
+        />
 
     <com.fanji.android.ui.FJButton
         android:id="@+id/mindVideo"
@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toStartOf="@+id/mindAudio"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/mindPic"
-        app:normal_color="@color/blue" />
+        />
 
     <com.fanji.android.ui.FJButton
         android:id="@+id/mindAudio"
@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toStartOf="@+id/mindDoc"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/mindVideo"
-        app:normal_color="@color/blue" />
+        />
 
     <com.fanji.android.ui.FJButton
         android:id="@+id/mindDoc"
@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/mindAudio"
-        app:normal_color="@color/blue" />
+        />
 
     <TextView
         android:id="@+id/mindRecent"

@@ -15,7 +15,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.fanji.android.util.DimenUtil;
 import com.fanji.android.ui.tablayout.adapter.CommonNavigatorAdapter;
 import com.fanji.android.ui.tablayout.help.ViewPagerHelper;
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator;
@@ -26,6 +25,7 @@ import com.fanji.android.ui.tablayout.titles.SimplePagerTitleView;
 import com.fanji.android.ui.tablayout.titles.badge.BadgeAnchor;
 import com.fanji.android.ui.tablayout.titles.badge.BadgePagerTitleView;
 import com.fanji.android.ui.tablayout.titles.badge.BadgeRule;
+import com.fanji.android.util.DimenUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +45,7 @@ public class FJFragmentPagerAdapter extends FragmentPagerAdapter
     private int mLinePagerIndicator = 0xFF1296db;
     private FJViewPager mZdViewPager;
     private int mSelected = -1;
-    private int mTxtSelecteColor;
+    private int mTxtSelectColor;
     private int mTxtSelectedColor;
     private int mTxtSelecteSize = 14;
     private int mTxtSelectedSize = 18;
@@ -172,8 +172,8 @@ public class FJFragmentPagerAdapter extends FragmentPagerAdapter
         return this;
     }
 
-    public FJFragmentPagerAdapter setTxtSelecteColor(int color) {
-        this.mTxtSelecteColor = color;
+    public FJFragmentPagerAdapter setTxtSelectColor(int color) {
+        this.mTxtSelectColor = color;
         return this;
     }
 
@@ -197,7 +197,7 @@ public class FJFragmentPagerAdapter extends FragmentPagerAdapter
         return this;
     }
 
-    public FJFragmentPagerAdapter setBgColor(int bgColor){
+    public FJFragmentPagerAdapter setBgColor(int bgColor) {
         this.mBgColor = bgColor;
         return this;
     }
@@ -244,12 +244,12 @@ public class FJFragmentPagerAdapter extends FragmentPagerAdapter
                 BadgePagerTitleView badgePagerTitleView = new BadgePagerTitleView(context);
                 SimplePagerTitleView simplePagerTitleView = new ColorTransitionPagerTitleView(context);
                 simplePagerTitleView.setNormalColor(
-                        mTxtSelecteColor != 0 ? ContextCompat.getColor(context, mTxtSelecteColor)
-                                : ContextCompat.getColor(context, R.color.fontLight))
+                                mTxtSelectColor != 0 ? ContextCompat.getColor(context, mTxtSelectColor)
+                                        : ContextCompat.getColor(context, R.color.font))
                         .setSelectedColor(
                                 mTxtSelectedColor != 0 ? ContextCompat.getColor(context, mTxtSelectedColor)
                                         : ContextCompat.getColor(context,
-                                        R.color.font))
+                                        R.color.fontLight))
                         .setNormalSize(mTxtSelecteSize).setSelectedSize(mTxtSelectedSize);
                 if (null != mTitles && mTitles.length >= index) {
                     simplePagerTitleView.setText(mTitles[index]);
@@ -294,7 +294,7 @@ public class FJFragmentPagerAdapter extends FragmentPagerAdapter
         });
 
         if (zdTabLayout != null && zdNavigator != null) {
-            zdTabLayout.setNavigator(zdNavigator,mBgColor);
+            zdTabLayout.setNavigator(zdNavigator, mBgColor);
             if (mDivider) {
                 LinearLayout titleContainer = zdNavigator.getTitleContainer();
                 titleContainer.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);

@@ -45,8 +45,10 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         leftBtn: Any? = null,
         title: Any? = null,
         rightBtn: Any? = null,
+        fragment: BaseFragment<*>? = null,
         isTopPadding: Boolean = true
     ): T {
+        this.fragment = fragment
         panel!!.initView(
             isRefresh,
             isMore,
@@ -65,6 +67,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
     private var topView: FJTopView? = null
     private var refresh: FJRefresh? = null
     protected var tipsView: FJTipsView? = null
+    private var fragment: BaseFragment<*>? = null
 
     protected var page = 0
     protected var pageSize = 20
@@ -181,6 +184,10 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
     }
 
     open fun setRightListener() {
+        if (fragment != null) {
+            push(fragment!!)
+            return
+        }
         pop()
     }
 
@@ -282,6 +289,10 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         topView = null
         refresh = null
         tipsView = null
+    }
+
+    fun getResArr(res: Int): List<String> {
+        return resources.getStringArray(res).toList()
     }
 
     fun color(res: Int): Int {

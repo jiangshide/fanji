@@ -39,23 +39,21 @@ class FindFragment : BaseFragment<FragmentHomeBinding>(), ViewPager.OnPageChange
         super.onViewCreated(view, savedInstanceState)
         binding.homeViewPager.adapter = binding.homeViewPager.create(childFragmentManager)
             .setTitles(
-                resources.getStringArray(R.array.home).toList()
+                getResArr(R.array.home)
             )
             .setFragment(
                 FollowFragment(),
                 RecommendFragment(),
                 AnswersFragment(),
             )
-            .initTabs(activity, binding.homeTab, binding.homeViewPager)
             .setPersistent(false)
             .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
             .setLinePagerIndicator(color(com.fanji.android.ui.R.color.alpha))
             .setTxtSelecteSize(16)
-            .setTxtSelectedColor(R.color.white)
-            .setTxtSelectedSize(20).setListener(this)
-
+            .setTxtSelectedSize(20)
+            .initTabs(activity, binding.homeTab, binding.homeViewPager)
+            .setListener(this)
         binding.homeViewPager.currentItem = 1
-
         binding.personal.setOnClickListener {
             push(PersonalFragment())
         }

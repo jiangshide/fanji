@@ -8,7 +8,7 @@ import com.fanji.android.circle.CircleManagerFragment
 import com.fanji.android.cloud.CloudManagerFragment
 import com.fanji.android.databinding.ActivityMainBinding
 import com.fanji.android.find.FindFragment
-import com.fanji.android.message.MessageManagerFragment
+import com.fanji.android.mine.message.MessageManagerFragment
 import com.fanji.android.mine.MineFragment
 import com.fanji.android.net.HTTP_OK
 import com.fanji.android.net.state.NetState

@@ -30,8 +30,8 @@
 
     <!--app start-->
     <color name="bg">@color/alpha</color>
-    <color name="font">@color/white</color>
-    <color name="fontLight">@color/line</color>
+    <color name="font">#656566</color>
+    <color name="fontLight">#56A8FB</color>
     <color name="progressBar">@color/alpha</color>
     <color name="progress">@color/blue</color>
     <color name="secondProgress">@color/blueLight</color>

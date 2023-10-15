@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/payment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/alipayIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/default_user" />
+
+    <TextView
+        android:id="@+id/alipayName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="支付宝支付"
+        app:layout_constraintBottom_toBottomOf="@+id/alipayIcon"
+        app:layout_constraintLeft_toRightOf="@+id/alipayIcon"
+        app:layout_constraintTop_toTopOf="@+id/alipayIcon" />
+
+    <RadioButton
+        android:id="@+id/alipayRadio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/alipayIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/alipayIcon" />
+
+    <ImageView
+        android:id="@+id/wxIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        android:src="@mipmap/default_user"
+        app:layout_constraintTop_toBottomOf="@+id/alipayIcon" />
+
+    <TextView
+        android:id="@+id/wxName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="微信支付"
+        app:layout_constraintBottom_toBottomOf="@+id/wxIcon"
+        app:layout_constraintLeft_toRightOf="@+id/wxIcon"
+        app:layout_constraintTop_toTopOf="@+id/wxIcon" />
+
+    <RadioButton
+        android:id="@+id/wxRadio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/wxIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/wxIcon" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

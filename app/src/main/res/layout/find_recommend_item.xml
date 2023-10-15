@@ -22,7 +22,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
+        android:textColor="#333333"
         android:text="昵称"
+        android:textSize="14sp"
         app:layout_constraintLeft_toRightOf="@+id/recommendIcon"
         tools:ignore="MissingConstraints" />
 
@@ -31,7 +33,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
-        android:text="签名"
+        android:textColor="#989799"
+        android:textSize="14sp"
+        android:text="这个用户什么都没有留下..."
         app:layout_constraintBaseline_toBottomOf="@id/recommendIcon"
         app:layout_constraintLeft_toRightOf="@id/recommendIcon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

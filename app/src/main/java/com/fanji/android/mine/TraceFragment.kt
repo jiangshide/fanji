@@ -1,19 +1,15 @@
-package com.fanji.android.find.recommend
+package com.fanji.android.mine
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.fanji.android.R
 import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.resource.vm.feed.data.Feed
-import com.fanji.android.resource.vm.user.data.User
-import com.fanji.android.ui.FJButton
 import com.fanji.android.ui.FJCircleImg
 import com.fanji.android.ui.adapter.KAdapter
 import com.fanji.android.ui.adapter.create
@@ -21,94 +17,61 @@ import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.refresh.api.RefreshLayout
 
 /**
- * @Author:jiangshide
- * @Date:8/29/23
- * @Email:18311271399@163.com
- * @Description:
+ * @author: jiangshide
+ * @date: 2023/10/15
+ * @email: 18311271399@163.com
+ * @description:
  */
-class RecommendFragment : BaseFragment<CommonRecyclerviewBinding>() {
-
-    private var feedVM: FeedVM? = create(FeedVM::class.java)
-
+class TraceFragment : BaseFragment<CommonRecyclerviewBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = initView(
         CommonRecyclerviewBinding.inflate(layoutInflater),
-        isMore = true,
-        isTopPadding = false,
-        isRefresh = true
+        title = "足迹",
+        isRefresh = true,
+        isMore = true
     )
 
-    private var recommendAdapter: KAdapter<User>? = null
-    private var carefullyChosenAdapter: KAdapter<Feed>? = null
-
+    private val feedVM: FeedVM = create(FeedVM::class.java)
+    private var feedAdapter: KAdapter<Feed>? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        carefullyChosenAdapter = binding.recyclerView.create(
-            R.layout.find_follow_item,
-            {
+        feedAdapter =
+            binding.recyclerView.create(R.layout.fragment_feed_item, {
                 val icon = findViewById<FJCircleImg>(R.id.icon)
                 val name = findViewById<TextView>(R.id.name)
+                val top = findViewById<TextView>(R.id.top)
                 val fans = findViewById<TextView>(R.id.fans)
                 val time = findViewById<TextView>(R.id.time)
-                val follow = findViewById<FJButton>(R.id.follow)
+                val follow = findViewById<TextView>(R.id.follow)
                 val title = findViewById<TextView>(R.id.title)
                 val contents = findViewById<TextView>(R.id.contents)
                 val collect = findViewById<TextView>(R.id.collect)
                 val comment = findViewById<TextView>(R.id.comment)
                 val like = findViewById<TextView>(R.id.like)
                 name.text = it.name
-            },
-            {}
-        )
-        val headView = carefullyChosenAdapter?.addHeaderView(
-            requireContext(),
-            R.layout.fragment_recommend_header
-        )
-        carefullyChosenAdapter?.adjustSpanSize(binding.recyclerView)
-        val recommend = headView?.findViewById<TextView>(R.id.recommend)
-        val recommendL = headView?.findViewById<LinearLayout>(R.id.recommendL)
-        val recommendRecyclerView = headView?.findViewById<RecyclerView>(R.id.recommendRecyclerView)
-        recommendL?.setOnClickListener {
-
-        }
-        recommendAdapter =
-            recommendRecyclerView?.create(R.layout.find_recommend_item, {
-                val recommendIcon = findViewById<FJCircleImg>(R.id.recommendIcon)
-                val recommendName = findViewById<TextView>(R.id.recommendName)
-                val recommendSign = findViewById<TextView>(R.id.recommendSign)
-                recommendName.text = it.name
             }, {})
-
 
         feedVM!!.recommendBlog.observe(requireActivity(), Observer {
             finishData(true, true, true)
+
 //            if (it.msg != null) {
-//                tips(code = it.code)
+//                tips()
 //            }
-//            tips(it.code)
             test(it.isRefresh)
         })
         feedVM!!.recommendBlog().loading(tipsView)
     }
 
-    private fun test(isRefresh: Boolean) {
-        val users = ArrayList<User>()
-        for (i in 1..2) {
-            val user = User()
-            user.name = "梵山科技$i"
-            users.add(user)
-        }
-        recommendAdapter?.update(users)
-
+    fun test(isRefresh: Boolean) {
         val feeds = ArrayList<Feed>()
-        for (i in 1..10) {
+        for (i in 1..40) {
             val feed = Feed()
             feed.name = "梵山科技$i"
             feeds.add(feed)
         }
-        carefullyChosenAdapter?.add(feeds, isRefresh)
+        feedAdapter?.add(feeds, isRefresh)
     }
 
     override fun onRetry(view: View?) {
