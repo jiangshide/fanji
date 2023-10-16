@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/content"
-    >
+    android:padding="@dimen/content">
 
-    <ImageView
+    <com.fanji.android.ui.FJImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,16 +15,30 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="aaa.jpg"
+        app:layout_constraintLeft_toRightOf="@+id/icon" />
+
+    <TextView
+        android:id="@+id/size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10.0MB"
+        app:layout_constraintBaseline_toBottomOf="@+id/icon"
+        app:layout_constraintLeft_toRightOf="@+id/icon" />
+
+    <TextView
+        android:id="@+id/path"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
-        app:layout_constraintBottom_toBottomOf="@+id/icon"
-        app:layout_constraintLeft_toRightOf="@+id/icon"
-        app:layout_constraintTop_toTopOf="@+id/icon" />
+        android:text="位置：云盘 >"
+        app:layout_constraintBaseline_toBaselineOf="@+id/size"
+        app:layout_constraintLeft_toRightOf="@+id/size" />
 
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/icon" />

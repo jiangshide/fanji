@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/content"
-    >
+    android:padding="@dimen/content">
 
-    <ImageView
+    <com.fanji.android.ui.FJImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,16 +15,22 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/content"
-        app:layout_constraintBottom_toBottomOf="@+id/icon"
-        app:layout_constraintLeft_toRightOf="@+id/icon"
-        app:layout_constraintTop_toTopOf="@+id/icon" />
+        android:text="梵记.doc"
+        app:layout_constraintLeft_toRightOf="@+id/icon" />
 
-    <CheckBox
-        android:id="@+id/checkBox"
+    <TextView
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:text="2023-08-08 12:00 10M"
+        app:layout_constraintBaseline_toBottomOf="@+id/icon"
+        app:layout_constraintLeft_toRightOf="@+id/icon" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/jumpDir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="跳转到目录"
         app:layout_constraintBottom_toBottomOf="@+id/icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/icon" />

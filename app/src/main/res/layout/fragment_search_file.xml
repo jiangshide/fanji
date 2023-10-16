@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/content">
+
+    <RelativeLayout
+        android:id="@+id/searchL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/back" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/content"
+            android:layout_toRightOf="@+id/back">
+
+            <com.fanji.android.ui.FJEditText
+                android:id="@+id/searchEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="45dp"
+                android:drawableLeft="@mipmap/search"
+                android:drawablePadding="@dimen/content"
+                android:ellipsize="end"
+                android:hint="搜索频道/Zd112号"
+                android:maxLines="1"
+                android:padding="2dp"
+                android:textColor="@color/blue"
+                android:textColorHint="@color/fontLight"
+                android:textSize="@dimen/normal"
+                app:bottomCorner="30dp"
+                app:isDelete="true"
+                app:leftCorner="30dp"
+                app:normal_colors="@color/white" />
+
+            <com.fanji.android.ui.FJButton
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:paddingLeft="@dimen/content"
+                android:paddingRight="@dimen/content"
+                android:text="搜索"
+                android:textColor="@color/font"
+                android:textSize="@dimen/big"
+                app:bottomCorner="0dp"
+                app:leftCorner="0dp"
+                app:press_color="@color/blackLight"
+                app:rightCorner="30dp"
+                app:topCorner="30dp" />
+        </FrameLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/searchResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        android:text="5个搜索结果"
+        app:layout_constraintTop_toBottomOf="@+id/searchL" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        app:layout_constraintTop_toBottomOf="@+id/searchResult" />
+
+    <RelativeLayout
+        android:id="@+id/historyRL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        android:background="@color/white"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/searchL">
+
+        <TextView
+            android:id="@+id/searchDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="搜索记录"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <com.fanji.android.ui.FJButton
+            android:id="@+id/clearRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="清空记录" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/historyRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/searchDes"
+            android:layout_marginTop="@dimen/content" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

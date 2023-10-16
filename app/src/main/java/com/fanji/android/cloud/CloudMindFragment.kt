@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.fanji.android.R
+import com.fanji.android.cloud.file.DocManagerFragment
+import com.fanji.android.cloud.file.MediaFragment
 import com.fanji.android.databinding.FragmentCloudMindBinding
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.ui.FJCircleImg
@@ -36,16 +38,16 @@ class CloudMindFragment : BaseFragment<FragmentCloudMindBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mindPic.setOnClickListener {
-
+            push(MediaFragment("图片"))
         }
         binding.mindVideo.setOnClickListener {
-
+            push(MediaFragment("视频"))
         }
         binding.mindAudio.setOnClickListener {
-
+            push(MediaFragment("音频"))
         }
         binding.mindDoc.setOnClickListener {
-
+            push(DocManagerFragment())
         }
         mindAdapter =
             binding.mindRecyclerView.create(R.layout.fragment_cloud_mind_item, {

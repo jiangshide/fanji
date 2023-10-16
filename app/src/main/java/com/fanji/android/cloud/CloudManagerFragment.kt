@@ -12,7 +12,7 @@ import com.fanji.android.R
 import com.fanji.android.cloud.setting.CloudSettingFragment
 import com.fanji.android.cloud.transfer.TransferManagerFragment
 import com.fanji.android.databinding.FragmentCloudManagerBinding
-import com.fanji.android.search.SearchFragment
+import com.fanji.android.search.SearchFileFragment
 import com.fanji.android.ui.FJButton
 import com.fanji.android.ui.FJDialog
 import com.fanji.android.ui.FJDialog.DialogViewListener
@@ -43,7 +43,7 @@ class CloudManagerFragment : BaseFragment<FragmentCloudManagerBinding>(),
             push(CloudSettingFragment())
         }
         binding.cloudSearch.setOnClickListener {
-            push(SearchFragment())
+            push(SearchFileFragment())
         }
         binding.cloudManagerViewPager.adapter =
             binding.cloudManagerViewPager.create(childFragmentManager)

@@ -14,6 +14,17 @@
         <item>文件</item>
     </string-array>
 
+    <string-array name="docs">
+        <item>全部</item>
+        <item>PDF</item>
+        <item>DOC</item>
+        <item>XLS</item>
+        <item>TXT</item>
+        <item>PPT</item>
+        <item>其它</item>
+
+    </string-array>
+
     <string-array name="mine">
         <item>我的积分</item>
         <item>意见反馈</item>
