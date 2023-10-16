@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/content"
     tools:ignore="MissingConstraints">
 
     <RelativeLayout
@@ -11,14 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
-        android:layout_marginRight="@dimen/content"
-        >
+        android:layout_marginRight="@dimen/content">
 
         <com.fanji.android.ui.FJTabLayout
             android:id="@+id/cloudManagerTab"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            />
+            android:layout_height="35dp" />
 
         <com.fanji.android.ui.FJButton
             android:id="@+id/cloudManagerTransfer"
@@ -48,18 +47,35 @@
         android:text="0B/10G"
         app:layout_constraintTop_toBottomOf="@+id/cloudManagerR" />
 
-    <com.fanji.android.ui.FJButton
-        android:id="@+id/cloudSearch"
+    <RelativeLayout
+        android:id="@+id/cloudSearchRL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/content"
-        android:padding="@dimen/content"
-        android:text="文件搜索"
-        app:layout_constraintTop_toBottomOf="@+id/cloudSize" />
+        app:layout_constraintTop_toBottomOf="@+id/cloudSize">
+
+        <com.fanji.android.ui.FJButton
+            android:id="@+id/cloudSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/content"
+            android:layout_toLeftOf="@+id/showSet"
+            android:padding="@dimen/content"
+            android:text="文件搜索" />
+
+        <com.fanji.android.ui.FJButton
+            android:id="@+id/showSet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="展示设置"
+            android:visibility="gone" />
+    </RelativeLayout>
 
     <com.fanji.android.ui.FJViewPager
         android:id="@+id/cloudManagerViewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/cloudSearch" />
+        app:layout_constraintTop_toBottomOf="@+id/cloudSearchRL" />
 </androidx.constraintlayout.widget.ConstraintLayout>

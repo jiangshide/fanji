@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.Observer
 import com.fanji.android.R
 import com.fanji.android.databinding.FragmentCloudMindBinding
+import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.ui.FJCircleImg
 import com.fanji.android.ui.adapter.KAdapter
 import com.fanji.android.ui.adapter.create
 import com.fanji.android.ui.base.BaseFragment
+import com.fanji.android.ui.refresh.api.RefreshLayout
 import com.fanji.android.util.data.FileData
 
 /**
@@ -23,8 +26,12 @@ class CloudMindFragment : BaseFragment<FragmentCloudMindBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentCloudMindBinding.inflate(layoutInflater))
+    ) = initView(
+        FragmentCloudMindBinding.inflate(layoutInflater), isRefresh = true,
+        isMore = true, isTopPadding = false
+    )
 
+    private var feedVM: FeedVM? = create(FeedVM::class.java)
     private var mindAdapter: KAdapter<FileData>? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,12 +57,39 @@ class CloudMindFragment : BaseFragment<FragmentCloudMindBinding>() {
                 mindItemFileName.text = it.name
             }, {})
 
+        feedVM!!.recommendBlog.observe(requireActivity(), Observer {
+            finishData(true, true, true)
+
+//            if (it.msg != null) {
+//                tips()
+//            }
+            test(it.isRefresh)
+        })
+        feedVM!!.recommendBlog().loading(tipsView)
+    }
+
+    private fun test(isRefresh: Boolean) {
         val list = ArrayList<FileData>()
-        for (i in 1..30) {
+        for (i in 1..50) {
             val fileData = FileData()
             fileData.name = "梵记$i"
             list.add(fileData)
         }
-        mindAdapter?.add(list)
+        mindAdapter?.add(list, isRefresh)
+    }
+
+    override fun onRetry(view: View?) {
+        super.onRetry(view)
+        feedVM!!.recommendBlog().loading(tipsView)
+    }
+
+    override fun onRefresh(refreshLayout: RefreshLayout) {
+        super.onRefresh(refreshLayout)
+        feedVM!!.recommendBlog()
+    }
+
+    override fun onLoadMore(refreshLayout: RefreshLayout) {
+        super.onLoadMore(refreshLayout)
+        feedVM!!.recommendBlog(isRefresh = false)
     }
 }

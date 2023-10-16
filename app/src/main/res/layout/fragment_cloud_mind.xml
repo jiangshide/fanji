@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="MissingConstraints">
+    tools:ignore="MissingConstraints"
+    android:padding="@dimen/content"
+    >
 
     <com.fanji.android.ui.FJButton
         android:id="@+id/mindPic"

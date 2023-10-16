@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/content">
+
+    <TextView
+        android:id="@+id/cloudExp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="云库扩容"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/cloud2T"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="2T空间"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/cloudExp" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/openVip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开通会员"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/cloud2T"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="取消"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/openVip"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

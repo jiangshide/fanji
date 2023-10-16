@@ -1,4 +1,4 @@
-package com.fanji.android.cloud
+package com.fanji.android.cloud.setting
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.fanji.android.R
-import com.fanji.android.databinding.CommonRecyclerviewBinding
+import com.fanji.android.databinding.FragmentRecycleBinding
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.ui.FJCircleImg
 import com.fanji.android.ui.adapter.KAdapter
@@ -16,24 +16,28 @@ import com.fanji.android.ui.adapter.create
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.refresh.api.RefreshLayout
 import com.fanji.android.util.data.FileData
+import java.util.Hashtable
 
 /**
  * @author: jiangshide
- * @date: 2023/10/3
+ * @date: 2023/10/15
  * @email: 18311271399@163.com
  * @description:
  */
-class CloudFileFragment : BaseFragment<CommonRecyclerviewBinding>() {
+class RecycleFragment : BaseFragment<FragmentRecycleBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = initView(
-        CommonRecyclerviewBinding.inflate(layoutInflater), isRefresh = true,
-        isMore = true, isTopPadding = false
+        FragmentRecycleBinding.inflate(layoutInflater),
+        title = "回收站",
+        isRefresh = true,
+        isMore = true
     )
 
     private var feedVM: FeedVM? = create(FeedVM::class.java)
     private var fileAdapter: KAdapter<FileData>? = null
+    private val hashtable: Hashtable<String, FileData> = Hashtable()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fileAdapter = binding.recyclerView.create(
@@ -45,8 +49,18 @@ class CloudFileFragment : BaseFragment<CommonRecyclerviewBinding>() {
                 val fileItemSize = findViewById<TextView>(R.id.fileItemSize)
                 val fileItemChecked = findViewById<CheckBox>(R.id.fileItemChecked)
                 fileItemName.text = it.name
+                fileItemChecked.isChecked = it.selected
             },
-            {})
+            {
+                selected = !selected
+                if (selected) {
+                    hashtable[name] = this
+                } else {
+                    hashtable.remove(name)
+                }
+                showTab()
+            })
+
         feedVM!!.recommendBlog.observe(requireActivity(), Observer {
             finishData(true, true, true)
 
@@ -56,6 +70,33 @@ class CloudFileFragment : BaseFragment<CommonRecyclerviewBinding>() {
             test(it.isRefresh)
         })
         feedVM!!.recommendBlog().loading(tipsView)
+    }
+
+    private fun showTab() {
+        if (hashtable.isNotEmpty()) {
+            binding.tabRL.visibility = View.VISIBLE
+            setLeft("取消")?.setLeftListener {
+                fileAdapter?.datas()?.forEach { it ->
+                    it.selected = false
+                }
+                fileAdapter?.notifyDataSetChanged()
+                hashtable.clear()
+                showTab()
+            }
+            setRight("全选")?.setLeftListener {
+                fileAdapter?.datas()?.forEach { it ->
+                    it.selected = true
+                    hashtable[it.name] = it
+                }
+                fileAdapter?.notifyDataSetChanged()
+                showTab()
+            }
+            setTopTitle("已选中${hashtable.count()}个文件")
+        } else {
+            binding.tabRL.visibility = View.GONE
+            setLeft("")
+            setRight("")
+        }
     }
 
     private fun test(isRefresh: Boolean) {
