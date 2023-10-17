@@ -2,6 +2,10 @@ package com.fanji.android.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
+import android.graphics.LinearGradient;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.os.Handler;
 import android.text.Layout;
 import android.text.Spannable;
@@ -12,6 +16,7 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.text.style.ReplacementSpan;
 import android.text.style.StrikethroughSpan;
 import android.util.AttributeSet;
 import android.view.View;
@@ -38,6 +43,8 @@ public class FJTextView extends AppCompatTextView implements View.OnClickListene
     private boolean mLight = false;
     private int mColor;
     private int mTextColor;
+    private int mStartTextColor;
+    private int mEndTextColor;
     private boolean isClose;
     private SpannableString mSpan;
     private SpannableString mSpanALL;
@@ -59,16 +66,81 @@ public class FJTextView extends AppCompatTextView implements View.OnClickListene
             mMaxSize = array.getInt(R.styleable.CusTextView_maxSize, mMaxSize);
             mColor = array.getColor(R.styleable.CusTextView_tips_color, mColor);
             mTextColor = array.getColor(R.styleable.CusTextView_text_color, mColor);
+            mStartTextColor = array.getColor(R.styleable.CusTextView_text_start_color, 0);
+            mEndTextColor = array.getColor(R.styleable.CusTextView_text_end_color, 0);
             mLight = array.getBoolean(R.styleable.CusTextView_is_light, false);
-            if (mLight) {
-                mTextColor = ContextCompat.getColor(getContext(), R.color.fontLight);
+
+            if (mStartTextColor != 0 && mEndTextColor != 0) {
+                setGradientText(getText().toString());
             } else {
-                mTextColor = mTextColor;
+                if (mLight) {
+                    mTextColor = ContextCompat.getColor(getContext(), R.color.fontLight);
+                }
+                setTextColor(mTextColor);
             }
-            setTextColor(mTextColor);
             array.recycle();
         }
-//    setOnClickListener(this);
+        setOnClickListener(this);
+    }
+
+    public void setGradientText(String text) {
+        setGradientText(text, -1, -1);
+    }
+
+    public void setGradientText(int startColor, int endColor) {
+        setGradientText(getText().toString(), startColor, endColor);
+    }
+
+    public void setGradientText(String text, int startColor, int endColor) {
+        if (text == null || text.length() == 0) {
+            return;
+        }
+        if (startColor != -1) {
+            mStartTextColor = startColor;
+        }
+        if (endColor != -1) {
+            mEndTextColor = endColor;
+        }
+        SpannableString spannableString = new SpannableString(text);
+        GradientFontSpan gradientFontSpan = new GradientFontSpan(mStartTextColor, mEndTextColor);
+        spannableString.setSpan(gradientFontSpan, 0, text.length(),
+                Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        setText(spannableString);
+        invalidate();
+    }
+
+    public static class GradientFontSpan extends ReplacementSpan {
+        private int mSize;
+        private int mStartColor;
+        private int mEndColor;
+
+        public GradientFontSpan(int startColor, int endColor) {
+            mStartColor = startColor;
+            mEndColor = endColor;
+        }
+
+        @Override
+        public int getSize(@NonNull Paint paint, CharSequence text, int start, int end,
+                           @Nullable Paint.FontMetricsInt fm) {
+            mSize = Math.round(paint.measureText(text, start, end));
+            Paint.FontMetricsInt metrics = paint.getFontMetricsInt();
+            if (fm != null) {
+                fm.top = metrics.top;
+                fm.ascent = metrics.ascent;
+                fm.descent = metrics.descent;
+                fm.bottom = metrics.bottom;
+            }
+            return mSize;
+        }
+
+        @Override
+        public void draw(@NonNull Canvas canvas, CharSequence text, int start, int end, float x,
+                         int top, int y, int bottom, @NonNull Paint paint) {
+            LinearGradient gradient = new LinearGradient(0, 0, mSize, 0, mEndColor, mStartColor,
+                    Shader.TileMode.CLAMP);
+            paint.setShader(gradient);
+            canvas.drawText(text, start, end, x, y, paint);
+        }
     }
 
     public void setTxt(String str) {

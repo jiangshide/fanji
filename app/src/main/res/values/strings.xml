@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">梵记</string>
     <string name="tab_home">发现</string>
-    <string name="tab_channel">消息</string>
+    <string name="tab_circle">圈子</string>
     <string name="tab_publish">发布</string>
     <string name="tab_message">云库</string>
     <string name="tab_mine">我的</string>

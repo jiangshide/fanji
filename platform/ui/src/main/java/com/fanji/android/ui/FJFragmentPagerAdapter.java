@@ -70,7 +70,6 @@ public class FJFragmentPagerAdapter extends FragmentPagerAdapter
 
     public FJFragmentPagerAdapter setFragment(Fragment... fragments) {
         if (fragments == null || fragments.length == 0) return this;
-        this.mFragments = null;
         this.mFragments = fragments;
         notifyDataSetChanged();
         return this;
@@ -78,14 +77,12 @@ public class FJFragmentPagerAdapter extends FragmentPagerAdapter
 
     public FJFragmentPagerAdapter setFragment(List<? extends Fragment> fragments) {
         if (fragments == null || fragments.size() == 0) return this;
-        mFragments = null;
         int size = fragments.size();
-        mFragments = new Fragment[size];
+        Fragment[] list = new Fragment[size];
         for (int i = 0; i < size; i++) {
-            mFragments[i] = fragments.get(i);
+            list[i] = fragments.get(i);
         }
-        notifyDataSetChanged();
-        return this;
+        return setFragment(list);
     }
 
     public FJFragmentPagerAdapter setTitles(String... titles) {

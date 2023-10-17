@@ -19,7 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
-import com.fanji.android.util.LogUtil;
 import com.fanji.android.ui.navigation.MaterialMode;
 import com.fanji.android.ui.navigation.NavigationController;
 import com.fanji.android.ui.navigation.internal.CustomItemLayout;
@@ -51,23 +50,33 @@ public class FJNavigationView extends ViewGroup {
 
     private ViewPagerPageChangeListener mPageChangeListener;
     private ViewPager mViewPager;
+    private OnTabItemSelectedListener mOnTabItemSelectedListener;
 
     private boolean mEnableVerticalLayout;
 
     private OnTabItemSelectedListener mTabItemListener = new OnTabItemSelectedListener() {
         @Override
         public void onSelected(int index, int old) {
-            if(mViewPager != null){
+            if (mOnTabItemSelectedListener != null) {
+                mOnTabItemSelectedListener.onSelected(index, old);
+            }
+            if (mViewPager != null) {
                 mViewPager.setCurrentItem(index, false);
             }
         }
 
         @Override
         public void onRepeat(int index) {
+            if (mOnTabItemSelectedListener != null) {
+                mOnTabItemSelectedListener.onRepeat(index);
+            }
         }
 
         @Override
-        public void unLogin(int index) {
+        public void onEmpty(int index) {
+            if (mOnTabItemSelectedListener != null) {
+                mOnTabItemSelectedListener.onEmpty(index);
+            }
         }
     };
 
@@ -151,22 +160,31 @@ public class FJNavigationView extends ViewGroup {
     }
 
     public BaseTabItem newItem(int drawable, int checkedDrawable, String title) {
-        return newItem(drawable, checkedDrawable, title, R.color.gray, R.color.white);
+        return newItem(drawable, checkedDrawable, title, R.color.neutralLight, R.color.theme);
+    }
+
+    public BaseTabItem newGradientItem(int drawable, int checkedDrawable, String title) {
+        return newItem(drawable, checkedDrawable, title, R.color.neutralLight, R.color.startColor, R.color.endColor);
+    }
+
+    public BaseTabItem newItem(int drawable, int checkedDrawable, String title, int selectColor, int selectedColor) {
+        return newItem(drawable, checkedDrawable, title, selectColor, selectedColor, 0);
     }
 
     /**
      * 正常tab
      */
-    public BaseTabItem newItem(int drawable, int checkedDrawable, String title, int selectColor, int selectedColor) {
+    public BaseTabItem newItem(int drawable, int checkedDrawable, String title, int selectColor, int selectedStartColor, int selectedEndColor) {
         SpecialTab mainTab = new SpecialTab(getContext());
         mainTab.initialize(drawable, checkedDrawable, title);
         mainTab.setTextDefaultColor(selectColor);
-        mainTab.setTextCheckedColor(selectedColor);
+        mainTab.setTextCheckedColor(selectedStartColor);
+        mainTab.setTextEndColor(selectedEndColor);
         return mainTab;
     }
 
     public BaseTabItem newRoundItem(int drawable, int checkedDrawable, String title) {
-        return newRoundItem(drawable, checkedDrawable, title, R.color.gray, R.color.white);
+        return newRoundItem(drawable, checkedDrawable, title, R.color.neutralLight, R.color.theme);
     }
 
     /**
@@ -194,14 +212,18 @@ public class FJNavigationView extends ViewGroup {
             items = new ArrayList<>();
         }
 
+        public NavigationController build() {
+            return build(null, true);
+        }
+
         /**
          * 完成构建
          *
          * @return {@link NavigationController},通过它进行后续操作
          * @throws RuntimeException 没有添加导航项时会抛出
          */
-        public NavigationController build() {
-
+        public NavigationController build(OnTabItemSelectedListener listener, boolean isNoMiddle) {
+            mOnTabItemSelectedListener = listener;
             mEnableVerticalLayout = enableVerticalLayout;
 
             //未添加任何按钮
@@ -221,7 +243,7 @@ public class FJNavigationView extends ViewGroup {
                 itemController = verticalItemLayout;
             } else {//水平布局
                 CustomItemLayout customItemLayout = new CustomItemLayout(getContext());
-                customItemLayout.initialize(items, animateLayoutChanges);
+                customItemLayout.initialize(items, animateLayoutChanges, isNoMiddle);
                 customItemLayout.setPadding(0, mTabPaddingTop, 0, mTabPaddingBottom);
 
                 FJNavigationView.this.removeAllViews();

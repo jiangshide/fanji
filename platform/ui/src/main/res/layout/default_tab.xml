@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainRootView"
-    android:background="@drawable/bg_sweep"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
 
     <com.fanji.android.ui.FJViewPager
         android:id="@+id/mainViewPager"
@@ -17,8 +16,8 @@
         android:id="@+id/mainTab"
         android:layout_width="match_parent"
         android:layout_height="68dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_gravity="bottom" />
+        android:layout_gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <FrameLayout
         android:id="@+id/content"

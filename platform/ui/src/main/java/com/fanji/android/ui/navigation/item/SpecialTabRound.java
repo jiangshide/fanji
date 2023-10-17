@@ -32,8 +32,8 @@ public class SpecialTabRound extends BaseTabItem {
     private Drawable mDefaultDrawable;
     private Drawable mCheckedDrawable;
 
-    private int mDefaultTextColor = R.color.gray;
-    private int mCheckedTextColor = R.color.white;
+    private int mDefaultTextColor = R.color.neutralLight;
+    private int mCheckedTextColor = R.color.theme;
 
     private String mSelectUrl;
     private String mSelectedUrl;
@@ -70,7 +70,9 @@ public class SpecialTabRound extends BaseTabItem {
         this.mCheckedRes = checkedDrawableRes;
         mDefaultDrawable = ContextCompat.getDrawable(getContext(), drawableRes);
         mCheckedDrawable = ContextCompat.getDrawable(getContext(), checkedDrawableRes);
-        mTitle.setText(title);
+        if (!title.isEmpty()) {
+            mTitle.setText(title);
+        }
     }
 
     public SpecialTabRound setUrl(String selectUrl, String selectedUrl) {

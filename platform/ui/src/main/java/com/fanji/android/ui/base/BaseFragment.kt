@@ -40,7 +40,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         t: T, isRefresh: Boolean = false,
         isMore: Boolean = false,
         isTips: Boolean = false,
-        bgColor: Int = R.drawable.bg_sweep,
+        bgColor: Int = R.color.bg,
         isTitle: Boolean = false,
         leftBtn: Any? = null,
         title: Any? = null,
@@ -274,8 +274,8 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
     open fun push(
         fragment: BaseFragment<*>,
         bundle: Bundle? = null,
-        @AnimatorRes @AnimRes enter: Int = R.anim.fade_in,
-        @AnimatorRes @AnimRes exit: Int = R.anim.fade_out
+        @AnimatorRes @AnimRes enter: Int = R.anim.slide_right_in,
+        @AnimatorRes @AnimRes exit: Int = R.anim.slide_right_out
     ) {
         (activity as BaseActivity<*>).push(fragment, bundle, enter, exit)
     }

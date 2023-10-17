@@ -5,15 +5,14 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.fanji.android.ui.FJTextView;
 import com.fanji.android.ui.R;
 import com.fanji.android.ui.navigation.internal.RoundMessageView;
 
@@ -24,15 +23,17 @@ import com.fanji.android.ui.navigation.internal.RoundMessageView;
 public class SpecialTab extends BaseTabItem {
 
     private ImageView mIcon;
-    private final TextView mTitle;
+    private final FJTextView mTitle;
     private final RoundMessageView mMessages;
 
     private Drawable mDefaultDrawable;
     private Drawable mCheckedDrawable;
-
-    private int mDefaultTextColor = R.color.gray;
-    private int mCheckedTextColor = R.color.white;
-
+    @ColorInt
+    private int mDefaultTextColor;
+    @ColorInt
+    private int mCheckedTextColor;
+    @ColorInt
+    private int mTextEndColor;
     private boolean mChecked;
 
     public SpecialTab(Context context) {
@@ -78,10 +79,14 @@ public class SpecialTab extends BaseTabItem {
     public void setChecked(boolean checked) {
         if (checked) {
             mIcon.setImageDrawable(mCheckedDrawable);
-            mTitle.setTextColor(ContextCompat.getColor(getContext(),mCheckedTextColor));
+            if (mTextEndColor != 0) {
+                mTitle.setGradientText(mCheckedTextColor, mTextEndColor);
+            } else {
+                mTitle.setGradientText(mCheckedTextColor, mCheckedTextColor);
+            }
         } else {
             mIcon.setImageDrawable(mDefaultDrawable);
-            mTitle.setTextColor(ContextCompat.getColor(getContext(),mDefaultTextColor));
+            mTitle.setGradientText(mDefaultTextColor, mDefaultTextColor);
         }
         mChecked = checked;
     }
@@ -122,11 +127,15 @@ public class SpecialTab extends BaseTabItem {
         return mTitle.getText().toString();
     }
 
-    public void setTextDefaultColor(@ColorInt int color) {
-        mDefaultTextColor = color;
+    public void setTextDefaultColor(int color) {
+        mDefaultTextColor = ContextCompat.getColor(getContext(), color);
     }
 
-    public void setTextCheckedColor(@ColorInt int color) {
-        mCheckedTextColor = color;
+    public void setTextCheckedColor(int color) {
+        mCheckedTextColor = ContextCompat.getColor(getContext(), color);
+    }
+
+    public void setTextEndColor(int color) {
+        mTextEndColor = ContextCompat.getColor(getContext(), color);
     }
 }

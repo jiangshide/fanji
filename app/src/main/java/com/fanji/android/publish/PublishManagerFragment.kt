@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.fanji.android.databinding.FragmentPublishManagerBinding
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
+import com.fanji.android.util.LogUtil
 
 /**
  * @author: jiangshide
@@ -18,14 +19,17 @@ class PublishManagerFragment : BaseFragment<FragmentPublishManagerBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentPublishManagerBinding.inflate(layoutInflater))
+    ) = initView(
+        FragmentPublishManagerBinding.inflate(layoutInflater), title = true
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.publishManagerExit.setOnClickListener {
-
+            LogUtil.e("---jsd0---", "----it:", it)
+            pop()
         }
         binding.publishManagerDraft.setOnClickListener {
-
+            LogUtil.e("---jsd1---", "----it:", it)
         }
         binding.publishManagerViewPager.adapter =
             binding.publishManagerViewPager.create(childFragmentManager)

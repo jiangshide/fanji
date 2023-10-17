@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.fanji.android.permission.FJPermission
 import com.fanji.android.permission.OnPermissionCallback
 import com.fanji.android.resource.Resource
 
@@ -11,19 +12,8 @@ class SplashActivity : AppCompatActivity(), OnPermissionCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        startActivity(Intent(this, MainActivity::class.java))
-
-//        val topFont = ScreenUtil.px2dip(this, 17F)
-//        val titleFontFocus = ScreenUtil.px2dip(this, 20F)
-//        val titleFont = ScreenUtil.px2dip(this, 16F)
-//        val bigFont = ScreenUtil.px2dip(this, 15F)
-//        val font = ScreenUtil.px2dip(this, 14F)
-//        LogUtil.e(
-//            "----jsd---",
-//            "topFont:$topFont | titleFontFocus:$titleFontFocus | titleFont:$titleFont | bigFont:$bigFont | font:$font"
-//        )
-
-//        FJPermission.with(this).permission(permissions.toMutableList()).request(this)
+//        startActivity(Intent(this, MainActivity::class.java))
+        FJPermission.with(this).permission(permissions.toMutableList()).request(this)
     }
 
     private val permissions = listOf(

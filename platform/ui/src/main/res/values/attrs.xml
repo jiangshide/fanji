@@ -132,6 +132,8 @@
         <attr name="is_light" format="boolean" />
         <attr name="tips_color" format="color|reference" />
         <attr name="text_color" format="color|reference" />
+        <attr name="text_start_color" format="color|reference" />
+        <attr name="text_end_color" format="color|reference" />
     </declare-styleable>
 
     <declare-styleable name="EmojiconMenu">

@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import androidx.core.view.ViewCompat;
 
-import com.fanji.android.util.StatusUtil;
 import com.fanji.android.ui.navigation.item.BaseTabItem;
 import com.fanji.android.ui.navigation.listener.ItemController;
 import com.fanji.android.ui.navigation.listener.OnTabItemSelectedListener;
@@ -28,6 +27,7 @@ public class CustomItemLayout extends ViewGroup implements ItemController {
     private final List<OnTabItemSelectedListener> mListeners = new ArrayList<>();
     private final List<SimpleTabItemSelectedListener> mSimpleListeners = new ArrayList<>();
     private int mSelected = -1;
+    private int oldSelected = -1;
 
     public CustomItemLayout(Context context) {
         this(context, null);
@@ -43,6 +43,10 @@ public class CustomItemLayout extends ViewGroup implements ItemController {
     }
 
     public void initialize(List<BaseTabItem> items, boolean animateLayoutChanges) {
+        initialize(items, animateLayoutChanges, true);
+    }
+
+    public void initialize(List<BaseTabItem> items, boolean animateLayoutChanges, boolean isNoMiddle) {
         mItems.clear();
         mItems.addAll(items);
 
@@ -51,8 +55,8 @@ public class CustomItemLayout extends ViewGroup implements ItemController {
         }
 
         //添加按钮到布局，并注册点击事件
-        int n = mItems.size();
-        for (int i = 0; i < n; i++) {
+        int size = mItems.size();
+        for (int i = 0; i < size; i++) {
             final BaseTabItem tabItem = mItems.get(i);
             tabItem.setChecked(false);
             this.addView(tabItem);
@@ -61,6 +65,10 @@ public class CustomItemLayout extends ViewGroup implements ItemController {
                 @Override
                 public void onClick(View v) {
                     int index = mItems.indexOf(tabItem);
+                    if (isNoMiddle && size == 5 && index == 2) {
+                        onExecuteListener(index, true);
+                        return;
+                    }
                     setSelect(index);
                 }
             });
@@ -136,7 +144,6 @@ public class CustomItemLayout extends ViewGroup implements ItemController {
 
     @Override
     public void setSelect(int index, boolean needListener) {
-
         //重复选择
         if (index == mSelected) {
             if (needListener) {
@@ -149,7 +156,7 @@ public class CustomItemLayout extends ViewGroup implements ItemController {
         }
 
         //记录前一个选中项和当前选中项
-        int oldSelected = mSelected;
+        oldSelected = mSelected;
         mSelected = index;
 
 
@@ -159,15 +166,22 @@ public class CustomItemLayout extends ViewGroup implements ItemController {
         }
 
         mItems.get(mSelected).setChecked(true);
-
         if (needListener) {
             //事件回调
-            for (OnTabItemSelectedListener listener : mListeners) {
-                listener.onSelected(mSelected, oldSelected);
+            onExecuteListener(mSelected, false);
+        }
+    }
+
+    private void onExecuteListener(int selected, boolean isEmpty) {
+        for (OnTabItemSelectedListener listener : mListeners) {
+            if (isEmpty) {
+                listener.onEmpty(selected);
+            } else {
+                listener.onSelected(selected, oldSelected);
             }
-            for (SimpleTabItemSelectedListener listener : mSimpleListeners) {
-                listener.onSelected(mSelected, oldSelected);
-            }
+        }
+        for (SimpleTabItemSelectedListener listener : mSimpleListeners) {
+            listener.onSelected(selected, oldSelected);
         }
     }
 

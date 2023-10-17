@@ -14,6 +14,7 @@ import com.fanji.android.ui.FJNavigationView.CustomBuilder
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.navigation.NavigationController
 import com.fanji.android.ui.navigation.item.BaseTabItem
+import com.fanji.android.ui.navigation.listener.OnTabItemSelectedListener
 
 /**
  * @author: jiangshide
@@ -57,7 +58,7 @@ class FJTabHost : FrameLayout {
     }
 
     fun addRoundItem(drawable: Int, checkedDrawable: Int, title: String?): FJTabHost {
-        this.addRoundItem(drawable, checkedDrawable, title, R.color.gray, R.color.white)
+        this.addRoundItem(drawable, checkedDrawable, title, R.color.neutralLight, R.color.theme)
         return this
     }
 
@@ -85,7 +86,19 @@ class FJTabHost : FrameLayout {
     }
 
     fun addItem(drawable: Int, checkedDrawable: Int, title: String?): FJTabHost {
-        this.addItem(drawable, checkedDrawable, title, R.color.gray, R.color.white)
+        this.addItem(drawable, checkedDrawable, title, R.color.neutralLight, R.color.theme)
+        return this
+    }
+
+    fun addGradientItem(drawable: Int, checkedDrawable: Int, title: String?): FJTabHost {
+        this.addItem(
+            drawable,
+            checkedDrawable,
+            title,
+            R.color.neutralLight,
+            R.color.startColor,
+            R.color.endColor
+        )
         return this
     }
 
@@ -94,7 +107,7 @@ class FJTabHost : FrameLayout {
         checkedDrawable: Int,
         title: String?,
         selectColor: Int,
-        selectedColor: Int
+        selectedColor: Int, endColor: Int = 0
     ): CustomBuilder {
         return customBuilder!!.addItem(
             mainTab!!.newItem(
@@ -102,13 +115,13 @@ class FJTabHost : FrameLayout {
                 checkedDrawable,
                 title,
                 selectColor,
-                selectedColor
+                selectedColor, endColor
             )
         )
     }
 
     fun setData(drawables: IntArray, checkedDrawables: IntArray, titles: Array<String?>) {
-        this.setData(drawables, checkedDrawables, titles, R.color.gray, R.color.white)
+        this.setData(drawables, checkedDrawables, titles, R.color.neutralLight, R.color.theme)
     }
 
     fun setData(
@@ -116,17 +129,22 @@ class FJTabHost : FrameLayout {
         checkedDrawables: IntArray,
         titles: Array<String?>,
         selectColor: Int,
-        selectedColor: Int
+        selectedColor: Int,
+        listener: OnTabItemSelectedListener? = null,
+        isNoMiddle: Boolean = true
     ) {
         val length = drawables.size
         for (i in 0 until length) {
             addItem(drawables[i], checkedDrawables[i], titles[i], selectColor, selectedColor)
         }
-        customBuilder!!.build()
+        customBuilder!!.build(listener, isNoMiddle)
     }
 
-    fun build(): NavigationController? {
-        tabController = customBuilder!!.build()
+    fun build(
+        listener: OnTabItemSelectedListener? = null,
+        isNoMiddle: Boolean = true
+    ): NavigationController? {
+        tabController = customBuilder!!.build(listener, isNoMiddle)
         tabController?.setupWithViewPager(mainViewPager!!)
         return tabController
     }
