@@ -36,6 +36,16 @@
     <color name="progress">@color/blue</color>
     <color name="secondProgress">@color/blueLight</color>
 
+    <color name="theme">#56A8FB</color>
+    <color name="themeYellow">#FF8B26</color>
+    <color name="neutralLight">#CBCACC</color>
+    <color name="neutral">#989799</color>
+    <color name="neutralGray">#656566</color>
+    <color name="neutralBlack">#333233</color>
+    <color name="tag">#BE9958</color>
+
+
+
     <color name="emojicon_tab_selected">#D9D9D9</color>
     <color name="emojicon_tab_nomal">#ffffff</color>
 

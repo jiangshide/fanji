@@ -17,9 +17,7 @@ import com.fanji.android.ui.adapter.KAdapter
 import com.fanji.android.ui.adapter.create
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.refresh.api.RefreshLayout
-import com.fanji.android.util.LogUtil
 import com.fanji.android.util.data.FileData
-import kotlin.random.Random
 
 /**
  * @author: jiangshide
@@ -73,7 +71,8 @@ class MediaFragment(val title: String) : BaseFragment<CommonRecyclerviewBinding>
 
     fun getIcons(): ArrayList<FileData> {
         val list = ArrayList<FileData>()
-        for (i in 1..20) {
+        val random = (1..10).random()
+        for (i in 1..random) {
             val fileData = FileData()
             fileData.path = ""
             list.add(fileData)
@@ -83,9 +82,7 @@ class MediaFragment(val title: String) : BaseFragment<CommonRecyclerviewBinding>
 
     fun test(isRefresh: Boolean) {
         val users = ArrayList<User>()
-        val random = Random.nextInt(11)
-        LogUtil.e("----jsd---", "-----random:", random)
-        for (i in 1..random) {
+        for (i in 1..10) {
             val user = User()
             user.name = "梵山科技$i"
             user.fansNum = i

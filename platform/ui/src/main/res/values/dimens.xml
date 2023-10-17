@@ -24,10 +24,13 @@
     <dimen name="headBig">50dp</dimen>
     <dimen name="headSupBig">90dp</dimen>
 
+
     <dimen name="small">10sp</dimen>
-    <dimen name="normal">13sp</dimen>
-    <dimen name="big">16sp</dimen>
-    <dimen name="bigSuper">20sp</dimen>
+    <dimen name="normal">14sp</dimen><!--正文标题-->
+    <dimen name="bold">15sp</dimen><!--一号标题-->
+    <dimen name="big">16sp</dimen><!--标题副标题-->
+    <dimen name="title">17sp</dimen><!--顶部标题-->
+    <dimen name="bigSuper">20sp</dimen><!--标题定焦-->
 
     <dimen name="bubble_horizontal_padding">15dp</dimen>
     <dimen name="bubble_vertical_padding">10dp</dimen>
@@ -35,7 +38,7 @@
     <dimen name="bubble_title_size">12dp</dimen>
 
     <item name="statusbar_fake_status_bar_view" type="id" />
-    <item name="statusbar_translucent_view" type="id"/>
+    <item name="statusbar_translucent_view" type="id" />
 
     <dimen name="default_drawable_padding">4dp</dimen>
 

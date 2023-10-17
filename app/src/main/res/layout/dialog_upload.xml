@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <com.fanji.android.ui.FJTextView
+        android:id="@+id/uploadTips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/content"
+        android:text="严禁上传、存储、传播黄赌毒及违法违规内容"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/uploadRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        app:layout_constraintTop_toBottomOf="@+id/uploadTips" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        android:text="取消"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:bottomCorner="@dimen/content"
+        app:layout_constraintTop_toBottomOf="@+id/uploadRecyclerView"
+        app:rightCorner="@dimen/content" />
+</androidx.constraintlayout.widget.ConstraintLayout>

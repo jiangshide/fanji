@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.fanji.android.R
@@ -28,7 +29,7 @@ import com.fanji.android.util.LogUtil
  * @description:
  */
 class CloudManagerFragment : BaseFragment<FragmentCloudManagerBinding>(),
-    ViewPager.OnPageChangeListener, DialogViewListener {
+    ViewPager.OnPageChangeListener {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -63,12 +64,36 @@ class CloudManagerFragment : BaseFragment<FragmentCloudManagerBinding>(),
                     false,
                     this
                 )
+        binding.upload.setOnClickListener {
+            FJDialog.createView(requireContext(), R.layout.dialog_upload, uploadDialog)
+                .setGravity(Gravity.BOTTOM).show()
+        }
     }
 
-    override fun onView(view: View?) {
-        val showRecyclerView = view?.findViewById<RecyclerView>(R.id.showRecyclerView)
-        val sortRecyclerView = view?.findViewById<RecyclerView>(R.id.sortRecyclerView)
-        val cancel = view?.findViewById<FJButton>(R.id.cancel)
+    private val uploadDialog = DialogViewListener {
+        val uploadRecyclerView = it.findViewById<RecyclerView>(R.id.uploadRecyclerView)
+        val cancel = it.findViewById<FJButton>(R.id.cancel)
+        cancel?.setOnClickListener {
+            FJDialog.cancelDialog()
+        }
+        uploadRecyclerView?.create(
+            R.layout.common_recyclerview_item,
+            {
+                val name = findViewById<TextView>(R.id.name)
+                name.text = it
+            },
+            {
+                LogUtil.e("---jsd---", "-----this:", this)
+            },
+            arrayListOf("新建文件夹", "图片", "视频", "音频", "文档", "压缩包", "全部文件"),
+            GridLayoutManager(requireContext(),3)
+        )
+    }
+
+    private val showSetDialog = DialogViewListener {
+        val showRecyclerView = it.findViewById<RecyclerView>(R.id.showRecyclerView)
+        val sortRecyclerView = it.findViewById<RecyclerView>(R.id.sortRecyclerView)
+        val cancel = it.findViewById<FJButton>(R.id.cancel)
 
         showRecyclerView?.create(R.layout.common_recyclerview_item_icon, {
             val name = findViewById<TextView>(R.id.name)
@@ -98,7 +123,7 @@ class CloudManagerFragment : BaseFragment<FragmentCloudManagerBinding>(),
         if (position == 1) {
             binding.showSet.visibility = View.VISIBLE
             binding.showSet.setOnClickListener {
-                FJDialog.createView(requireContext(), R.layout.dialog_show_set, this)
+                FJDialog.createView(requireContext(), R.layout.dialog_show_set, showSetDialog)
                     .setGravity(Gravity.BOTTOM).show()
             }
         } else {
