@@ -21,6 +21,6 @@ public interface OnTabItemSelectedListener {
      */
     void onRepeat(int index);
 
-    void onEmpty(int index);
+    void onEmpty(int index,int old);
 }
 

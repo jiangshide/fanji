@@ -57,6 +57,10 @@ public class FJNavigationView extends ViewGroup {
     private OnTabItemSelectedListener mTabItemListener = new OnTabItemSelectedListener() {
         @Override
         public void onSelected(int index, int old) {
+            if (index == 2) {
+                onEmpty(index, old);
+                return;
+            }
             if (mOnTabItemSelectedListener != null) {
                 mOnTabItemSelectedListener.onSelected(index, old);
             }
@@ -73,9 +77,12 @@ public class FJNavigationView extends ViewGroup {
         }
 
         @Override
-        public void onEmpty(int index) {
+        public void onEmpty(int index, int old) {
             if (mOnTabItemSelectedListener != null) {
-                mOnTabItemSelectedListener.onEmpty(index);
+                mOnTabItemSelectedListener.onEmpty(index, old);
+                if (mViewPager != null) {
+                    mViewPager.setCurrentItem(old);
+                }
             }
         }
     };

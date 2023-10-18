@@ -32,7 +32,6 @@ class TradeManagerFragment : BaseFragment<CommonViewpagerBinding>() {
                 TradeDetailFragment(2)
             )
             .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
-            .setTxtSelectedColor(com.fanji.android.ui.R.color.white)
             .initTabs(activity, binding.tab, binding.viewPager, true)
     }
 }

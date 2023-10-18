@@ -98,7 +98,6 @@ class PublishFragment : BaseFragment<FragmentPublishBinding>(), OnMediaListener,
             .initTabs(requireActivity(), binding.tabsPublish, binding.publishViewPager)
             .setPersistent(false)
             .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
-            .setLinePagerIndicator(color(com.fanji.android.ui.R.color.blue))
         binding.publishContent.publishContent.setKeyBoardListener(activity, this)
         binding.publishContent.publishContent.setListener { s, input ->
             publish?.content = input

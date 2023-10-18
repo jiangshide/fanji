@@ -175,7 +175,7 @@ public class CustomItemLayout extends ViewGroup implements ItemController {
     private void onExecuteListener(int selected, boolean isEmpty) {
         for (OnTabItemSelectedListener listener : mListeners) {
             if (isEmpty) {
-                listener.onEmpty(selected);
+                listener.onEmpty(selected,mSelected);
             } else {
                 listener.onSelected(selected, oldSelected);
             }

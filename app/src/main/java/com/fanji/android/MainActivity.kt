@@ -61,6 +61,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
         tabController?.setHasMessage(1, true)
         tabController?.setHasMessage(4, true)
         tabController?.setHasMessage(0, true)
+
 //        tabController?.addTabItemSelectedListener(this)
 
         supportFragmentManager.addOnBackStackChangedListener {
@@ -124,7 +125,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
     override fun onRepeat(index: Int) {
     }
 
-    override fun onEmpty(index: Int) {
+    override fun onEmpty(index: Int, old: Int) {
         push(
             PublishManagerFragment(),
             enter = com.fanji.android.ui.R.anim.bottom_enter,

@@ -26,6 +26,7 @@ import com.fanji.android.ui.tablayout.titles.badge.BadgeAnchor;
 import com.fanji.android.ui.tablayout.titles.badge.BadgePagerTitleView;
 import com.fanji.android.ui.tablayout.titles.badge.BadgeRule;
 import com.fanji.android.util.DimenUtil;
+import com.fanji.android.util.LogUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,13 +43,14 @@ public class FJFragmentPagerAdapter extends FragmentPagerAdapter
     private String[] mTitles;
     private Bundle mBundle;
     private CommonNavigatorAdapter commonNavigatorAdapter;
-    private int mLinePagerIndicator = 0xFF1296db;
+    //    private int mLinePagerIndicator = 0xFF1296db;
+    private int[] mLineColors;
     private FJViewPager mZdViewPager;
     private int mSelected = -1;
     private int mTxtSelectColor;
     private int mTxtSelectedColor;
-    private int mTxtSelecteSize = 14;
-    private int mTxtSelectedSize = 18;
+    private int mTxtSelectSize = 16;
+    private int mTxtSelectedSize = 20;
     private int mBgColor;
     private boolean mDivider = false;
     private int mMode = LinePagerIndicator.MODE_MATCH_EDGE;
@@ -132,6 +134,7 @@ public class FJFragmentPagerAdapter extends FragmentPagerAdapter
 
     @Override
     public Fragment getItem(int position) {
+        LogUtil.e("---jsd---","----getItem~position:",position);
         Fragment fragment = mFragments[position];
         fragment.setArguments(mBundle);
         return fragment;
@@ -179,8 +182,8 @@ public class FJFragmentPagerAdapter extends FragmentPagerAdapter
         return this;
     }
 
-    public FJFragmentPagerAdapter setTxtSelecteSize(int size) {
-        this.mTxtSelecteSize = size;
+    public FJFragmentPagerAdapter setTxtSelectSize(int size) {
+        this.mTxtSelectSize = size;
         return this;
     }
 
@@ -247,7 +250,7 @@ public class FJFragmentPagerAdapter extends FragmentPagerAdapter
                                 mTxtSelectedColor != 0 ? ContextCompat.getColor(context, mTxtSelectedColor)
                                         : ContextCompat.getColor(context,
                                         R.color.fontLight))
-                        .setNormalSize(mTxtSelecteSize).setSelectedSize(mTxtSelectedSize);
+                        .setNormalSize(mTxtSelectSize).setSelectedSize(mTxtSelectedSize);
                 if (null != mTitles && mTitles.length >= index) {
                     simplePagerTitleView.setText(mTitles[index]);
                     simplePagerTitleView.getPaint().setFakeBoldText(true);
@@ -284,7 +287,7 @@ public class FJFragmentPagerAdapter extends FragmentPagerAdapter
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator linePagerIndicator = new LinePagerIndicator(context);
                 linePagerIndicator.setMode(mMode);
-                linePagerIndicator.setColors(mLinePagerIndicator);
+                linePagerIndicator.setColors(mLineColors);
                 linePagerIndicator.setRoundRadius(5);
                 return linePagerIndicator;
             }
@@ -304,8 +307,8 @@ public class FJFragmentPagerAdapter extends FragmentPagerAdapter
         return this;
     }
 
-    public FJFragmentPagerAdapter setLinePagerIndicator(int color) {
-        this.mLinePagerIndicator = color;
+    public FJFragmentPagerAdapter setLinePagerIndicator(int... colors) {
+        this.mLineColors = colors;
         if (null != commonNavigatorAdapter) commonNavigatorAdapter.notifyDataSetChanged();
         return this;
     }

@@ -40,7 +40,6 @@ class CircleFragment(circleId: Int) : BaseFragment<FragmentCircleBinding>() {
                     FeedFragment(1)
                 )
                 .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
-                .setTxtSelectedColor(com.fanji.android.ui.R.color.white)
                 .initTabs(activity, binding.circleTab, binding.circleViewPager)
     }
 }

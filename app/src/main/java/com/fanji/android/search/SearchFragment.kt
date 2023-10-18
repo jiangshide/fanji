@@ -94,7 +94,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(), AppBarLayout.OnOff
                 ReplyFragment()
             )
             .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
-            .setTxtSelectedColor(com.fanji.android.ui.R.color.white)
             .initTabs(activity, binding.searchTab, binding.searchViewPager, true)
         binding.appBarLayout.addOnOffsetChangedListener(this)
 

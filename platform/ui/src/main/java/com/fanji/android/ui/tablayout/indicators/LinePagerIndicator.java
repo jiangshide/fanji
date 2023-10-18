@@ -2,19 +2,21 @@ package com.fanji.android.ui.tablayout.indicators;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.Shader;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
-import com.fanji.android.util.ScreenUtil;
+import com.fanji.android.ui.R;
 import com.fanji.android.ui.tablayout.TabPosition;
-import com.fanji.android.ui.tablayout.adapter.ArgbEvaluatorHolder;
 import com.fanji.android.ui.tablayout.help.FragmentContainerHelper;
 import com.fanji.android.ui.tablayout.interfaces.IPagerIndicator;
+import com.fanji.android.util.ScreenUtil;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,7 +42,7 @@ public class LinePagerIndicator extends View implements IPagerIndicator {
 
     private Paint mPaint;
     private List<TabPosition> mPositionDataList;
-    private List<Integer> mColors;
+    private int[] mColors;
 
     private RectF mLineRect = new RectF();
 
@@ -66,13 +68,20 @@ public class LinePagerIndicator extends View implements IPagerIndicator {
         if (mPositionDataList == null || mPositionDataList.isEmpty()) {
             return;
         }
-
+        if (mColors == null) {
+            mColors = new int[2];
+            mColors[0] = getContext().getColor(R.color.startColor);
+            mColors[1] = getContext().getColor(R.color.endColor);
+        }
         // 计算颜色
-        if (mColors != null && mColors.size() > 0) {
-            int currentColor = mColors.get(Math.abs(position) % mColors.size());
-            int nextColor = mColors.get(Math.abs(position + 1) % mColors.size());
-            int color = ArgbEvaluatorHolder.eval(positionOffset, currentColor, nextColor);
-            mPaint.setColor(color);
+        if (mColors != null && mColors.length > 0) {
+            int currentColor = mColors[Math.abs(position) % mColors.length];
+            int nextColor = mColors[(Math.abs(position + 1) % mColors.length)];
+//            int color = ArgbEvaluatorHolder.eval(positionOffset, currentColor, nextColor);
+//            mPaint.setColor(color);
+            LinearGradient gradient = new LinearGradient(0, 0, mLineWidth, mLineHeight, currentColor, nextColor,
+                    Shader.TileMode.MIRROR);
+            mPaint.setShader(gradient);
         }
 
         // 计算锚点位置
@@ -104,9 +113,10 @@ public class LinePagerIndicator extends View implements IPagerIndicator {
         mLineRect.right = rightX + (nextRightX - rightX) * mEndInterpolator.getInterpolation(positionOffset);
         mLineRect.top = getHeight() - mLineHeight - mYOffset;
         mLineRect.bottom = getHeight() - mYOffset;
-
         invalidate();
     }
+
+    private int[] GRADIENT_COLORS = {Color.parseColor("#85D0E8"), Color.parseColor("#138CCF")};
 
     @Override
     public void onPageSelected(int position) {
@@ -177,12 +187,12 @@ public class LinePagerIndicator extends View implements IPagerIndicator {
         return mPaint;
     }
 
-    public List<Integer> getColors() {
+    public int[] getColors() {
         return mColors;
     }
 
-    public void setColors(Integer... colors) {
-        mColors = Arrays.asList(colors);
+    public void setColors(int... colors) {
+        mColors = colors;
     }
 
     public Interpolator getStartInterpolator() {

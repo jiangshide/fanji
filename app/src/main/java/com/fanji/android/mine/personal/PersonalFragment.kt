@@ -50,7 +50,6 @@ class PersonalFragment : BaseFragment<FragmentPersonalBinding>(),
                 ReplyFragment(),
             )
             .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
-            .setTxtSelectedColor(com.fanji.android.ui.R.color.white)
             .initTabs(activity, binding.personalTab, binding.personalViewPager, true)
         binding.appBarLayout.addOnOffsetChangedListener(this)
     }

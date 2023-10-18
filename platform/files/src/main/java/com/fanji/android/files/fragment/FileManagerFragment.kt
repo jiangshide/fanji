@@ -66,7 +66,6 @@ class FileManagerFragment(val type: Int, val fileListener: FileListener) :
                 fragments
             )
             .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
-            .setTxtSelectedColor(com.fanji.android.ui.R.color.white)
             .initTabs(requireContext(), binding.fileTab, binding.fileViewPager, true)
     }
 

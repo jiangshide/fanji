@@ -53,7 +53,6 @@ class UserFragment(private val id: Long? = Resource.uid) : BaseFragment<Fragment
                 MyDocFragment()
             )
             .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
-            .setTxtSelectedColor(com.fanji.android.ui.R.color.white)
             .initTabs(activity, binding.userTab, binding.userViewPager, true)
         binding.mineTopMore.setOnClickListener {
             FJEvent.get().with(MENU).post(1)
