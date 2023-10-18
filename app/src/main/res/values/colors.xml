@@ -6,6 +6,4 @@
     <color name="font_normal_color">#656566</color>
     <color name="font_selected_color">#56A8FB</color>
     <color name="font_bold_color">#333233</color>
-
-    <dimen name="ss">16sp</dimen>
 </resources>

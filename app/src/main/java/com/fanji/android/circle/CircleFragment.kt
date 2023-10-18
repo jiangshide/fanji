@@ -19,7 +19,7 @@ class CircleFragment(circleId: Int) : BaseFragment<FragmentCircleBinding>() {
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentCircleBinding.inflate(layoutInflater))
+    ) = initView(FragmentCircleBinding.inflate(layoutInflater), isTopPadding = false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

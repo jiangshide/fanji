@@ -134,7 +134,6 @@ public class FJFragmentPagerAdapter extends FragmentPagerAdapter
 
     @Override
     public Fragment getItem(int position) {
-        LogUtil.e("---jsd---","----getItem~position:",position);
         Fragment fragment = mFragments[position];
         fragment.setArguments(mBundle);
         return fragment;

@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
         android:text="圈子名称"
-        android:textSize="20sp"
+        android:textSize="@dimen/big"
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/circleIcon"
         tools:ignore="MissingConstraints" />

@@ -32,8 +32,8 @@ class CircleManagerFragment : BaseFragment<FragmentCircleManagerBinding>() {
         }
 
         val list = ArrayList<ChannelType>()
-        for (i in 1..10) {
-            val channelType = ChannelType(i, "梵记$i", "梵山科技$i", 1, 1, "")
+        for (i in 1..5) {
+            val channelType = ChannelType(i, "梵山科技圈子$i", "梵山科技$i", 1, 1, "")
             list.add(channelType)
         }
         showView(list)
@@ -54,6 +54,8 @@ class CircleManagerFragment : BaseFragment<FragmentCircleManagerBinding>() {
                 .setFragment(
                     fragmens
                 )
+                .setTxtSelectSize(14)
+                .setTxtSelectedSize(15)
                 .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
                 .initTabs(activity, binding.circleManagerTab, binding.circleManagerViewPager)
     }

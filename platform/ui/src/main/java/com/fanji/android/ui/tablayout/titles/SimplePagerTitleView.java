@@ -28,7 +28,7 @@ public class SimplePagerTitleView extends AppCompatTextView implements IMeasurab
 
     private void init(Context context) {
         setGravity(Gravity.CENTER);
-        setWidth(ScreenUtil.dip2px(context, 60));
+//        setWidth(ScreenUtil.dip2px(context, 60));
         int padding = ScreenUtil.dip2px(context, 10);
         setPadding(padding, 0, padding, 0);
         setSingleLine();

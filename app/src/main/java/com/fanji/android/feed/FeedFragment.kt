@@ -21,7 +21,7 @@ import com.fanji.android.ui.base.BaseFragment
  */
 class FeedFragment(id: Int) : BaseFragment<CommonRecyclerviewBinding>() {
     override fun viewBinding(inflater: LayoutInflater, container: ViewGroup?) = initView(
-        CommonRecyclerviewBinding.inflate(layoutInflater)
+        CommonRecyclerviewBinding.inflate(layoutInflater), isTopPadding = false
     )
 
     private var feedAdapter: KAdapter<Feed>? = null

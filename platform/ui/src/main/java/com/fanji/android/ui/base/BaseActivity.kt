@@ -75,6 +75,7 @@ abstract class BaseActivity<T : ViewBinding> : FragmentActivity(), OnRefreshList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Main)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         super.onCreate(savedInstanceState)
         _binding = getViewBinding()
         val root = panel!!.view(
