@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/content"
+    tools:ignore="MissingConstraints">
+
+    <TextView
+        android:id="@+id/biddingType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="中标方式"
+        android:textColor="@color/neutral"
+        android:textSize="@dimen/small" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/bidding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="多人平方"
+        android:textColor="@color/lineBg"
+        android:textSize="@dimen/small"
+        app:end_color="@color/themePurpleEndColor"
+        app:layout_constraintLeft_toRightOf="@+id/biddingType"
+        app:start_color="@color/themePurpleStartColor" />
+
+    <TextView
+        android:id="@+id/numbers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        android:text="参与人数"
+        android:textColor="@color/neutral"
+        android:textSize="@dimen/small"
+        app:layout_constraintTop_toBottomOf="@+id/biddingType" />
+
+    <TextView
+        android:id="@+id/num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
+        android:text="10"
+        android:textColor="@color/neutralBlack"
+        android:textSize="@dimen/small"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/numbers"
+        app:layout_constraintLeft_toRightOf="@+id/numbers" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        app:layout_constraintTop_toBottomOf="@+id/numbers" />
+</androidx.constraintlayout.widget.ConstraintLayout>

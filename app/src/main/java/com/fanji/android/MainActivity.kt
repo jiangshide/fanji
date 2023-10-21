@@ -53,7 +53,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
                 MineFragment()
             ).addGradientItem(R.mipmap.find, R.mipmap.finded, getString(R.string.tab_home))
                 .addGradientItem(R.mipmap.circle, R.mipmap.circled, getString(R.string.tab_circle))
-                .addRoundItem(R.mipmap.circle_blue, R.mipmap.circle_blue, "")
+                .addRoundItem(R.mipmap.publish, R.mipmap.publish, "")
                 .addGradientItem(R.mipmap.cloud, R.mipmap.clouded, getString(R.string.tab_message))
                 .addGradientItem(R.mipmap.mine, R.mipmap.mined, getString(R.string.tab_mine))
                 .build(this)!!

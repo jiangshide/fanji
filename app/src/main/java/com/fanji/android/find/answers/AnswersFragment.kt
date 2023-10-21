@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.fanji.android.R
 import com.fanji.android.databinding.CommonRecyclerviewBinding
-import com.fanji.android.feed.FeedDetailFragment
 import com.fanji.android.resource.Resource
 import com.fanji.android.resource.vm.feed.data.Feed
 import com.fanji.android.ui.FJButton
@@ -44,13 +42,13 @@ class AnswersFragment : BaseFragment<CommonRecyclerviewBinding>() {
                 val circle = findViewById<FJButton>(R.id.circle)
                 val status = findViewById<FJButton>(R.id.status)
                 val title = findViewById<TextView>(R.id.title)
-                val content = findViewById<TextView>(R.id.content)
+                val contents = findViewById<TextView>(R.id.contents)
                 val bountyCoin = findViewById<TextView>(R.id.bountyCoin)
                 val patchIn = findViewById<TextView>(R.id.patchIn)
                 val depositStatus = findViewById<FJButton>(R.id.depositStatus)
                 name.text = it.name
             }, {
-                push(FeedDetailFragment(this))
+                push(AnswersDetailFragment())
             })
 
         val list = ArrayList<Feed>()
