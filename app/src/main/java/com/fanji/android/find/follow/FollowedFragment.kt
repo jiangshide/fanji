@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.fanji.android.R
 import com.fanji.android.databinding.CommonRecyclerviewBinding
+import com.fanji.android.resource.Resource
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.resource.vm.user.data.User
 import com.fanji.android.ui.FJButton
@@ -44,15 +46,28 @@ class FollowedFragment(val type: Int, val title: String = "我的关注") :
             R.layout.fragment_followed_item,
             {
                 val icon = findViewById<FJCircleImg>(R.id.personalIcon)
+                icon.load(Resource.getUrl())
                 val name = findViewById<TextView>(R.id.personalName)
-                val identity = findViewById<TextView>(R.id.personalIdentity)
+                val vip = findViewById<ImageView>(R.id.vip)
                 val fans = findViewById<TextView>(R.id.personalFans)
                 val followed = findViewById<FJButton>(R.id.personalFollowed)
-                if(type==1){
+                followed.setNormalColor(
+                    com.fanji.android.ui.R.color.neutralLight,
+                    com.fanji.android.ui.R.color.neutralLight
+                )
+                if (it.vip == 1) {
                     followed.text = "已关注"
+                    followed.setNormalColor(
+                        com.fanji.android.ui.R.color.neutralLight,
+                        com.fanji.android.ui.R.color.neutralLight
+                    )
                 }
-                if(type==2){
-                    followed.text = "移除"
+                if (it.vip == 2) {
+                    followed.text = "+关注"
+                    followed.setNormalColor(
+                        com.fanji.android.ui.R.color.themeBlueStartColor,
+                        com.fanji.android.ui.R.color.themeBlueEndColor
+                    )
                 }
                 name.text = it.name
                 fans.text = "${it.fansNum}粉丝"
@@ -75,6 +90,11 @@ class FollowedFragment(val type: Int, val title: String = "我的关注") :
         for (i in 1..10) {
             val user = User()
             user.name = "梵山科技$i"
+            if (i % 2 == 0) {
+                user.vip = 1
+            } else {
+                user.vip = 2
+            }
             user.fansNum = i
             users.add(user)
         }

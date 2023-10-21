@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.fanji.android.R
 import com.fanji.android.databinding.CommonRecyclerviewBinding
+import com.fanji.android.feed.FeedDetailFragment
+import com.fanji.android.resource.Resource
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.resource.vm.feed.data.Feed
 import com.fanji.android.resource.vm.user.data.User
@@ -49,6 +52,7 @@ class RecommendFragment : BaseFragment<CommonRecyclerviewBinding>() {
             R.layout.find_follow_item,
             {
                 val icon = findViewById<FJCircleImg>(R.id.icon)
+                icon.load(Resource.getUrl())
                 val name = findViewById<TextView>(R.id.name)
                 val fans = findViewById<TextView>(R.id.fans)
                 val time = findViewById<TextView>(R.id.time)
@@ -60,7 +64,9 @@ class RecommendFragment : BaseFragment<CommonRecyclerviewBinding>() {
                 val like = findViewById<TextView>(R.id.like)
                 name.text = it.name
             },
-            {}
+            {
+                push(FeedDetailFragment(this))
+            }
         )
         val headView = carefullyChosenAdapter?.addHeaderView(
             requireContext(),
@@ -69,6 +75,7 @@ class RecommendFragment : BaseFragment<CommonRecyclerviewBinding>() {
         carefullyChosenAdapter?.adjustSpanSize(binding.recyclerView)
         val recommend = headView?.findViewById<TextView>(R.id.recommend)
         val recommendL = headView?.findViewById<LinearLayout>(R.id.recommendL)
+        val recommendExchange = headView?.findViewById<ImageView>(R.id.recommendExchange)
         val recommendRecyclerView = headView?.findViewById<RecyclerView>(R.id.recommendRecyclerView)
         recommendL?.setOnClickListener {
 
@@ -76,6 +83,7 @@ class RecommendFragment : BaseFragment<CommonRecyclerviewBinding>() {
         recommendAdapter =
             recommendRecyclerView?.create(R.layout.find_recommend_item, {
                 val recommendIcon = findViewById<FJCircleImg>(R.id.recommendIcon)
+                recommendIcon.load(Resource.getUrl())
                 val recommendName = findViewById<TextView>(R.id.recommendName)
                 val recommendSign = findViewById<TextView>(R.id.recommendSign)
                 recommendName.text = it.name

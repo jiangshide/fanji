@@ -9,8 +9,8 @@
 
     <com.fanji.android.ui.FJCircleImg
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@mipmap/default_user" />
 
     <TextView
@@ -19,6 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
         android:text="昵称"
+        android:textColor="@color/neutralBlack"
+        android:textSize="@dimen/normal"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/icon"
         app:layout_constraintLeft_toRightOf="@+id/icon"
         app:layout_constraintTop_toTopOf="@+id/icon" />
@@ -29,9 +32,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
         android:text="09-08 08:00"
-        app:layout_constraintBottom_toBottomOf="@+id/icon"
-        app:layout_constraintLeft_toRightOf="@+id/nick"
-        app:layout_constraintTop_toTopOf="@+id/icon" />
+        android:textColor="@color/neutral"
+        android:textSize="@dimen/small"
+        app:layout_constraintLeft_toRightOf="@+id/icon"
+        app:layout_constraintTop_toBottomOf="@+id/nick" />
 
     <TextView
         android:id="@+id/reply"
@@ -39,15 +43,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content"
         android:text="回复内容。。。。。。"
+        android:textColor="@color/neutralGray"
+        android:textSize="@dimen/normal"
         app:layout_constraintTop_toBottomOf="@+id/icon" />
 
     <TextView
         android:id="@+id/content"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content"
-        android:textStyle="bold"
+        android:background="@color/lineBg"
+        android:padding="@dimen/content"
         android:text="this is the content!"
+        android:textColor="@color/neutral"
+        android:textSize="@dimen/normal"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/reply" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

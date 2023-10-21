@@ -242,13 +242,15 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), View.OnClickListener,
         code: Int = 0,
         res: Int = R.mipmap.no_data,
         tips: String = "No Content!",
+        btnTips: String = "重试",
         onTipsListener: FJTipsView.OnRetryListener? = null
     ): BaseFragment<*> {
         var des = tips
         if (code == -100) {
             des = "Request Service Fail!"
         }
-        tipsView?.setStatus(true, false, true)?.setTipsImg(res)?.setBtnTips(des)
+        tipsView?.setStatus(true, false, true)?.setTipsImg(res)?.setTipsDes(des)
+            ?.setBtnTips(btnTips)
             ?.setListener(if (onTipsListener !== null) onTipsListener else this)
         return this
     }

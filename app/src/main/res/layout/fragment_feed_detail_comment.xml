@@ -9,8 +9,8 @@
 
     <com.fanji.android.ui.FJCircleImg
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@mipmap/default_user" />
 
     <TextView
@@ -19,18 +19,19 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
         android:text="昵称"
-        android:textSize="16sp"
+        android:textColor="@color/neutralBlack"
+        android:textSize="@dimen/normal"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/icon"
         app:layout_constraintLeft_toRightOf="@+id/icon"
         app:layout_constraintTop_toTopOf="@+id/icon" />
 
-    <TextView
+    <ImageView
         android:id="@+id/vip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
-        android:text="会员标识"
+        android:src="@mipmap/vip"
         app:layout_constraintBottom_toBottomOf="@+id/nick"
         app:layout_constraintLeft_toRightOf="@+id/nick"
         app:layout_constraintTop_toTopOf="@+id/nick" />
@@ -42,6 +43,8 @@
         android:layout_marginLeft="@dimen/content"
         android:layout_marginTop="@dimen/content"
         android:text="this is the content!"
+        android:textColor="@color/neutralGray"
+        android:textSize="@dimen/normal"
         app:layout_constraintLeft_toRightOf="@+id/icon"
         app:layout_constraintTop_toBottomOf="@+id/icon" />
 
@@ -52,8 +55,8 @@
         android:layout_marginLeft="@dimen/content"
         android:layout_marginTop="@dimen/content"
         android:text="12-12 06:00"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:textColor="@color/neutralBlack"
+        android:textSize="@dimen/small"
         app:layout_constraintLeft_toRightOf="@+id/icon"
         app:layout_constraintTop_toBottomOf="@+id/content" />
 
@@ -61,13 +64,27 @@
         android:id="@+id/reply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/content"
+        android:layout_marginLeft="20dp"
         android:text="回复"
-        android:textSize="16sp"
+        android:textColor="@color/neutralBlack"
+        android:textSize="@dimen/small"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/time"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/time" />
+
+    <TextView
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="删除"
+        android:textColor="@color/neutralBlack"
+        android:textSize="@dimen/small"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/reply"
+        app:layout_constraintLeft_toRightOf="@+id/reply"
+        app:layout_constraintTop_toTopOf="@+id/reply" />
 </androidx.constraintlayout.widget.ConstraintLayout>

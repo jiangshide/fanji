@@ -32,11 +32,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
+import com.fanji.android.ui.adapter.FJListAdapter;
+import com.fanji.android.ui.anim.Anim;
 import com.fanji.android.util.DateUtil;
 import com.fanji.android.util.ScreenUtil;
 import com.fanji.android.util.SystemUtil;
-import com.fanji.android.ui.adapter.FJListAdapter;
-import com.fanji.android.ui.anim.Anim;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class FJDialog extends Dialog
     private boolean mIsOnlyContent = false;
     private boolean mIsOnlySure = false;
     private int defaultEditLength = 12;
-    private int mContentSize = 12;
+    private int mContentSize = 20;
     private boolean mIsWheel;
     private List<List<String>> mWheelDatas;
     private List<FJWheel.WheelOnItemSelectedListener> mWheelListeners;
@@ -87,12 +87,13 @@ public class FJDialog extends Dialog
     private boolean mIsRelation = false;
     private String mBirthday;
     private Boolean mIsOutClose;
+    private boolean mIsBgAlpha = false;
 
     private static FJDialog mZdDialog;
 
-    public static FJDialog loading(Context context){
+    public static FJDialog loading(Context context) {
         cancelDialog();
-        mZdDialog = new FJDialog(context,R.style.DialogTheme,R.layout.default_loading);
+        mZdDialog = new FJDialog(context, R.style.DialogTheme, R.layout.default_loading);
         mZdDialog.setOutsideClose(false);
         mZdDialog.show();
         return mZdDialog;
@@ -298,7 +299,9 @@ public class FJDialog extends Dialog
         super(context, style);
         this.mView = LayoutInflater.from(context).inflate(layout, null);
         this.mDialogViewListener = dialogViewListener;
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        if (mIsBgAlpha) {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -588,6 +591,11 @@ public class FJDialog extends Dialog
                 new RectF(borderLength, borderLength, borderLength, borderLength), innerRadii));
         shapeDrawable.getPaint().setColor(borderColor);
         return shapeDrawable;
+    }
+
+    public FJDialog setBgAlpha(boolean isBgAlpha) {
+        this.mIsBgAlpha = isBgAlpha;
+        return this;
     }
 
     public FJDialog setOnlySure() {
@@ -911,22 +919,22 @@ public class FJDialog extends Dialog
     }
 
     public void addLayoutListener(final View main, final View scroll) {
-      main.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener(){
-        @Override
-        public void onGlobalLayout() {
-          Rect rect = new Rect();
-          main.getWindowVisibleDisplayFrame(rect);
-          int screenHeight = main.getRootView().getHeight();
-          int mainInvisibleHeight = main.getRootView().getHeight() - rect.bottom;
-          if (mainInvisibleHeight > screenHeight / 4) {
-            int[] location = new int[2];
-            scroll.getLocationInWindow(location);
-            int srollHeight = (location[1] + scroll.getHeight()) - rect.bottom;
-            main.scrollTo(0, srollHeight);
-          }else{
-            main.scrollTo(0, 0);
-          }
-        }
-      });
+        main.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect rect = new Rect();
+                main.getWindowVisibleDisplayFrame(rect);
+                int screenHeight = main.getRootView().getHeight();
+                int mainInvisibleHeight = main.getRootView().getHeight() - rect.bottom;
+                if (mainInvisibleHeight > screenHeight / 4) {
+                    int[] location = new int[2];
+                    scroll.getLocationInWindow(location);
+                    int srollHeight = (location[1] + scroll.getHeight()) - rect.bottom;
+                    main.scrollTo(0, srollHeight);
+                } else {
+                    main.scrollTo(0, 0);
+                }
+            }
+        });
     }
 }

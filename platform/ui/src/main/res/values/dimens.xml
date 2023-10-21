@@ -25,7 +25,8 @@
     <dimen name="headSupBig">90dp</dimen>
 
 
-    <dimen name="small">10sp</dimen>
+    <dimen name="smallSuper">10sp</dimen>
+    <dimen name="small">12sp</dimen>
     <dimen name="normal">14sp</dimen><!--正文标题-->
     <dimen name="bold">15sp</dimen><!--一号标题-->
     <dimen name="big">16sp</dimen><!--标题副标题-->

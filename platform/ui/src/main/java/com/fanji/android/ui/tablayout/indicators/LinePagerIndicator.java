@@ -70,8 +70,8 @@ public class LinePagerIndicator extends View implements IPagerIndicator {
         }
         if (mColors == null) {
             mColors = new int[2];
-            mColors[0] = getContext().getColor(R.color.startColor);
-            mColors[1] = getContext().getColor(R.color.endColor);
+            mColors[0] = getContext().getColor(R.color.themeBlueStartColor);
+            mColors[1] = getContext().getColor(R.color.themeBlueEndColor);
         }
         // 计算颜色
         if (mColors != null && mColors.length > 0) {

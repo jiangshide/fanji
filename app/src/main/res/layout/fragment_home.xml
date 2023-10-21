@@ -21,20 +21,20 @@
         <com.fanji.android.ui.FJButton
             android:id="@+id/search"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_centerVertical="true"
             android:drawablePadding="@dimen/content"
             android:drawableRight="@mipmap/search"
             android:layout_marginRight="@dimen/content"
             android:layout_toLeftOf="@+id/personal"
             android:text="搜索"
-            app:corner="30sp"
+            app:corner="60sp"
             />
 
-        <ImageView
+        <com.fanji.android.ui.FJCircleImg
             android:id="@+id/personal"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/default_user" />

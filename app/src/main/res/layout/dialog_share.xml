@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:ignore="MissingConstraints">
+
+    <TextView
+        android:id="@+id/shareDes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/content"
+        android:text="分享到"
+        android:textColor="@color/neutralBlack"
+        android:textSize="@dimen/big"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/content"
+        android:src="@mipmap/close" />
+
+    <LinearLayout
+        android:id="@+id/shareL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shareDes"
+        android:layout_margin="20dp">
+
+        <ImageView
+            android:id="@+id/weixin"
+            android:layout_width="0dp"
+            android:layout_height="78dp"
+            android:layout_weight="1"
+            android:src="@mipmap/weixin" />
+
+        <ImageView
+            android:id="@+id/friendCircle"
+            android:layout_width="0dp"
+            android:layout_height="78dp"
+            android:layout_weight="1"
+            android:src="@mipmap/friend_circle"
+            app:layout_constraintBaseline_toBaselineOf="@+id/weixin"
+            app:layout_constraintLeft_toRightOf="@+id/weixin" />
+
+        <ImageView
+            android:id="@+id/qq"
+            android:layout_width="0dp"
+            android:layout_height="78dp"
+            android:layout_weight="1"
+            android:src="@mipmap/qq"
+
+            app:layout_constraintBaseline_toBaselineOf="@+id/friendCircle"
+            app:layout_constraintLeft_toRightOf="@+id/friendCircle" />
+
+        <ImageView
+            android:id="@+id/weibo"
+            android:layout_width="0dp"
+            android:layout_height="78dp"
+            android:layout_weight="1"
+            android:src="@mipmap/weibo"
+            app:layout_constraintBaseline_toBaselineOf="@+id/qq"
+            app:layout_constraintLeft_toRightOf="@+id/qq" />
+    </LinearLayout>
+
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/cancelShare"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/shareL"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="@dimen/content"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:paddingBottom="@dimen/content"
+        android:text="取消分享"
+        android:textSize="@dimen/big"
+        android:textStyle="bold"
+        app:corner="90dp"
+        app:normal_color="@color/white"
+        app:stroke="1dp"
+        app:stroke_color="@color/black"
+        app:txt_color="@color/neutralBlack" />
+</RelativeLayout>

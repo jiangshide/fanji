@@ -9,13 +9,15 @@ import android.text.method.LinkMovementMethod
 import android.text.method.ScrollingMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
+import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
 import com.fanji.android.BuildConfig
 import com.fanji.android.HUAEI_ADS_PROTOCOL
 import com.fanji.android.R
+import com.fanji.android.ui.FJButton
 import com.fanji.android.ui.FJDialog
 import com.fanji.android.ui.base.WebActivity
-import com.fanji.android.util.LogUtil
 import com.fanji.android.util.SPUtil
 
 /**
@@ -26,14 +28,28 @@ import com.fanji.android.util.SPUtil
  */
 object CurDialog {
 
+    fun follow(context: Context) {
+        FJDialog.create(context).setContent("确定取消关注？").setLeftTxt("取消")
+            .setCancelListener { }.setRightTxt("不再关注").setListener { _, _ ->
+            }.show()
+    }
+
     fun share(context: Context) {
-        val list = ArrayList<String>()
-        list.add("微信")
-        list.add("微信朋友圈")
-        list.add("复制链接")
-        FJDialog.createList(context, list).setOnItemListener { parent, view, position, id ->
-            LogUtil.e("----jsd---", "-----position:", position, " | id:", id)
-        }.show()
+        FJDialog.createView(context, R.layout.dialog_share) {
+            val close = it.findViewById<ImageView>(R.id.close)
+            close.setOnClickListener {
+                FJDialog.cancelDialog()
+            }
+            val weixin = it.findViewById<ImageView>(R.id.weixin)
+            val friendCircle = it.findViewById<ImageView>(R.id.friendCircle)
+            val qq = it.findViewById<ImageView>(R.id.qq)
+            val weibo = it.findViewById<ImageView>(R.id.weibo)
+            val cancelShare = it.findViewById<FJButton>(R.id.cancelShare)
+            cancelShare.setOnClickListener {
+                FJDialog.cancelDialog()
+            }
+
+        }.setGravity(Gravity.BOTTOM).show()
     }
 
     fun protocolDialog(context: Context) {

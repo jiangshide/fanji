@@ -104,8 +104,8 @@ android {
         )
 
         ndk {
-            abiFilters += listOf("armeabi-v7a", "arm64-v8a")
-//            abiFilters += listOf("x86", "armeabi", "armeabi-v7a", "arm64-v8a")
+//            abiFilters += listOf("armeabi-v7a", "arm64-v8a")
+            abiFilters += listOf("x86", "armeabi", "armeabi-v7a", "arm64-v8a")
         }
 
         packagingOptions {

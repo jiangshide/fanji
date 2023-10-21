@@ -8,88 +8,135 @@
     android:padding="@dimen/content"
     tools:ignore="MissingConstraints">
 
-    <com.fanji.android.ui.FJCircleImg
-        android:id="@+id/icon"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:src="@mipmap/default_user" />
-
-    <com.fanji.android.ui.FJButton
-        android:id="@+id/fixInfo"
+    <ImageView
+        android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="修改资料"
-        app:layout_constraintBottom_toBottomOf="@+id/icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/icon" />
+        android:paddingLeft="@dimen/content"
+        android:paddingTop="20dp"
+        android:paddingRight="@dimen/content"
+        android:paddingBottom="@dimen/content"
+        android:src="@mipmap/back_light" />
+
+    <ImageView
+        android:id="@+id/share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/content"
+        android:paddingTop="20dp"
+        android:paddingRight="@dimen/content"
+        android:paddingBottom="@dimen/content"
+        android:src="@mipmap/share_light"
+        app:layout_constraintBaseline_toBaselineOf="@+id/back"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.fanji.android.ui.FJCircleImg
+        android:id="@+id/icon"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@mipmap/default_user"
+        app:layout_constraintTop_toBottomOf="@+id/back" />
 
     <TextView
         android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content"
         android:text="用户名"
-        android:layout_marginTop="@dimen/content"
-        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/bigSuper"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/icon" />
+        app:layout_constraintBottom_toBottomOf="@+id/icon"
+        app:layout_constraintLeft_toRightOf="@+id/icon"
+        app:layout_constraintTop_toTopOf="@+id/icon" />
 
-    <TextView
-        android:id="@+id/userID"
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/fixInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ID:0000002"
-        android:textSize="16sp"
+        android:drawableLeft="@mipmap/edit"
+        android:text="编辑"
+        android:textSize="@dimen/small"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/userName" />
+        app:layout_constraintBottom_toBottomOf="@+id/icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/icon"
+        app:normal_color="#56A8FB"
+        app:txt_color="@color/white" />
 
     <TextView
         android:id="@+id/userSign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content"
-        android:text="个性签名。。。。"
-        android:textSize="13sp"
-        app:layout_constraintTop_toBottomOf="@+id/userID" />
+        android:layout_marginTop="15dp"
+        android:text="我的个性签名：这个家伙很懒，什么也没做！"
+        android:textColor="@color/white"
+        android:textSize="@dimen/small"
+        app:layout_constraintTop_toBottomOf="@+id/icon" />
 
-    <TextView
-        android:id="@+id/follows"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content"
-        android:gravity="center"
-        android:text="关注\n999"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/fans"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userSign" />
+        android:layout_marginTop="25dp"
+        app:layout_constraintTop_toBottomOf="@+id/userSign">
 
-    <TextView
-        android:id="@+id/fans"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="粉丝\n9990"
-        android:layout_marginTop="@dimen/content"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/links"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/follows"
-        app:layout_constraintTop_toBottomOf="@+id/userSign" />
+        <TextView
+            android:id="@+id/follows"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="999 关注"
+            android:textColor="@color/lineBg"
+            android:textSize="@dimen/normal"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/fans"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userSign" />
 
-    <TextView
-        android:id="@+id/links"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/content"
-        android:text="粉丝\n999999"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/fans"
-        app:layout_constraintTop_toBottomOf="@+id/userSign" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/neutralGray"
+            app:layout_constraintBaseline_toBaselineOf="@+id/follows"
+            app:layout_constraintLeft_toRightOf="@+id/follows" />
+
+        <TextView
+            android:id="@+id/fans"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="9990 粉丝"
+            android:textColor="@color/lineBg"
+            android:textSize="@dimen/normal"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/links"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/follows"
+            app:layout_constraintTop_toBottomOf="@+id/userSign" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/neutralGray"
+            app:layout_constraintBaseline_toBaselineOf="@+id/follows"
+            app:layout_constraintLeft_toRightOf="@+id/follows" />
+
+        <TextView
+            android:id="@+id/links"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="999999 粉丝"
+            android:textColor="@color/lineBg"
+            android:textSize="@dimen/normal"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/fans"
+            app:layout_constraintTop_toBottomOf="@+id/userSign" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -51,15 +51,22 @@
         app:layout_constraintBaseline_toBottomOf="@id/icon"
         app:layout_constraintLeft_toRightOf="@id/fans" />
 
-    <TextView
+    <com.fanji.android.ui.FJButton
         android:id="@+id/follow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="52dp"
+        android:layout_height="28dp"
         android:text="+关注"
-        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/small"
         android:textStyle="bold"
+        app:corner="60dp"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:end_color="@color/themeBlueEndColor"
+        app:layout_constraintBottom_toBottomOf="@+id/icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/icon"
+        app:start_color="@color/themeBlueStartColor" />
+
 
     <TextView
         android:id="@+id/title"

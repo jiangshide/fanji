@@ -5,7 +5,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="180dp"
         android:layout_centerInParent="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="100dp"
@@ -19,40 +19,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="@dimen/content"
             android:gravity="center"
             android:text="@string/tips"
+            android:visibility="gone"
             android:textColor="@color/fontLight"
             android:textSize="18sp" />
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="20dp"
-            android:layout_weight="1">
+<!--        <androidx.core.widget.NestedScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_weight="1">-->
 
             <TextView
                 android:id="@+id/dialogContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                android:gravity="center"
                 android:text="@string/sure_exit"
-                android:textColor="@color/font"
-                android:textSize="16sp"
+                android:textColor="#222625"
+                android:textSize="@dimen/big"
                 android:textStyle="bold" />
-        </androidx.core.widget.NestedScrollView>
+<!--        </androidx.core.widget.NestedScrollView>-->
 
         <com.fanji.android.ui.FJEditText
             android:id="@+id/dialogEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="40dp"
             android:cursorVisible="true"
             android:focusable="true"
             android:hint="请输入你的内容!"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textCursorDrawable="@null"
-            android:textSize="13sp"
+            android:textSize="@dimen/normal"
             android:theme="@style/ZdEditText"
             android:visibility="gone" />
 
@@ -86,50 +90,48 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="10dp"
-            android:background="@color/line" />
+            android:background="@color/line"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/content"
             android:orientation="horizontal">
 
             <com.fanji.android.ui.FJButton
                 android:id="@+id/dialogLeft"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="42dp"
                 android:layout_weight="1"
-                android:padding="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="@dimen/content"
                 android:text="@string/cancel"
-                android:textColor="@color/fontLight"
-                android:textSize="14sp"
-                app:bottomCorner="10dp"
-                app:leftCorner="0dp"
-                app:normal_color="@color/blackLightMiddle"
-                app:press_color="@color/gray"
-                app:rightCorner="0dp"
-                app:topCorner="0dp" />
+                android:textStyle="bold"
+                android:textSize="@dimen/big"
+                app:normal_color="@color/white"
+                app:stroke="1dp"
+                app:stroke_color="#B4C2C2"
+                app:txt_color="#B4C2C2" />
 
             <View
                 android:id="@+id/dialogLine"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/line" />
+                android:background="@color/line"
+                android:visibility="gone" />
 
             <com.fanji.android.ui.FJButton
                 android:id="@+id/dialogRight"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="42dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="@dimen/content"
                 android:layout_weight="1"
-                android:padding="10dp"
                 android:text="@string/sure"
-                android:textColor="@color/font"
-                android:textSize="14sp"
-                app:bottomCorner="0dp"
-                app:leftCorner="0dp"
-                app:normal_color="@color/blackLightMiddle"
-                app:press_color="@color/gray"
-                app:rightCorner="10dp"
-                app:topCorner="0dp" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/big"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

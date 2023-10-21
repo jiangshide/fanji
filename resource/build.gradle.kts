@@ -66,6 +66,8 @@ dependencies {
     api(project(":permission"))
     api("com.tencent.mm.opensdk:wechat-sdk-android:+")
 
+    api(project(":monitor"))
+
     api(project(":third"))
     api(project(":umeng"))
 }

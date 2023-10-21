@@ -96,8 +96,8 @@ class FJTabHost : FrameLayout {
             checkedDrawable,
             title,
             R.color.neutralLight,
-            R.color.startColor,
-            R.color.endColor
+            R.color.themeBlueEndColor,
+            R.color.themeBlueEndColor
         )
         return this
     }

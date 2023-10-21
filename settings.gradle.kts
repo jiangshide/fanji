@@ -52,6 +52,9 @@ project(":files").projectDir = File("platform/files")
 project(":behavior").projectDir = File("platform/behavior")
 project(":screenshort").projectDir = File("platform/screenshort")
 
+include(":monitor")
+project(":monitor").projectDir = File("platform/monitor")
+
 //platform end
 
 //the third start

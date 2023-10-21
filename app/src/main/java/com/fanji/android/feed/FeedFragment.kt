@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.fanji.android.R
 import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.resource.vm.feed.data.Feed
+import com.fanji.android.ui.FJButton
 import com.fanji.android.ui.FJCircleImg
 import com.fanji.android.ui.adapter.KAdapter
 import com.fanji.android.ui.adapter.create
@@ -35,7 +36,7 @@ class FeedFragment(id: Int) : BaseFragment<CommonRecyclerviewBinding>() {
                 val top = findViewById<TextView>(R.id.top)
                 val fans = findViewById<TextView>(R.id.fans)
                 val time = findViewById<TextView>(R.id.time)
-                val follow = findViewById<TextView>(R.id.follow)
+                val follow = findViewById<FJButton>(R.id.follow)
                 val title = findViewById<TextView>(R.id.title)
                 val contents = findViewById<TextView>(R.id.contents)
                 val collect = findViewById<TextView>(R.id.collect)

@@ -171,7 +171,7 @@ public class FJNavigationView extends ViewGroup {
     }
 
     public BaseTabItem newGradientItem(int drawable, int checkedDrawable, String title) {
-        return newItem(drawable, checkedDrawable, title, R.color.neutralLight, R.color.startColor, R.color.endColor);
+        return newItem(drawable, checkedDrawable, title, R.color.neutralLight, R.color.themeBlueStartColor, R.color.themeBlueEndColor);
     }
 
     public BaseTabItem newItem(int drawable, int checkedDrawable, String title, int selectColor, int selectedColor) {

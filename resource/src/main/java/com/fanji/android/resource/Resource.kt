@@ -16,6 +16,18 @@ import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
  */
 object Resource {
 
+    val testUrl = arrayListOf(
+        "https://wanandroid.com/blogimgs/8a0131ac-05b7-4b6c-a8d0-f438678834ba.png",
+        "https://www.wanandroid.com/blogimgs/62c1bd68-b5f3-4a3c-a649-7ca8c7dfabe6.png",
+        "https://www.wanandroid.com/blogimgs/50c115c2-cf6c-4802-aa7b-a4334de444cd.png",
+        "https://www.wanandroid.com/blogimgs/90c6cc12-742e-4c9f-b318-b912f163b8d0.png",
+    )
+
+    fun getUrl(): String {
+        val random = (0 until testUrl.size).random()
+        return testUrl[random];
+    }
+
     private val IS_FIRST = "isFirst"
 
     var UID = "uid"

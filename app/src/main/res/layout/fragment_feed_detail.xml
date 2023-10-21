@@ -60,16 +60,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="全部评论"
-                    android:textSize="16sp"
+                    android:textColor="@color/neutralGray"
+                    android:textSize="@dimen/big"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/commentNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content"
                     android:text="9999"
-                    android:textColor="@color/blue"
-                    android:textSize="16sp"
+                    android:textColor="@color/neutralGray"
+                    android:textSize="@dimen/big"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/commentDes"
                     app:layout_constraintLeft_toRightOf="@+id/commentDes"
@@ -83,20 +85,23 @@
 
                     <com.fanji.android.ui.FJCircleImg
                         android:id="@+id/commentIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_centerVertical="true"
                         android:src="@mipmap/default_user" />
 
                     <com.fanji.android.ui.FJButton
                         android:id="@+id/comment"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="32dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/content"
                         android:layout_toRightOf="@+id/commentIcon"
                         android:padding="@dimen/content"
-                        android:text="写评论" />
+                        android:text="写评论"
+                        android:textSize="@dimen/normal"
+                        app:normal_color="@color/lineBg"
+                        app:txt_color="@color/neutral" />
                 </RelativeLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 

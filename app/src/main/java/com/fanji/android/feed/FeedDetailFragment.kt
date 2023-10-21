@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.fanji.android.R
 import com.fanji.android.comment.CommentFragment
 import com.fanji.android.databinding.FragmentFeedDetailBinding
 import com.fanji.android.dialog.CurDialog
+import com.fanji.android.resource.Resource
 import com.fanji.android.resource.vm.feed.data.Feed
-import com.fanji.android.ui.adapter.KAdapter
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 
@@ -25,7 +26,7 @@ class FeedDetailFragment(val feed: Feed) : BaseFragment<FragmentFeedDetailBindin
     ) = initView(
         FragmentFeedDetailBinding.inflate(layoutInflater),
         title = feed.name,
-        rightBtn = "分享"
+        rightBtn = R.mipmap.share
     )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,6 +34,22 @@ class FeedDetailFragment(val feed: Feed) : BaseFragment<FragmentFeedDetailBindin
         setRightListener {
             CurDialog.share(requireContext())
         }
+//        binding.feedDetailRoot.title.text=""
+        binding.feedDetailRoot.icon.load(Resource.getUrl())
+        binding.feedDetailRoot.nick.text = "梵山科技"
+//        binding.feedDetailRoot.vip
+        binding.feedDetailRoot.follow.setOnClickListener {
+            CurDialog.follow(requireContext())
+        }
+//        binding.feedDetailRoot.contents
+//        binding.feedDetailRoot.editTime
+        binding.feedDetailRoot.like.setOnClickListener {
+
+        }
+//        binding.feedDetailRoot.likeNum
+//        binding.feedDetailRoot.readNum
+//        binding.feedDetailRoot.collect
+
         binding.commentViewPager.adapter = binding.commentViewPager.create(childFragmentManager)
             .setTitles(
                 "全部评论"

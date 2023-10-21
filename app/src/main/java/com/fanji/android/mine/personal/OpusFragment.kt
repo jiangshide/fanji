@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.fanji.android.R
 import com.fanji.android.databinding.CommonRecyclerviewBinding
+import com.fanji.android.resource.Resource
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.resource.vm.feed.data.Feed
 import com.fanji.android.ui.FJCircleImg
@@ -36,6 +37,7 @@ class OpusFragment : BaseFragment<CommonRecyclerviewBinding>() {
         super.onViewCreated(view, savedInstanceState)
         adapter = binding.recyclerView.create(R.layout.fragment_opus_item, {
             val icon = findViewById<FJCircleImg>(R.id.icon)
+            icon.load(Resource.getUrl())
             val nick = findViewById<TextView>(R.id.nick)
             val time = findViewById<TextView>(R.id.time)
             val title = findViewById<TextView>(R.id.title)

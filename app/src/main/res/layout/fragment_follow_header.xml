@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -12,13 +13,27 @@
         android:layout_marginRight="@dimen/content"
         android:layout_toLeftOf="@+id/personalAllBtn" />
 
-    <TextView
+    <com.fanji.android.ui.FJButton
         android:id="@+id/personalAllBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/content"
+        android:layout_marginRight="@dimen/content"
+        android:drawableRight="@mipmap/arrow"
+        app:corner="90dp"
+        app:normal_color="#F7F6F9" />
+
+    <TextView
+        android:id="@+id/personalName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/personalAllBtn"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="@dimen/button"
-        android:text="全部"
-        android:textColor="@color/white" />
+        android:layout_marginRight="@dimen/content"
+        android:layout_marginTop="5dp"
+        android:text="查看全部"
+        android:textColor="@color/neutralLight"
+        android:textSize="@dimen/normal"
+        android:textStyle="bold" />
 </RelativeLayout>

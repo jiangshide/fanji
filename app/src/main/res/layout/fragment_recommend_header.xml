@@ -18,9 +18,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:textColor="@color/font_bold_color"
+            android:textColor="@color/neutralBlack"
             android:text="推荐达人"
-            android:textSize="16sp"
+            android:textSize="@dimen/big"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -34,14 +34,17 @@
 
             <ImageView
                 android:id="@+id/recommendExchange"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:src="@mipmap/exchange" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#989799"
+                android:textColor="@color/neutral"
+                android:textSize="@dimen/normal"
+                android:textStyle="bold"
                 android:text="换一换" />
         </LinearLayout>
     </RelativeLayout>
@@ -57,10 +60,10 @@
         android:id="@+id/carefullyChosen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/font_bold_color"
+        android:textColor="@color/neutralBlack"
         android:layout_marginTop="@dimen/content"
         android:text="内容精选"
-        android:textSize="16sp"
+        android:textSize="@dimen/big"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/recommendRecyclerView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

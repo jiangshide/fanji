@@ -14,6 +14,7 @@ import com.fanji.android.mine.personal.PersonalFragment
 import com.fanji.android.mine.score.ScoreFragment
 import com.fanji.android.mine.setting.SettingFragment
 import com.fanji.android.mine.vip.VIPCenterFragment
+import com.fanji.android.resource.Resource
 import com.fanji.android.ui.adapter.create
 import com.fanji.android.ui.base.BaseFragment
 
@@ -30,8 +31,9 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.icon.load(Resource.testUrl[1])
         binding.icon.setOnClickListener {
-//            viewImg("")
+            viewImg(Resource.testUrl[1])
         }
         binding.login.setOnClickListener {
 

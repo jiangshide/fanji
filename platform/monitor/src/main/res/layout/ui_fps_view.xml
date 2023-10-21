@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fanji.android.ui.ShapeTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="8dp"
+    android:paddingTop="4dp"
+    android:paddingRight="8dp"
+    android:paddingBottom="4dp"
+    android:textColor="@android:color/white"
+    app:shapeTvBackgroundColor="@android:color/darker_gray"
+    app:shapeTvRadius="2dp"
+    tools:text="60.0 fps" />

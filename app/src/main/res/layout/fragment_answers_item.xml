@@ -8,106 +8,127 @@
     tools:ignore="MissingConstraints">
 
     <com.fanji.android.ui.FJCircleImg
-        android:id="@+id/answersIcons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@mipmap/default_user" />
 
     <TextView
-        android:id="@+id/answersName"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
         android:text="昵称"
-        android:textSize="16sp"
+        android:textColor="@color/neutralBlack"
+        android:textSize="@dimen/big"
         android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@+id/answersIcons" />
+        app:layout_constraintLeft_toRightOf="@+id/icon" />
 
-    <com.fanji.android.ui.FJButton
-        android:id="@+id/answersCircle"
+    <ImageView
+        android:id="@+id/vip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
-        android:text="AA圈子"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:corner="10dp"
-        app:layout_constraintLeft_toRightOf="@+id/answersName"
-        app:normal_color="@color/blue" />
+        android:src="@mipmap/vip"
+        app:layout_constraintBaseline_toBaselineOf="@+id/name"
+        app:layout_constraintLeft_toRightOf="@+id/name" />
 
     <TextView
-        android:id="@+id/answersTime"
+        android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
-        android:text="1分钟前"
-        android:textSize="16sp"
+        android:text="999粉丝"
+        android:textColor="@color/neutral"
+        android:textSize="@dimen/small"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBottomOf="@+id/answersIcons"
-        app:layout_constraintLeft_toRightOf="@+id/answersIcons" />
+        app:layout_constraintBaseline_toBottomOf="@+id/icon"
+        app:layout_constraintLeft_toRightOf="@+id/icon" />
 
     <com.fanji.android.ui.FJButton
-        android:id="@+id/answersStatus"
+        android:id="@+id/circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
+        android:drawableLeft="@mipmap/circle_btn"
+        android:drawablePadding="5dp"
+        android:text="梵山科技"
+        android:textSize="@dimen/normal"
+        app:end_color="@color/themeBlueEndColor"
+        app:layout_constraintTop_toBottomOf="@id/icon"
+        app:start_color="@color/themeBlueStartColor" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
         android:text="置顶"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:corner="10dp"
-        app:layout_constraintBaseline_toBottomOf="@+id/answersIcons"
-        app:layout_constraintLeft_toRightOf="@+id/answersTime"
-        app:normal_color="@color/blue" />
+        android:textSize="@dimen/normal"
+        app:end_color="@color/themeRedEndColor"
+        app:layout_constraintBaseline_toBaselineOf="@+id/circle"
+        app:layout_constraintLeft_toRightOf="@+id/circle"
+        app:start_color="@color/themeRedStartColor" />
 
     <TextView
-        android:id="@+id/answersTitle"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content"
         android:text="问题内容"
-        android:textSize="16sp"
+        android:textColor="@color/neutralGray"
+        android:textSize="@dimen/normal"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/answersIcons" />
+        app:layout_constraintTop_toBottomOf="@+id/circle" />
 
     <TextView
-        android:id="@+id/answersContent"
+        android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content"
         android:text="this is the content!!!"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/answersTitle" />
+        android:textColor="@color/neutralGray"
+        android:textSize="@dimen/normal"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content"
-        app:layout_constraintTop_toBottomOf="@+id/answersContent">
+        app:layout_constraintTop_toBottomOf="@+id/content">
 
         <TextView
             android:id="@+id/bountyCoin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="悬赏100梵币"
-            android:textColor="@color/red" />
+            android:drawableLeft="@mipmap/enjoy"
+            android:drawablePadding="5dp"
+            android:text="100梵币"
+            android:textColor="@color/neutralGray"
+            android:textSize="@dimen/small" />
 
         <TextView
             android:id="@+id/patchIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="参与：99"
-            android:textColor="@color/red" />
+            android:drawableLeft="@mipmap/join"
+            android:drawablePadding="5dp"
+            android:text="99人参与"
+            android:textColor="@color/neutralGray"
+            android:textSize="@dimen/small" />
 
-        <TextView
+        <com.fanji.android.ui.FJButton
             android:id="@+id/depositStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="悬赏已托管"
-            android:textColor="@color/gray" />
+            android:textSize="@dimen/small"
+            app:end_color="@color/themeYellowEndColor"
+            app:start_color="@color/themeYellowStartColor"
+            app:txt_color="#F7F6F9" />
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

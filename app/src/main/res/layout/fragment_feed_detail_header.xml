@@ -12,12 +12,15 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="标题...." />
+        android:text="标题...."
+        android:textColor="@color/neutralBlack"
+        android:textSize="@dimen/big"
+        android:textStyle="bold" />
 
     <com.fanji.android.ui.FJCircleImg
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginTop="@dimen/content"
         android:src="@mipmap/default_user"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -28,65 +31,65 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
         android:text="昵称"
-        android:textSize="16sp"
+        android:textColor="@color/neutralBlack"
+        android:textSize="@dimen/normal"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/icon"
         app:layout_constraintLeft_toRightOf="@+id/icon"
         app:layout_constraintTop_toTopOf="@+id/icon" />
 
-    <TextView
+    <ImageView
         android:id="@+id/vip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
-        android:text="会员标识"
+        android:src="@mipmap/vip"
         app:layout_constraintBottom_toBottomOf="@+id/nick"
         app:layout_constraintLeft_toRightOf="@+id/nick"
         app:layout_constraintTop_toTopOf="@+id/nick" />
 
     <com.fanji.android.ui.FJButton
         android:id="@+id/follow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="52dp"
+        android:layout_height="28dp"
         android:layout_marginLeft="@dimen/content"
-        android:text="已关注"
-        app:layout_constraintBottom_toBottomOf="@+id/nick"
+        android:text="+关注"
+        android:textColor="@color/white"
+        android:textSize="@dimen/small"
+        android:textStyle="bold"
+        app:corner="60dp"
+        app:end_color="@color/themeBlueEndColor"
+        app:layout_constraintBottom_toBottomOf="@+id/icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/nick" />
+        app:layout_constraintTop_toTopOf="@+id/icon"
+        app:start_color="@color/themeBlueStartColor" />
 
     <TextView
-        android:id="@+id/content"
+        android:id="@+id/contents"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content"
-        android:text="this is the contet!"
+        android:text="this is the content!"
+        android:textColor="@color/neutralGray"
+        android:textSize="@dimen/normal"
         app:layout_constraintTop_toBottomOf="@+id/icon" />
 
     <TextView
-        android:id="@+id/publishTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content"
-        android:text="发布于 2023-12-12 12"
-        android:textColor="@color/font"
-        app:layout_constraintTop_toBottomOf="@+id/content" />
-
-    <TextView
         android:id="@+id/editTime"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="编辑于 2023-12-12 12"
-        android:textColor="@color/fontLight"
-        app:layout_constraintBottom_toBottomOf="@+id/publishTime"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/publishTime" />
+        android:layout_marginTop="14dp"
+        android:text="编辑于2023-12-12 12:11"
+        android:textColor="@color/neutralBlack"
+        android:textSize="@dimen/small"
+        app:layout_constraintTop_toBottomOf="@+id/contents" />
 
     <ImageView
         android:id="@+id/like"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:src="@mipmap/default_user"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="30dp"
+        android:src="@mipmap/liked"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTime" />
@@ -95,8 +98,10 @@
         android:id="@+id/likeNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content"
         android:text="999人点赞"
-        android:textSize="16sp"
+        android:textColor="@color/neutralBlack"
+        android:textSize="@dimen/big"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,19 +111,31 @@
         android:id="@+id/readNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:text="阅读数 999"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:textColor="@color/neutralBlack"
+        android:textSize="@dimen/small"
         app:layout_constraintTop_toBottomOf="@+id/likeNum" />
 
     <com.fanji.android.ui.FJButton
         android:id="@+id/collect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="阅读数 999"
+        android:drawableLeft="@mipmap/collect"
+        android:drawablePadding="5dp"
+        android:text="999"
+        android:textSize="@dimen/small"
         app:layout_constraintBottom_toBottomOf="@+id/readNum"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/readNum" />
+        app:layout_constraintTop_toTopOf="@+id/readNum"
+        app:normal_color="@color/alpha"
+        app:txt_color="@color/neutralGray" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="17dp"
+        android:background="@color/lineBg"
+        app:layout_constraintTop_toBottomOf="@+id/collect" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.fanji.android.databinding.FragmentPersonalBinding
+import com.fanji.android.dialog.CurDialog
 import com.fanji.android.find.follow.FollowedFragment
+import com.fanji.android.resource.Resource
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 import com.google.android.material.appbar.AppBarLayout
@@ -21,16 +23,20 @@ class PersonalFragment : BaseFragment<FragmentPersonalBinding>(),
     override fun viewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = initView(FragmentPersonalBinding.inflate(layoutInflater), title = "个人主页")
-
-    private val url =
-        "http:\\/\\/thirdqq.qlogo.cn\\/g?b=oidb&k=IhhdvXkv2V4UF4FGvt079Q&kti=ZSNAGAAAAAA&s=640&t=1693985619"
+    ) = initView(FragmentPersonalBinding.inflate(layoutInflater), isTopPadding = false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.personalHeader.icon.load(url)
+        binding.personalHeader.back.setOnClickListener {
+            pop()
+        }
+        binding.personalHeader.share.setOnClickListener {
+            CurDialog.share(requireContext())
+        }
+        binding.mineBgImg.load(Resource.getUrl())
+        binding.personalHeader.icon.load(Resource.getUrl())
         binding.personalHeader.icon.setOnClickListener {
-            viewImg(url)
+            viewImg(Resource.getUrl())
         }
         binding.personalHeader.follows.setOnClickListener {
             push(FollowedFragment(1))
@@ -38,18 +44,23 @@ class PersonalFragment : BaseFragment<FragmentPersonalBinding>(),
         binding.personalHeader.fans.setOnClickListener {
             push(FollowedFragment(2, "我粉丝"))
         }
+        binding.personalHeader.fixInfo.setBgAlpha(125)
         binding.personalHeader.fixInfo.setOnClickListener {
             push(FixPersonalInfoFragment())
         }
         binding.personalViewPager.adapter = binding.personalViewPager.create(childFragmentManager)
             .setTitles(
-                "发布", "回复"
+                "创作", "回复"
             )
             .setFragment(
                 OpusFragment(),
                 ReplyFragment(),
             )
             .setMode(LinePagerIndicator.MODE_WRAP_CONTENT)
+            .setTxtSelectedSize(16)
+            .setTxtSelectSize(16)
+            .setTxtSelectedColor(com.fanji.android.ui.R.color.neutralBlack)
+            .setTxtSelectColor(com.fanji.android.ui.R.color.neutral)
             .initTabs(activity, binding.personalTab, binding.personalViewPager, true)
         binding.appBarLayout.addOnOffsetChangedListener(this)
     }

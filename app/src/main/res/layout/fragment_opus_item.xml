@@ -9,8 +9,8 @@
 
     <com.fanji.android.ui.FJCircleImg
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@mipmap/default_user" />
 
     <TextView
@@ -19,6 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
         android:text="昵称"
+        android:textColor="@color/neutralBlack"
+        android:textSize="@dimen/normal"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/icon"
         app:layout_constraintLeft_toRightOf="@+id/icon"
         app:layout_constraintTop_toTopOf="@+id/icon" />
@@ -29,9 +32,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
         android:text="09-08 08:00"
-        app:layout_constraintBottom_toBottomOf="@+id/icon"
-        app:layout_constraintLeft_toRightOf="@+id/nick"
-        app:layout_constraintTop_toTopOf="@+id/icon" />
+        android:textColor="@color/neutral"
+        android:textSize="@dimen/small"
+        app:layout_constraintLeft_toRightOf="@+id/icon"
+        app:layout_constraintTop_toBottomOf="@+id/nick" />
 
     <TextView
         android:id="@+id/title"
@@ -39,7 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content"
         android:text="标题"
-        android:textSize="18sp"
+        android:textColor="@color/neutralGray"
+        android:textSize="@dimen/normal"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/icon" />
 
@@ -49,6 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content"
         android:text="this is the content!"
+        android:textColor="@color/neutralGray"
+        android:textSize="@dimen/normal"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <TextView
@@ -56,8 +63,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content"
-        android:text="转发"
-        android:textSize="16sp"
+        android:drawableLeft="@mipmap/forward"
+        android:drawablePadding="5dp"
+        android:text="798"
+        android:textColor="@color/neutralGray"
+        android:textSize="@dimen/small"
         app:layout_constraintEnd_toStartOf="@+id/comment"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,8 +78,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content"
-        android:text="评论1000"
-        android:textSize="16sp"
+        android:drawableLeft="@mipmap/msg"
+        android:drawablePadding="5dp"
+        android:text="653"
+        android:textColor="@color/neutralGray"
+        android:textSize="@dimen/small"
         app:layout_constraintEnd_toStartOf="@+id/like"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/forward"
@@ -80,8 +93,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content"
+        android:drawableLeft="@mipmap/like"
+        android:drawablePadding="5dp"
         android:text="点赞10000"
-        android:textSize="16sp"
+        android:textColor="@color/neutralGray"
+        android:textSize="@dimen/small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@id/comment"

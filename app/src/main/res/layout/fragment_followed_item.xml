@@ -9,8 +9,8 @@
 
     <com.fanji.android.ui.FJCircleImg
         android:id="@+id/personalIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@mipmap/default_user"
         tools:ignore="MissingConstraints" />
 
@@ -20,18 +20,21 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
         android:text="昵称"
+        android:textColor="@color/neutralBlack"
+        android:textSize="@dimen/normal"
+        android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/personalIcon"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/personalIdentity"
+    <ImageView
+        android:id="@+id/vip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/content"
-        android:text="会员身份"
-        app:layout_constraintBottom_toBottomOf="@id/personalName"
+        android:layout_marginLeft="40dp"
+        android:src="@mipmap/vip"
+        app:layout_constraintBottom_toBottomOf="@id/personalIcon"
         app:layout_constraintLeft_toRightOf="@id/personalName"
-        app:layout_constraintTop_toTopOf="@+id/personalName" />
+        app:layout_constraintTop_toTopOf="@+id/personalIcon" />
 
     <TextView
         android:id="@+id/personalFans"
@@ -39,6 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
         android:text="1000粉丝"
+        android:textColor="@color/neutral"
+        android:textSize="@dimen/small"
         app:layout_constraintBaseline_toBottomOf="@id/personalIcon"
         app:layout_constraintLeft_toRightOf="@id/personalIcon" />
 
@@ -47,7 +52,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="已关注"
+        app:corner="60dp"
+        app:end_color="@color/themeBlueEndColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:start_color="@color/themeBlueStartColor" />
 </androidx.constraintlayout.widget.ConstraintLayout>

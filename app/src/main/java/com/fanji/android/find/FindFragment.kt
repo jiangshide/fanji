@@ -11,6 +11,7 @@ import com.fanji.android.find.answers.AnswersFragment
 import com.fanji.android.find.follow.FollowFragment
 import com.fanji.android.find.recommend.RecommendFragment
 import com.fanji.android.mine.personal.PersonalFragment
+import com.fanji.android.resource.Resource
 import com.fanji.android.resource.vm.channel.data.ChannelBlog
 import com.fanji.android.search.OnChannelListener
 import com.fanji.android.search.SearchFragment
@@ -24,7 +25,7 @@ import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
  * @Description:
  */
 class FindFragment : BaseFragment<FragmentHomeBinding>(), ViewPager.OnPageChangeListener,
-    OnChannelListener {
+    OnChannelListener, OnFindManagerListener {
 
     companion object {
         var currentIndex = 10
@@ -42,7 +43,7 @@ class FindFragment : BaseFragment<FragmentHomeBinding>(), ViewPager.OnPageChange
                 getResArr(R.array.home)
             )
             .setFragment(
-                FollowFragment(),
+                FollowFragment(this),
                 RecommendFragment(),
                 AnswersFragment(),
             )
@@ -53,6 +54,7 @@ class FindFragment : BaseFragment<FragmentHomeBinding>(), ViewPager.OnPageChange
             .initTabs(activity, binding.homeTab, binding.homeViewPager)
             .setListener(this)
         binding.homeViewPager.currentItem = 1
+        binding.personal.load(Resource.getUrl())
         binding.personal.setOnClickListener {
             push(PersonalFragment())
         }
@@ -76,4 +78,13 @@ class FindFragment : BaseFragment<FragmentHomeBinding>(), ViewPager.OnPageChange
     override fun onChannel(channelBlog: ChannelBlog) {
 
     }
+
+    override fun onResult(index: Int) {
+        binding.homeViewPager.currentItem = index
+    }
+
+}
+
+interface OnFindManagerListener {
+    fun onResult(index: Int)
 }

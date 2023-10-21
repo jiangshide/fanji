@@ -10,9 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fanji.android.R
 import com.fanji.android.databinding.CommonRecyclerviewBinding
 import com.fanji.android.feed.FeedDetailFragment
+import com.fanji.android.find.OnFindManagerListener
+import com.fanji.android.monitor.fps.FpsMonitorUtils
+import com.fanji.android.resource.Resource
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.resource.vm.feed.data.Feed
 import com.fanji.android.resource.vm.user.data.User
+import com.fanji.android.ui.FJButton
 import com.fanji.android.ui.FJCircleImg
 import com.fanji.android.ui.adapter.HORIZONTAL
 import com.fanji.android.ui.adapter.KAdapter
@@ -27,7 +31,8 @@ import com.fanji.android.util.LogUtil
  * @Email:18311271399@163.com
  * @Description:
  */
-class FollowFragment : BaseFragment<CommonRecyclerviewBinding>() {
+class FollowFragment(private val onFindManagerListener: OnFindManagerListener) :
+    BaseFragment<CommonRecyclerviewBinding>() {
 
     private var feedVM: FeedVM? = create(FeedVM::class.java)
 
@@ -50,9 +55,11 @@ class FollowFragment : BaseFragment<CommonRecyclerviewBinding>() {
         followAdapter =
             binding.recyclerView.create(R.layout.find_follow_item, {
                 val icon = findViewById<FJCircleImg>(R.id.icon)
+                icon.load(Resource.getUrl())
                 val name = findViewById<TextView>(R.id.name)
                 val fans = findViewById<TextView>(R.id.fans)
                 val time = findViewById<TextView>(R.id.time)
+                val follow = findViewById<FJButton>(R.id.follow)
                 val title = findViewById<TextView>(R.id.title)
                 val contents = findViewById<TextView>(R.id.contents)
                 val collect = findViewById<TextView>(R.id.collect)
@@ -72,11 +79,14 @@ class FollowFragment : BaseFragment<CommonRecyclerviewBinding>() {
         personalAdapter =
             personalTopRecyclerView?.create(R.layout.find_follow_personal, {
                 val personalIcon = findViewById<FJCircleImg>(R.id.personalIcon)
+                personalIcon.load(Resource.getUrl())
                 val personalName = findViewById<TextView>(R.id.personalName)
 //                personalIcon.load(it.icon)
                 personalName.text = it.name
             }, {
                 LogUtil.e("----jsd---", "----this:", this)
+                FpsMonitorUtils.printMessage(true)
+                    .toggle()
             }, manager = personalTopRecyclerView.HORIZONTAL())
 //
         personalAllBtn?.setOnClickListener {
@@ -86,9 +96,14 @@ class FollowFragment : BaseFragment<CommonRecyclerviewBinding>() {
 
         feedVM!!.recommendBlog.observe(requireActivity(), Observer {
             finishData(true, true, true)
-
 //            if (it.msg != null) {
-//                tips()
+//                tips(
+//                    res = R.mipmap.tips,
+//                    tips = "暂时还没有关注的人",
+//                    btnTips = "查看更多",
+//                    onTipsListener = {
+//                        onFindManagerListener?.onResult(1)
+//                    })
 //            }
             test(it.isRefresh)
         })

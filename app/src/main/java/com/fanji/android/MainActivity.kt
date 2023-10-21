@@ -100,7 +100,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), ViewPager.OnPageChange
 
     override fun onPageSelected(position: Int) {
         LogUtil.e("position:", position)
-//        setStatusColor(statusBarColors[position])
 //        if (position != 2) {
 //            specialTabRound?.setUrl(
 //                "http://zd112.oss-cn-beijing.aliyuncs.com/png/compress_mmexport1604111133648.png",

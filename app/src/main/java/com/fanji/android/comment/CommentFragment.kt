@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.fanji.android.R
 import com.fanji.android.databinding.CommonRecyclerviewBinding
+import com.fanji.android.resource.Resource
 import com.fanji.android.resource.vm.feed.FeedVM
 import com.fanji.android.resource.vm.feed.data.Feed
 import com.fanji.android.ui.FJCircleImg
@@ -40,11 +42,13 @@ class CommentFragment : BaseFragment<CommonRecyclerviewBinding>() {
         super.onViewCreated(view, savedInstanceState)
         adapter = binding.recyclerView.create(R.layout.fragment_feed_detail_comment, {
             val icon = findViewById<FJCircleImg>(R.id.icon)
+            icon.load(Resource.getUrl())
             val nick = findViewById<TextView>(R.id.nick)
-            val vip = findViewById<TextView>(R.id.vip)
+            val vip = findViewById<ImageView>(R.id.vip)
             val content = findViewById<TextView>(R.id.content)
             val time = findViewById<TextView>(R.id.time)
             val reply = findViewById<TextView>(R.id.reply)
+            val delete = findViewById<TextView>(R.id.delete)
             nick.text = it.name
         }, {})
 

@@ -9,8 +9,8 @@
 
     <com.fanji.android.ui.FJCircleImg
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@mipmap/default_user" />
 
     <TextView
@@ -19,6 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
         android:text="昵称"
+        android:textColor="@color/neutralBlack"
+        android:textSize="@dimen/normal"
+        android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/icon" />
 
     <TextView
@@ -27,6 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
         android:text="1000粉丝"
+        android:textColor="@color/neutral"
+        android:textSize="@dimen/small"
         app:layout_constraintBaseline_toBottomOf="@id/icon"
         app:layout_constraintLeft_toRightOf="@id/icon" />
 
@@ -36,17 +41,25 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/content"
         android:text="1分钟前"
+        android:textColor="@color/neutral"
+        android:textSize="@dimen/small"
         app:layout_constraintBaseline_toBottomOf="@id/icon"
         app:layout_constraintLeft_toRightOf="@id/fans" />
 
     <com.fanji.android.ui.FJButton
         android:id="@+id/follow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="52dp"
+        android:layout_height="28dp"
         android:text="+关注"
+        android:textColor="@color/white"
+        android:textSize="@dimen/small"
+        android:textStyle="bold"
+        app:corner="60dp"
+        app:end_color="@color/themeBlueEndColor"
         app:layout_constraintBottom_toBottomOf="@+id/icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/icon" />
+        app:layout_constraintTop_toTopOf="@+id/icon"
+        app:start_color="@color/themeBlueStartColor" />
 
     <TextView
         android:id="@+id/title"
@@ -55,7 +68,8 @@
         android:layout_marginTop="@dimen/content"
         android:layout_marginBottom="@dimen/content"
         android:text="this is the title"
-        android:textSize="16sp"
+        android:textColor="@color/neutralGray"
+        android:textSize="@dimen/normal"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/icon" />
 
@@ -66,7 +80,8 @@
         android:layout_marginTop="@dimen/content"
         android:layout_marginBottom="@dimen/content"
         android:text="this is the content"
-        android:textSize="12sp"
+        android:textColor="@color/neutralGray"
+        android:textSize="@dimen/normal"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <RelativeLayout
@@ -82,14 +97,22 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="999收藏" />
+            android:drawableLeft="@mipmap/collect"
+            android:drawablePadding="5dp"
+            android:text="999"
+            android:textColor="@color/neutralGray"
+            android:textSize="@dimen/small" />
 
         <TextView
             android:id="@+id/comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="999评论" />
+            android:drawableLeft="@mipmap/msg"
+            android:drawablePadding="5dp"
+            android:text="999"
+            android:textColor="@color/neutralGray"
+            android:textSize="@dimen/small" />
 
         <TextView
             android:id="@+id/like"
@@ -97,6 +120,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="999点赞" />
+            android:drawableLeft="@mipmap/like"
+            android:drawablePadding="5dp"
+            android:text="999"
+            android:textColor="@color/neutralGray"
+            android:textSize="@dimen/small" />
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
