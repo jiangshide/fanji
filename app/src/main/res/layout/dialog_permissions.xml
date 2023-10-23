@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="30dp"
+    android:background="@drawable/bg_dialog_radius"
+    android:padding="20dp"
+    tools:ignore="MissingConstraints">
+
+    <TextView
+        android:id="@+id/permissionDes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="需要开启以下权限"
+        android:textColor="#0F194D"
+        android:textSize="@dimen/bigSuper"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/camera"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="34dp"
+        android:text="开启相机"
+        android:textSize="@dimen/big"
+        android:textStyle="bold"
+        app:corner="60dp"
+        app:end_color="@color/themeBlueEndColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/permissionDes"
+        app:start_color="@color/themeBlueStartColor" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/audio"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="开启录音"
+        android:textSize="@dimen/big"
+        android:textStyle="bold"
+        app:corner="60dp"
+        app:end_color="@color/themeBlueEndColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/camera"
+        app:start_color="@color/themeBlueStartColor" />
+
+    <com.fanji.android.ui.FJButton
+        android:id="@+id/album"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="开启相册"
+        android:textSize="@dimen/big"
+        android:textStyle="bold"
+        app:corner="60dp"
+        app:end_color="@color/themeBlueEndColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audio"
+        app:start_color="@color/themeBlueStartColor" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginRight="34dp"
+        android:text="您随时可以在系统设置中关闭授权，但可能影响部分功能使用"
+        android:textColor="#0F194D"
+        android:textSize="@dimen/small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/album" />
+</androidx.constraintlayout.widget.ConstraintLayout>

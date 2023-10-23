@@ -10,6 +10,7 @@ import com.fanji.android.databinding.FragmentFeedDetailBinding
 import com.fanji.android.dialog.CurDialog
 import com.fanji.android.resource.Resource
 import com.fanji.android.resource.vm.feed.data.Feed
+import com.fanji.android.ui.anim.Anim
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.tablayout.indicators.LinePagerIndicator
 
@@ -44,7 +45,7 @@ class FeedDetailFragment(val feed: Feed) : BaseFragment<FragmentFeedDetailBindin
 //        binding.feedDetailRoot.contents
 //        binding.feedDetailRoot.editTime
         binding.feedDetailRoot.like.setOnClickListener {
-
+            Anim.scale(it)
         }
 //        binding.feedDetailRoot.likeNum
 //        binding.feedDetailRoot.readNum

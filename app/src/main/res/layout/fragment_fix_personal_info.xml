@@ -17,6 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:textSize="@dimen/big"
+            android:textColor="@color/neutralBlack"
             android:text="头像" />
 
         <com.fanji.android.ui.FJCircleImg
@@ -39,6 +41,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:textColor="@color/neutralBlack"
+            android:textSize="@dimen/big"
             android:text="昵称" />
 
         <TextView
@@ -61,7 +65,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="头像" />
+            android:textSize="@dimen/big"
+            android:textColor="@color/neutralBlack"
+            android:text="个性签名" />
 
         <TextView
             android:id="@+id/sign"

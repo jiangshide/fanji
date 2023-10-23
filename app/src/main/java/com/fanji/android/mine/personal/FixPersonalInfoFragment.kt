@@ -29,10 +29,10 @@ class FixPersonalInfoFragment : BaseFragment<FragmentFixPersonalInfoBinding>(), 
             FJFiles.openFile(requireContext(), IMG, this)
         }
         binding.nickRL.setOnClickListener {
-
+            push(PersonalNickFragment())
         }
         binding.signRL.setOnClickListener {
-
+            push(PersonalSignFragment())
         }
     }
 

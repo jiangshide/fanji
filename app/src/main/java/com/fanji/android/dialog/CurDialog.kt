@@ -15,6 +15,8 @@ import android.widget.ImageView
 import com.fanji.android.BuildConfig
 import com.fanji.android.HUAEI_ADS_PROTOCOL
 import com.fanji.android.R
+import com.fanji.android.permission.FJPermission
+import com.fanji.android.permission.OnPermissionCallback
 import com.fanji.android.ui.FJButton
 import com.fanji.android.ui.FJDialog
 import com.fanji.android.ui.base.WebActivity
@@ -26,7 +28,7 @@ import com.fanji.android.util.SPUtil
  * @email: 18311271399@163.com
  * @description:
  */
-object CurDialog {
+object CurDialog : OnPermissionCallback {
 
     fun follow(context: Context) {
         FJDialog.create(context).setContent("确定取消关注？").setLeftTxt("取消")
@@ -50,6 +52,31 @@ object CurDialog {
             }
 
         }.setGravity(Gravity.BOTTOM).show()
+    }
+
+    fun permissions(context: Context) {
+        FJDialog.createView(context, R.layout.dialog_permissions) {
+            val camera = it.findViewById<FJButton>(R.id.camera)
+            camera.setOnClickListener {
+
+            }
+            val audio = it.findViewById<FJButton>(R.id.audio)
+            audio.setOnClickListener {
+
+            }
+            val album = it.findViewById<FJButton>(R.id.album)
+            album.setOnClickListener {
+
+            }
+        }.show()
+    }
+
+    fun permission(context: Context, permission: String) {
+        FJPermission.with(context).permission(arrayListOf(permission)).request(this)
+    }
+
+    override fun onGranted(permissions: List<String?>?, all: Boolean) {
+
     }
 
     fun protocolDialog(context: Context) {

@@ -20,6 +20,7 @@ import com.fanji.android.ui.FJButton
 import com.fanji.android.ui.FJCircleImg
 import com.fanji.android.ui.adapter.KAdapter
 import com.fanji.android.ui.adapter.create
+import com.fanji.android.ui.anim.Anim
 import com.fanji.android.ui.base.BaseFragment
 import com.fanji.android.ui.refresh.api.RefreshLayout
 
@@ -78,7 +79,7 @@ class RecommendFragment : BaseFragment<CommonRecyclerviewBinding>() {
         val recommendExchange = headView?.findViewById<ImageView>(R.id.recommendExchange)
         val recommendRecyclerView = headView?.findViewById<RecyclerView>(R.id.recommendRecyclerView)
         recommendL?.setOnClickListener {
-
+            Anim.rotation(recommendExchange).start()
         }
         recommendAdapter =
             recommendRecyclerView?.create(R.layout.find_recommend_item, {
@@ -92,6 +93,7 @@ class RecommendFragment : BaseFragment<CommonRecyclerviewBinding>() {
 
         feedVM!!.recommendBlog.observe(requireActivity(), Observer {
             finishData(true, true, true)
+            Anim.rotation(recommendExchange).cancel()
 //            if (it.msg != null) {
 //                tips(code = it.code)
 //            }

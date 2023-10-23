@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.fanji.android.dialog.CurDialog
 import com.fanji.android.permission.FJPermission
 import com.fanji.android.permission.OnPermissionCallback
 import com.fanji.android.resource.Resource
@@ -14,6 +15,7 @@ class SplashActivity : AppCompatActivity(), OnPermissionCallback {
         setContentView(R.layout.activity_splash)
 //        startActivity(Intent(this, MainActivity::class.java))
         FJPermission.with(this).permission(permissions.toMutableList()).request(this)
+//        CurDialog.permissions(this)
     }
 
     private val permissions = listOf(
